@@ -62,6 +62,63 @@ Mobile application built with React Native and Expo.
 - **Web → Native**: UI events, user actions, payment requests
 - **Native → Web**: Stripe reader status, payment results, hardware events
 
+## Features
+
+### Payment Layouts
+
+The terminal supports multiple payment layouts to accommodate different use cases:
+
+#### 1. **Single Page Layout**
+All-in-one screen where users select category and enter amount on the same screen.
+- **Best for:** Self-service kiosks, larger screen devices
+- **User flow:** Select category → Enter amount → Pay
+
+#### 2. **Multi Page Layout**
+Wizard-style flow with category selection and amount entry on separate screens.
+- **Best for:** Fundraisers, smaller screen devices, guided experiences
+- **User flow:** Select category → Enter amount → Pay
+
+#### 3. **Multi Category Cart Layout** *(Coming Soon)*
+Shopping cart interface where users can add multiple items from different categories.
+- **Best for:** Multiple items/donations in a single transaction
+- **User flow:** Add items to cart → Review → Pay
+
+#### 4. **Tap-to-Pay Layout (Quick Payment)** ⚡ *NEW*
+Zero-touch payment mode for high-volume, fixed-price scenarios.
+- **Best for:** Event entry fees, fixed donations, membership payments, high-volume transactions
+- **User flow:** Tap card → Payment processes automatically → Success → Ready for next payment
+- **Key features:**
+  - Pre-configured category and fixed amount
+  - No user input required
+  - Ultra-fast 2-second success screen
+  - Automatically loops back to ready state
+  - Perfect for contactless payments
+  - Terminal-side configuration (no API changes needed)
+
+**Tap-to-Pay Configuration:**
+Administrators configure tap-to-pay mode in the Terminal Configuration Screen:
+1. Select "Tap-to-Pay (Quick Payment)" layout
+2. Choose category from dropdown (e.g., "General Donation")
+3. Enter fixed amount (e.g., "$50.00")
+4. Configuration is saved to localStorage and persists across app restarts
+
+**Tap-to-Pay Flow:**
+```
+Ready Screen → Card Tap → Processing (< 2s) → Success (2s) → Loop back to Ready
+```
+
+### Additional Features
+
+- **Reader Management:** Discover, connect, and manage Stripe card readers
+- **Organization Selection:** Support for multiple organizations/businesses
+- **Category Configuration:** Drag-and-drop category arrangement with show/hide options
+- **Cover Fees:** Optional fee coverage for donors
+- **Subscription Support:** One-time, monthly, and custom duration subscriptions
+- **Customer Info Capture:** Optional email and name collection
+- **Real-time Status:** Battery level, connection status, payment status indicators
+- **Error Handling:** Comprehensive error handling with user-friendly messages
+- **Offline Support:** Graceful handling of network disconnections
+
 ## Getting Started
 
 ### Initial Clone
@@ -151,12 +208,20 @@ git commit -m "Remove <submodule-name> submodule"
 gb2-terminal-monorepo/
 ├── .gitmodules              # Submodule configuration
 ├── .gitignore              # Root-level gitignore
-├── README.md               # This file
+├── README.md               # This file - Monorepo overview and features
 ├── POSTMESSAGE_API.md      # Complete PostMessage API contract documentation
 ├── BRANCHING_GUIDE.md      # Guide for working with branches across submodules
+├── UI_SCREENS_GUIDE.md     # Detailed UI screens and flow documentation
 ├── gb2-terminal-web/       # Web application submodule
 └── gb2-terminal-expo/      # Mobile application submodule
 ```
+
+## Documentation
+
+- **[README.md](./README.md)** - This file: Monorepo overview, architecture, and features
+- **[POSTMESSAGE_API.md](./POSTMESSAGE_API.md)** - Complete PostMessage API contract between web and native layers
+- **[BRANCHING_GUIDE.md](./BRANCHING_GUIDE.md)** - Guide for creating and managing feature branches across submodules
+- **[UI_SCREENS_GUIDE.md](./UI_SCREENS_GUIDE.md)** - Comprehensive guide to all UI screens, flows, and state machine events
 
 ## Integration Details
 

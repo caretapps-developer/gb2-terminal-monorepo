@@ -153,6 +153,7 @@ gb2-terminal-monorepo/
 ├── .gitignore              # Root-level gitignore
 ├── README.md               # This file
 ├── POSTMESSAGE_API.md      # Complete PostMessage API contract documentation
+├── BRANCHING_GUIDE.md      # Guide for working with branches across submodules
 ├── gb2-terminal-web/       # Web application submodule
 └── gb2-terminal-expo/      # Mobile application submodule
 ```
@@ -253,6 +254,11 @@ npm start
 - When you pull changes in the monorepo, submodules won't automatically update
 - Always commit submodule changes in the submodule repository first, then update the reference in the monorepo
 - The `.idea/` directory is ignored at the root level for JetBrains IDEs
+
+## Additional Documentation
+
+- **[POSTMESSAGE_API.md](./POSTMESSAGE_API.md)** - Complete PostMessage API contract and message types
+- **[BRANCHING_GUIDE.md](./BRANCHING_GUIDE.md)** - Guide for creating and managing branches across submodules
 
 ## Resources
 

@@ -152,6 +152,7 @@ gb2-terminal-monorepo/
 ├── .gitmodules              # Submodule configuration
 ├── .gitignore              # Root-level gitignore
 ├── README.md               # This file
+├── POSTMESSAGE_API.md      # Complete PostMessage API contract documentation
 ├── gb2-terminal-web/       # Web application submodule
 └── gb2-terminal-expo/      # Mobile application submodule
 ```
@@ -160,33 +161,27 @@ gb2-terminal-monorepo/
 
 ### PostMessage Communication
 
-The two applications communicate using the PostMessage API:
+The two applications communicate using the PostMessage API. See **[POSTMESSAGE_API.md](./POSTMESSAGE_API.md)** for the complete API contract, message types, and usage examples.
+
+**Quick Overview:**
 
 **From Web (gb2-terminal-web):**
 ```javascript
 // Sending messages to React Native
-window.ReactNativeWebView.postMessage(JSON.stringify({
-  type: 'PAYMENT_REQUEST',
-  payload: { amount, currency, ... }
-}));
+postMessageToTerminal('discoverReaders', {});
+postMessageToTerminal('createPaymentIntent', { amount, currency, ... });
 ```
 
 **From Native (gb2-terminal-expo):**
 ```javascript
 // Sending messages to WebView
-webViewRef.current.postMessage(JSON.stringify({
-  type: 'READER_STATUS',
-  payload: { connected: true, ... }
-}));
-
-// Receiving messages from WebView
-<WebView
-  onMessage={(event) => {
-    const message = JSON.parse(event.nativeEvent.data);
-    // Handle message based on type
-  }}
-/>
+postWebMessage(executionContext, "goodbricks.discoveredReaders", readers);
+postWebMessage(executionContext, "goodbricks.changePaymentStatus", "ready");
 ```
+
+Key message flows:
+- **Web → Native**: `discoverReaders`, `connectReader`, `createPaymentIntent`, `disconnectReader`
+- **Native → Web**: `goodbricks.discoveredReaders`, `goodbricks.readerConnected`, `goodbricks.changePaymentStatus`, `goodbricks.paymentCaptured`
 
 ### XState Integration
 

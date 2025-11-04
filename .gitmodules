@@ -1,0 +1,6 @@
+[submodule "gb2-terminal-web"]
+	path = gb2-terminal-web
+	url = git@github.com:caretapps-developer/gb2-terminal-web.git
+[submodule "gb2-terminal-expo"]
+	path = gb2-terminal-expo
+	url = git@github.com:caretapps-developer/gb2-terminal-expo.git

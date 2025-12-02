@@ -111,6 +111,7 @@ Ready Screen → Card Tap → Processing (< 2s) → Success (2s) → Loop back t
 
 - **Reader Management:** Discover, connect, and manage Stripe card readers
 - **Autonomous Recovery System:** Infinite recovery from reader disconnections, internet outages, and power cycles
+- **Offline Mode:** Accept payments during internet outages with automatic sync when connection is restored
 - **Organization Selection:** Support for multiple organizations/businesses
 - **Category Configuration:** Drag-and-drop category arrangement with show/hide options
 - **Cover Fees:** Optional fee coverage for donors
@@ -118,7 +119,91 @@ Ready Screen → Card Tap → Processing (< 2s) → Success (2s) → Loop back t
 - **Customer Info Capture:** Optional email and name collection
 - **Real-time Status:** Battery level, connection status, payment status indicators
 - **Error Handling:** Comprehensive error handling with user-friendly messages
-- **Offline Support:** Graceful handling of network disconnections
+
+### Offline Mode 📴
+
+The terminal supports **Stripe Terminal Offline Mode**, allowing payments to be collected even when internet connectivity is unavailable. This is critical for kiosks in areas with unreliable internet or during temporary outages.
+
+#### How It Works
+
+1. **Payment Collection:** When internet is unavailable, payments are stored securely on the card reader hardware
+2. **Automatic Sync:** When connection is restored, the Stripe SDK automatically forwards pending payments to Stripe
+3. **Visual Feedback:** UI shows blue "Offline mode active" status with pending payment count
+4. **Smart Detection:** System distinguishes between intentional offline mode and unintentional connectivity issues
+
+#### Configuration
+
+**Step 1: Enable in Stripe Dashboard**
+1. Go to [Stripe Dashboard](https://dashboard.stripe.com/test/terminal/locations)
+2. Navigate to **Terminal** → **Locations** → Select your location
+3. In **"Local configurations"** section, click **"Override specific settings"**
+4. Enable **"Offline mode"** and configure limits:
+   - Max offline payments: 100 (default)
+   - Max payment amount: $10,000 (default)
+
+**Step 2: Configure in Kiosk Setup**
+
+During kiosk setup, administrators can choose offline mode preference:
+
+- **Toggle ON (Enabled):** Kiosk will accept payments during internet outages
+- **Toggle OFF (Disabled):** Kiosk will show errors when offline (default behavior)
+
+The preference is saved to localStorage and persists across app restarts.
+
+#### Supported Readers
+
+Offline mode is supported on these Bluetooth readers:
+- ✅ **BBPOS WisePad 3**
+- ✅ **BBPOS Chipper 2X BT**
+- ✅ **Stripe Reader M2**
+
+#### UI States
+
+| State | Color | Icon | Status Text | When It Shows |
+|-------|-------|------|-------------|---------------|
+| **🟢 Online & Ready** | Green | Pulsing dot | "Terminal ready" | Normal operation with internet |
+| **🔵 Offline Mode** | Blue | WiFi Off | "Offline mode active" or "Offline mode (2 pending)" | Internet unavailable, offline mode enabled |
+| **🟡 Error** | Amber | Alert | "Reader SDK offline - reconnecting..." | Internet unavailable, offline mode NOT enabled |
+
+#### Technical Implementation
+
+**Web Layer (gb2-terminal-web):**
+- `GoodbricksTerminalStore.tsx` - Stores offline mode preference
+- `TerminalConfigurationScreen.tsx` - UI toggle for offline mode
+- `ReaderHealthManager.tsx` - Detects offline mode and skips recovery when appropriate
+- `TerminalHealthStatus.tsx` - Shows blue UI when operating in offline mode
+- `DiscoveredReaders.tsx` - Passes preference when connecting reader
+
+**Native Layer (gb2-terminal-expo):**
+- `useStripeReader.js` - Enables/disables offline mode in `connectReader` call based on preference
+- `useStripeCallbacks.js` - Detects and logs offline payment forwarding via `onDidChangeOfflineStatus`
+
+**Key Detection Logic:**
+```typescript
+// Offline mode is enabled if:
+// 1. User preference is "enabled" (force on), OR
+// 2. User preference is "auto" AND Stripe has enabled it (offlinePaymentsCount is defined)
+const stripeOfflineModeEnabled = changeOfflineStatus?.sdk?.offlinePaymentsCount !== undefined;
+const offlineModeEnabled = offlineModePreference === "enabled" ||
+                           (offlineModePreference === "auto" && stripeOfflineModeEnabled);
+```
+
+#### Logging
+
+The system logs detailed offline mode information:
+- `offlineModePreference` - User's preference (auto/enabled/disabled)
+- `stripeOfflineModeEnabled` - Whether Stripe has enabled offline mode
+- `offlineModeEnabled` - Final offline mode status
+- `offlinePaymentsCount` - Number of pending offline payments
+- `offlinePaymentAmountsByCurrency` - Amounts by currency for pending payments
+
+#### Use Cases
+
+Perfect for:
+- ✅ **Remote locations** - Areas with spotty internet coverage
+- ✅ **Outdoor events** - Festivals, farmers markets, outdoor fundraisers
+- ✅ **Backup resilience** - Continue operations during ISP outages
+- ✅ **High-reliability kiosks** - Never miss a payment opportunity
 
 ### Autonomous Recovery System
 

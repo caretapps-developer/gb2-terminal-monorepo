@@ -133,7 +133,26 @@ The application uses **XState** to manage screen navigation and state transition
   - **Multi Page Layout** - Category → Amount on separate screens
   - **Multi Category Cart Layout** - Shopping cart style (not yet implemented)
   - **Tap-to-Pay Layout** - Fixed amount, zero-touch payments
+- Configure offline mode preference
 - Configure terminal metadata
+
+**Offline Mode Configuration:**
+A blue card with toggle switch allows administrators to enable/disable offline mode:
+
+**Configuration Options:**
+- **Toggle Switch** - Enable/disable offline mode for this kiosk session
+- **Visual Feedback** - Shows current state (enabled/disabled) with descriptive text
+- **Info Icon** - Provides context about offline mode functionality
+
+**Offline Mode States:**
+- **Enabled** - "✓ Enabled - Kiosk will continue accepting payments offline"
+- **Disabled** - "✗ Disabled - Kiosk will show errors when offline"
+
+**How It Works:**
+- When enabled, payments can be collected during internet outages
+- Payments are stored on the reader and automatically synced when connection is restored
+- Requires offline mode to be enabled in Stripe Dashboard
+- Preference is saved to localStorage and persists across app restarts
 
 **Tap-to-Pay Configuration:**
 When "Tap-to-Pay (Quick Payment)" layout is selected, an additional configuration card appears:
@@ -151,9 +170,9 @@ When "Tap-to-Pay (Quick Payment)" layout is selected, an additional configuratio
 - Only visible categories are available for selection
 
 **Validation Rules:**
-- Category must be selected
-- Amount must be greater than $0
-- Cannot proceed without valid configuration
+- Category must be selected (for Tap-to-Pay layout)
+- Amount must be greater than $0 (for Tap-to-Pay layout)
+- Cannot proceed without valid configuration (for Tap-to-Pay layout)
 
 **Transitions:**
 - `terminalConfigured` → Payment Layouts

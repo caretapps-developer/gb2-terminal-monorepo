@@ -92,6 +92,8 @@ Events sent from React Native to the web application (all prefixed with `goodbri
 | `goodbricks.requestReaderInput` | `InputType` | Reader requesting input from customer |
 | `goodbricks.requestReaderDisplayMessage` | `DisplayMessage` | Reader displaying message to customer |
 | `goodbricks.paymentCaptured` | `string` | Payment successfully captured |
+| `goodbricks.paymentForwardedSuccess` | `{ paymentIntentId, amount, status }` | Offline payment successfully synced to Stripe |
+| `goodbricks.paymentForwardedFailed` | `{ paymentIntentId, error, syncAttempts, actionDisplayName }` | Offline payment failed to sync to Stripe |
 
 ### Setup Intent (Save Payment Method)
 

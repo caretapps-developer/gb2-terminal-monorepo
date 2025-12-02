@@ -110,6 +110,7 @@ Ready Screen → Card Tap → Processing (< 2s) → Success (2s) → Loop back t
 ### Additional Features
 
 - **Reader Management:** Discover, connect, and manage Stripe card readers
+- **Autonomous Recovery System:** Infinite recovery from reader disconnections, internet outages, and power cycles
 - **Organization Selection:** Support for multiple organizations/businesses
 - **Category Configuration:** Drag-and-drop category arrangement with show/hide options
 - **Cover Fees:** Optional fee coverage for donors
@@ -118,6 +119,47 @@ Ready Screen → Card Tap → Processing (< 2s) → Success (2s) → Loop back t
 - **Real-time Status:** Battery level, connection status, payment status indicators
 - **Error Handling:** Comprehensive error handling with user-friendly messages
 - **Offline Support:** Graceful handling of network disconnections
+
+### Autonomous Recovery System
+
+The terminal includes a comprehensive **ReaderHealthManager** component that provides infinite recovery capabilities for unattended kiosk operation:
+
+#### Recovery Features
+- **Infinite Retry** - Never gives up trying to reconnect (can run for days/weeks)
+- **Exponential Backoff** - Smart retry strategy (30s → 1m → 2m → 5m ceiling)
+- **Security Reboot Handling** - Automatically handles Stripe M2 reader security reboots (~13 hours)
+- **Internet Outage Recovery** - Keeps trying until internet connection returns
+- **Power Cycle Recovery** - Reconnects when reader is powered back on
+- **Stuck Payment Detection** - Cancels payments stuck for >5 minutes
+- **Payment Intent Timeout Management** - Proactive refresh at 50 minutes, critical timeout at 60 minutes
+- **Software Update Detection** - Skips recovery during reader software updates
+
+#### Health Monitoring
+The system performs comprehensive health checks every 30 seconds:
+
+| Condition | Detection | Recovery Action | Retry Interval |
+|-----------|-----------|-----------------|----------------|
+| **Reader disconnected** | `readerConnectionStatus !== "connected"` | Discover + reconnect | 30s → 1m → 2m → 5m (max) |
+| **Security reboot** | `disconnectReason === "securityReboot"` | Wait 60s, then reconnect | 60s wait + exponential backoff |
+| **Internet outage** | Network unavailable | Keep trying | Exponential backoff |
+| **Stuck payment** | Payment waiting >5 min | Cancel payment intent | Immediate |
+| **Payment timeout (proactive)** | Payment intent age >50 min | Cancel & recreate | Immediate |
+| **Payment timeout (critical)** | Payment intent age >60 min | Force cancel | Immediate |
+| **Software update** | `readerSoftwareUpdate === true` | Skip recovery | Wait for update completion |
+
+#### Technical Details
+- **Component:** `ReaderHealthManager.tsx` in `gb2-terminal-web/src/components/`
+- **Polling Interval:** 30 seconds (configurable)
+- **Store Integration:** Reads from `GoodbricksTerminalStore` for reader status, disconnect reason, payment intent age
+- **Logging:** Detailed health metrics logged for debugging and monitoring
+- **Resource Efficient:** Exponential backoff prevents system overload
+
+#### Use Cases
+Perfect for self-hosted terminals that require:
+- ✅ **24/7 operation** - Kiosks, donation stations, event entry
+- ✅ **Zero manual intervention** - Fully autonomous recovery
+- ✅ **Resilience** - Handles internet outages, power cycles, reader reboots
+- ✅ **High reliability** - Automatically recovers from any failure state
 
 ## Getting Started
 
@@ -208,12 +250,21 @@ git commit -m "Remove <submodule-name> submodule"
 gb2-terminal-monorepo/
 ├── .gitmodules              # Submodule configuration
 ├── .gitignore              # Root-level gitignore
-├── README.md               # This file - Monorepo overview and features
+├── README.md               # This file - Monorepo overview, features, and recovery system
 ├── POSTMESSAGE_API.md      # Complete PostMessage API contract documentation
 ├── BRANCHING_GUIDE.md      # Guide for working with branches across submodules
-├── UI_SCREENS_GUIDE.md     # Detailed UI screens and flow documentation
+├── UI_SCREENS_GUIDE.md     # Detailed UI screens, flow, and health monitoring
 ├── gb2-terminal-web/       # Web application submodule
+│   ├── src/
+│   │   ├── components/
+│   │   │   ├── ReaderHealthManager.tsx    # Autonomous recovery system
+│   │   │   └── ReactNativeBridge.tsx      # PostMessage communication
+│   │   └── utils/
+│   │       └── GoodbricksTerminalStore.tsx # Zustand state management
 └── gb2-terminal-expo/      # Mobile application submodule
+    └── hooks/
+        ├── useStripeReader.js              # Reader connection management
+        └── useReaderSessionManager.js      # 2-hour session timeout handling
 ```
 
 ## Documentation

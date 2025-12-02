@@ -555,3 +555,244 @@ Throughout the flow, the web app communicates with the React Native layer via Po
 
 See [POSTMESSAGE_API.md](./POSTMESSAGE_API.md) for complete message contract.
 
+---
+
+## Autonomous Recovery System
+
+### ReaderHealthManager Component
+
+**Component:** `ReaderHealthManager.tsx`
+**Location:** `gb2-terminal-web/src/components/`
+**Purpose:** Provides infinite recovery capabilities for unattended kiosk operation
+
+The ReaderHealthManager runs continuously in the background, monitoring reader health and automatically recovering from any failure state. It's designed for self-hosted terminals that need to operate autonomously for days or weeks without manual intervention.
+
+### Health Monitoring
+
+The component performs comprehensive health checks every **30 seconds** (configurable via `pollingIntervalInSeconds` prop):
+
+#### Health Check Matrix
+
+| Check | Condition | Action | Priority |
+|-------|-----------|--------|----------|
+| **Software Update** | `readerSoftwareUpdate === true` | Skip all recovery | Highest |
+| **Reader Disconnected** | `readerConnectionStatus !== "connected"` | Discover + reconnect | High |
+| **Security Reboot** | `lastDisconnectReason === "securityReboot"` | Wait 60s, then reconnect | High |
+| **Payment Timeout (Critical)** | Payment intent age ≥ 60 min | Force cancel | Critical |
+| **Payment Timeout (Proactive)** | Payment intent age ≥ 50 min | Cancel & recreate | High |
+| **Stuck Payment** | Payment waiting >5 min | Cancel payment intent | Medium |
+
+### Recovery Strategies
+
+#### 1. Reader Disconnection Recovery
+**Trigger:** `readerConnectionStatus !== "connected"`
+
+**Strategy:**
+- Exponential backoff with ceiling: 30s → 1m → 2m → 5m (max)
+- Never gives up - keeps trying indefinitely
+- Tracks attempt count and last attempt time
+- Logs detailed recovery metrics
+
+**Flow:**
+```
+Disconnect Detected
+    ↓
+Wait (exponential backoff)
+    ↓
+Discover Readers
+    ↓
+Connect to Reader
+    ↓
+Success? → Reset recovery state
+    ↓
+Failure? → Increment attempt, increase backoff, retry
+```
+
+#### 2. Security Reboot Handling
+**Trigger:** `lastDisconnectReason === "securityReboot"`
+
+Stripe M2 readers perform periodic security reboots (~13 hours). The system detects this and handles it gracefully:
+
+**Strategy:**
+- Wait 60 seconds for reboot to complete
+- Then attempt reconnection with exponential backoff
+- Logs security reboot detection and wait period
+
+**Example Log Sequence:**
+```
+07:36:51 - 🚨 Reader disconnected (reason: securityReboot)
+07:36:51 - ⏳ Detected security reboot, waiting 60s before recovery
+07:37:51 - ✅ Security reboot wait complete, starting recovery
+07:38:21 - 🔄 Recovery attempt #1 - Reader discovered and connected
+07:38:51 - ✅ Recovery successful after 2 minutes and 1 attempt
+```
+
+#### 3. Payment Intent Timeout Management
+**Trigger:** Payment intent age tracked via `transaction.paymentIntentCreatedAt`
+
+Stripe Terminal has a 60-minute timeout for `collectPaymentMethod()`. The system handles this proactively:
+
+**Thresholds:**
+- **50 minutes** - Proactive refresh (cancel old, create new)
+- **60 minutes** - Critical timeout (force cancel)
+- **5 minutes** - Stuck payment detection (cancel if waiting for input)
+
+**Strategy:**
+- Tracks payment intent age in real-time
+- Cancels old payment intent before timeout
+- Resets transaction data to trigger new payment intent creation
+- Prevents stuck payments from blocking the terminal
+
+**Example Log Sequence:**
+```
+14:30:00 - Payment intent created (ID: pi_abc123)
+15:20:00 - ⚠️ Approaching 60-minute timeout (50 min elapsed)
+15:20:00 - Canceling old payment intent
+15:20:01 - Resetting transaction data
+15:20:02 - ✅ New payment intent created (ID: pi_def456)
+```
+
+#### 4. Internet Outage Recovery
+**Trigger:** Network unavailable (detected via failed discovery attempts)
+
+**Strategy:**
+- Continues trying with exponential backoff
+- Doesn't give up - waits for internet to return
+- Automatically reconnects when internet is restored
+- Logs network-related failures
+
+**Example Scenario:**
+```
+18:00:00 - Reader disconnected (internet outage)
+18:00:30 - Recovery attempt #1 - Failed (no network)
+18:01:30 - Recovery attempt #2 - Failed (no network)
+18:03:30 - Recovery attempt #3 - Failed (no network)
+... (continues every 5 minutes all night)
+08:00:00 - Internet restored
+08:00:30 - Recovery attempt #85 - Reader discovered!
+08:00:35 - ✅ Recovery successful after 14 hours and 85 attempts
+```
+
+### Configuration
+
+**Props:**
+```typescript
+<ReaderHealthManager pollingIntervalInSeconds={30} />
+```
+
+**Store Integration:**
+The component reads from `GoodbricksTerminalStore`:
+- `readerConnectionStatus` - Current reader connection state
+- `lastDisconnectReason` - Reason for last disconnect (e.g., "securityReboot")
+- `lastDisconnectTime` - Timestamp of last disconnect
+- `readerPaymentStatus` - Current payment status
+- `readerSoftwareUpdate` - Whether reader is updating software
+- `transaction.paymentIntentId` - Current payment intent ID
+- `transaction.paymentIntentCreatedAt` - Payment intent creation timestamp
+
+### Recovery State Management
+
+The component maintains internal state for recovery coordination:
+
+```typescript
+{
+  isRecovering: boolean;              // Recovery in progress
+  recoveryAttempts: number;           // Number of attempts
+  lastRecoveryAttempt: number;        // Timestamp of last attempt
+  isDiscovering: boolean;             // Discovery in progress
+  securityRebootWaitUntil: number;    // Wait until timestamp for security reboot
+}
+```
+
+### Logging
+
+The component provides detailed logging for monitoring and debugging:
+
+**Health Check Logs:**
+```
+✅ [Reader Health] All systems healthy
+⚠️ [Reader Health] Reader disconnected, starting recovery
+🔄 [Recovery] Attempt #3 (30s since last attempt)
+✅ [Recovery] Recovery successful after 3 attempts
+```
+
+**Payment Timeout Logs:**
+```
+⏱️ [Payment Intent Timeout] Approaching 60-minute timeout (50 min elapsed)
+⏱️ [Payment Intent Timeout] CRITICAL: Timed out after 60 minutes!
+⚠️ Payment intent stuck for 5 minutes, canceling
+```
+
+**Security Reboot Logs:**
+```
+🚨 [Recovery] Reader disconnected (reason: securityReboot)
+⏳ Detected security reboot, waiting 60s before recovery
+✅ Security reboot wait complete, starting recovery
+```
+
+### Best Practices
+
+1. **Polling Interval:** 30 seconds is recommended for production (balances responsiveness with resource usage)
+2. **Monitoring:** Watch logs for recovery events and patterns
+3. **Testing:** Test with actual hardware to verify recovery scenarios
+4. **Kiosk Mode:** Enable iOS Guided Access for true unattended operation
+
+### Use Cases
+
+Perfect for:
+- ✅ **Self-service kiosks** - Donation stations, event entry, membership payments
+- ✅ **24/7 operation** - Unmanned terminals that need to run continuously
+- ✅ **Remote locations** - Terminals where manual intervention is difficult
+- ✅ **High reliability** - Critical payment terminals that must stay operational
+
+### Technical Architecture
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│  ReaderHealthManager (Background Component)                 │
+│  ┌───────────────────────────────────────────────────────┐  │
+│  │  Health Check Loop (every 30 seconds)                 │  │
+│  │  ├─ Check reader connection status                    │  │
+│  │  ├─ Check payment intent age                          │  │
+│  │  ├─ Check for stuck payments                          │  │
+│  │  ├─ Check for security reboot                         │  │
+│  │  └─ Check for software updates                        │  │
+│  └───────────────────────────────────────────────────────┘  │
+│                          ↕                                   │
+│  ┌───────────────────────────────────────────────────────┐  │
+│  │  Recovery Actions                                     │  │
+│  │  ├─ Discover readers                                  │  │
+│  │  ├─ Connect to reader                                 │  │
+│  │  ├─ Cancel payment intents                            │  │
+│  │  ├─ Reset transaction data                            │  │
+│  │  └─ Exponential backoff timing                        │  │
+│  └───────────────────────────────────────────────────────┘  │
+│                          ↕                                   │
+│  ┌───────────────────────────────────────────────────────┐  │
+│  │  GoodbricksTerminalStore (Zustand)                    │  │
+│  │  ├─ Reader status                                     │  │
+│  │  ├─ Disconnect reason                                 │  │
+│  │  ├─ Payment intent data                               │  │
+│  │  └─ Transaction state                                 │  │
+│  └───────────────────────────────────────────────────────┘  │
+│                          ↕                                   │
+│  ┌───────────────────────────────────────────────────────┐  │
+│  │  ReactNativeBridge (PostMessage)                      │  │
+│  │  ├─ discoverReaders                                   │  │
+│  │  ├─ connectReader                                     │  │
+│  │  ├─ cancelCollectPaymentMethod                        │  │
+│  │  └─ Receive status updates                            │  │
+│  └───────────────────────────────────────────────────────┘  │
+│                          ↕                                   │
+│  ┌───────────────────────────────────────────────────────┐  │
+│  │  Native Layer (Stripe Terminal SDK)                   │  │
+│  │  ├─ Reader discovery                                  │  │
+│  │  ├─ Reader connection                                 │  │
+│  │  ├─ Payment processing                                │  │
+│  │  └─ Status callbacks                                  │  │
+│  └───────────────────────────────────────────────────────┘  │
+└─────────────────────────────────────────────────────────────┘
+```
+
+---
+

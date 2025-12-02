@@ -1,0 +1,53 @@
+2025-12-02T17:40:10.727Z [INFO]:[ASYNC]: Start fetchTokenProvider :: {"fetchURL":"https://sandbox.api.goodbricks.app/stripe/connection-token?organizationPublicId=icsd.org"}
+2025-12-02T17:40:11.062Z [INFO]:[ASYNC]: Done fetchTokenProvider :: {"connectionToken":"pst_test_YWNjdF8xQU1WY3FMc0JnZzlDQzQ2LEVzUkphaXBxdXNpVzFWdTRLVFlvclZQSDZhZ1NyMlQ_00GFoqEBxE","locationId":"tml_Enq6AmuRiHOSAi","applicationFeesCapInCents":3000,"applicationFeesInPercent":1.5,"receiptAmountThresholdInDollars":50}
+2025-12-02T17:40:11.256Z [INFO]:[ASYNC]: guidedAccessStatusDidChange:  :: {"enabled":false}
+2025-12-02T17:40:12.503Z [INFO]:[ASYNC]: netInfoState :: {"type":"wifi","isConnected":true,"details":{"ipAddress":"192.168.7.199","subnet":"255.255.252.0","isConnectionExpensive":false},"isInternetReachable":false}
+2025-12-02T17:40:12.504Z [INFO]:[ASYNC]: netInfoState :: {"type":"none","isConnected":false,"details":{},"isInternetReachable":false}
+2025-12-02T17:40:12.508Z [INFO]:[ASYNC]: onDidChangeOfflineStatus:  :: {"sdk":{"offlinePaymentAmountsByCurrency":{},"networkStatus":"offline","offlinePaymentsCount":0}}
+2025-12-02T17:40:12.510Z [WARN]:[ASYNC]: ðŸ“´ SDK went offline - offline mode active :: {"pendingPayments":0}
+2025-12-02T17:40:12.515Z [INFO]:[FE-1764697212508]: Internet Connection Change :: {"type":"wifi","isConnected":true,"details":{"ipAddress":"192.168.7.199","subnet":"255.255.252.0","isConnectionExpensive":false},"isInternetReachable":false}
+2025-12-02T17:40:12.526Z [INFO]:[FE-1764697212523]: Internet Connection Change :: {"type":"none","isConnected":false,"details":{},"isInternetReachable":false}
+2025-12-02T17:40:12.528Z [INFO]:[FE-1764697212524]: Reader Offline Status :: {"sdk":{"offlinePaymentAmountsByCurrency":{},"networkStatus":"offline","offlinePaymentsCount":0}}
+2025-12-02T17:40:12.529Z [INFO]:[FE-1764697212525]: ReadyToPayScreen: Payment status changed :: "readerInput"
+2025-12-02T17:40:14.772Z [INFO]:[ASYNC]: guidedAccessStatusDidChange:  :: {"enabled":false}
+2025-12-02T17:40:20.923Z [INFO]:[ASYNC]: onDidRequestReaderDisplayMessage:  :: "removeCard"
+2025-12-02T17:40:20.928Z [INFO]:[FE-1764697220927]: ReadyToPayScreen: Payment status changed :: "removeCard"
+2025-12-02T17:40:21.839Z [INFO]:[ASYNC]: onDidChangePaymentStatus:  :: "ready"
+2025-12-02T17:40:21.844Z [INFO]:[1764697192107]: Collect Payment Method successful :: {"sdkUuid":"D030E8EE-BD01-4D74-AC90-311E3E437A5B","status":"requiresConfirmation","created":"1764697192120","amountDetails":{"tip":{"amount":null}},"offlineDetails":{"cardPresentDetails":null,"storedAtMs":null,"requiresUpload":false,"amountDetails":null},"currency":"usd","captureMethod":"automatic","paymentMethodId":null,"statementDescriptor":null,"paymentMethodOptions":null,"statementDescriptorSuffix":null,"paymentMethod":null,"amountTip":0,"id":null,"metadata":{"donation_date_epoch":"1764697192083","total_amount":"21","slug":"wudu-bathroom-renovations","reader_serial_number":"CHB202937003343","notes":"Tap-to-Pay","covered_fees":"false","covered_fees_amount":"0","platform":"Goodbricks","terminal_name":"CHB202937003343","payment_mode":"Terminal","purpose":"wudu-bathroom renovations","donation_date":"12/2/2025, 9:39:52 AM","purpose_slug":"wudu-bathroom-renovations"},"charges":[],"amount":2100}
+2025-12-02T17:40:21.848Z [INFO]:[FE-1764697221845]: ReadyToPayScreen: Payment status changed :: "ready"
+2025-12-02T17:40:21.858Z [INFO]:[ASYNC]: onDidChangePaymentStatus:  :: "processing"
+2025-12-02T17:40:21.945Z [INFO]:[FE-1764697221943]: ReadyToPayScreen: Payment status changed :: "processing"
+2025-12-02T17:40:21.946Z [INFO]:[FE-1764697221943]: ReadyToPayScreen: Card tapped, transitioning to payment flow :: undefined
+2025-12-02T17:40:21.947Z [INFO]:[FE-1764697221945]: PaymentProcessingScreen :: "PaymentProcessingScreen"
+2025-12-02T17:40:21.948Z [INFO]:[FE-1764697221945]: PaymentProcessingScreen:displayPaymentProcessingAnimation:  :: {"paymentProcessingStatus":"processing"}
+2025-12-02T17:40:21.949Z [INFO]:[ASYNC]: onDidChangeOfflineStatus:  :: {"sdk":{"offlinePaymentAmountsByCurrency":{"usd":2100},"networkStatus":"offline","offlinePaymentsCount":1}}
+2025-12-02T17:40:21.952Z [WARN]:[ASYNC]: ðŸ“´ SDK went offline - offline mode active :: {"pendingPayments":1}
+2025-12-02T17:40:21.956Z [INFO]:[ASYNC]: onDidChangePaymentStatus:  :: "ready"
+2025-12-02T17:40:21.962Z [INFO]:[1764697192107]: Confirm Payment Intent successful :: {"sdkUuid":"EEC6C6DC-A26D-4A46-88E4-CD8EA106CBAD","status":"succeeded","created":"1764697192120","amountDetails":{"tip":{"amount":null}},"offlineDetails":{"cardPresentDetails":{"last4":"9969","expYear":2023,"cardholderName":"CARDHOLDER/VISA","readMethod":"contactlessEMV","brand":null,"expMonth":3,"receiptDetails":{"dedicatedFileName":"A000000003101001","authorizationCode":null,"authorizationResponseCode":"","applicationCryptogram":"1BE5C7ABD5718E38","cvm":"none","accountType":null,"applicationPreferredName":"Stripe Credit","terminalVerificationResults":"0000000000","transactionStatusInformation":"0000"}},"storedAtMs":"1764697221906","requiresUpload":true,"amountDetails":{"tip":{"amount":null}}},"currency":"usd","captureMethod":"automatic","paymentMethodId":null,"statementDescriptor":null,"paymentMethodOptions":null,"statementDescriptorSuffix":null,"paymentMethod":null,"amountTip":0,"id":null,"metadata":{"donation_date_epoch":"1764697192083","total_amount":"21","slug":"wudu-bathroom-renovations","reader_serial_number":"CHB202937003343","notes":"Tap-to-Pay","covered_fees":"false","covered_fees_amount":"0","platform":"Goodbricks","terminal_name":"CHB202937003343","payment_mode":"Terminal","purpose":"wudu-bathroom renovations","donation_date":"12/2/2025, 9:39:52 AM","purpose_slug":"wudu-bathroom-renovations"},"charges":[],"amount":2100}
+2025-12-02T17:40:21.963Z [INFO]:[FE-1764697221958]: Reader Offline Status :: {"sdk":{"offlinePaymentAmountsByCurrency":{"usd":2100},"networkStatus":"offline","offlinePaymentsCount":1}}
+2025-12-02T17:40:21.963Z [INFO]:[FE-1764697221959]: PaymentProcessingScreen :: "PaymentProcessingScreen"
+2025-12-02T17:40:21.963Z [INFO]:[FE-1764697221959]: PaymentProcessingScreen:displayPaymentProcessingAnimation:  :: {"paymentProcessingStatus":"ready"}
+2025-12-02T17:40:21.966Z [INFO]:[FE-1764697221964]: Payment Captured :: null
+2025-12-02T17:40:21.967Z [INFO]:[FE-1764697221965]: PaymentProcessingScreen :: "PaymentProcessingScreen"
+2025-12-02T17:40:21.967Z [INFO]:[FE-1764697221965]: PaymentProcessingScreen:displayPaymentProcessingAnimation:  :: {"paymentProcessingStatus":"paymentCaptured"}
+2025-12-02T17:40:21.968Z [INFO]:[FE-1764697221965]: PaymentCaptured: Tap-to-pay mode detected, skipping receipt screens :: undefined
+2025-12-02T17:40:21.970Z [INFO]:[FE-1764697221967]: QuickSuccessScreen: Payment successful :: {"category":"wudu-bathroom renovations","amount":21}
+2025-12-02T17:40:21.970Z [INFO]:[FE-1764697221967]: â±ï¸ [Payment Intent Timeout] Tracking handled by ReaderHealthManager :: {"paymentIntentId":null,"reason":"payment_completed"}
+2025-12-02T17:40:23.981Z [INFO]:[FE-1764697223977]: ReadyToPayScreen mounted :: {"category":{"coverFeePercentage":"3.00","coverFees":true,"defaultAmount":"100","defaultAmounts":"5000,2500,1000,750","displayOrder":999,"externalCategoryId":null,"id":"wudu-bathroom-renovations","name":"wudu-bathroom renovations","showNotes":false,"slug":"wudu-bathroom-renovations","tags":"","text":"wudu-bathroom renovations"},"amount":21,"context":{"customerEmail":"","customerName":"","totalAmount":"","category":{}}}
+2025-12-02T17:40:23.983Z [INFO]:[FE-1764697223977]: ReadyToPayScreen: Payment status changed :: "paymentCaptured"
+2025-12-02T17:40:23.985Z [INFO]:[FE-1764697223979]: ReadyToPayScreen: Payment status changed :: "initialized"
+2025-12-02T17:40:23.986Z [WARN]:[FE-1764697223979]: ReadyToPayScreen: Cannot create payment intent - SDK offline :: {"connectedReader":"CHB202937003343","sdkOnline":false}
+2025-12-02T17:40:53.555Z [INFO]:[ASYNC]: guidedAccessStatusDidChange:  :: {"enabled":false}
+2025-12-02T17:40:56.627Z [INFO]:[ASYNC]: netInfoState :: {"type":"none","isConnected":false,"details":{},"isInternetReachable":false}
+2025-12-02T17:40:56.630Z [INFO]:[FE-1764697256628]: Internet Connection Change :: {"type":"none","isConnected":false,"details":{},"isInternetReachable":false}
+2025-12-02T17:40:56.755Z [INFO]:[ASYNC]: netInfoState :: {"type":"none","isConnected":false,"details":{},"isInternetReachable":false}
+2025-12-02T17:40:56.763Z [INFO]:[FE-1764697256755]: Internet Connection Change :: {"type":"none","isConnected":false,"details":{},"isInternetReachable":false}
+2025-12-02T17:40:56.898Z [INFO]:[ASYNC]: netInfoState :: {"type":"none","isConnected":false,"details":{},"isInternetReachable":null}
+2025-12-02T17:40:56.898Z [INFO]:[ASYNC]: netInfoState :: {"type":"cellular","isConnected":true,"details":{"cellularGeneration":"5g","isConnectionExpensive":true,"carrier":"--"},"isInternetReachable":null}
+2025-12-02T17:40:56.902Z [INFO]:[FE-1764697256898]: Internet Connection Change :: {"type":"none","isConnected":false,"details":{},"isInternetReachable":null}
+2025-12-02T17:40:56.904Z [INFO]:[FE-1764697256901]: Internet Connection Change :: {"type":"cellular","isConnected":true,"details":{"cellularGeneration":"5g","isConnectionExpensive":true,"carrier":"--"},"isInternetReachable":null}
+2025-12-02T17:40:57.267Z [INFO]:[ASYNC]: netInfoState :: {"type":"cellular","isConnected":true,"details":{"cellularGeneration":"5g","isConnectionExpensive":true,"carrier":"--"},"isInternetReachable":true}
+2025-12-02T17:40:57.273Z [INFO]:[FE-1764697257266]: Internet Connection Change :: {"type":"cellular","isConnected":true,"details":{"cellularGeneration":"5g","isConnectionExpensive":true,"carrier":"--"},"isInternetReachable":true}
+2025-12-02T17:40:59.331Z [INFO]:[ASYNC]: netInfoState :: {"type":"wifi","isConnected":true,"details":{"ipAddress":"192.168.7.199","subnet":"255.255.252.0","isConnectionExpensive":false},"isInternetReachable":true}
+2025-12-02T17:40:59.339Z [INFO]:[FE-1764697259334]: Internet Connection Change :: {"type":"wifi","isConnected":true,"details":{"ipAddress":"192.168.7.199","subnet":"255.255.252.0","isConnectionExpensive":false},"isInternetReachable":true}
+2025-12-02T17:41:00.678Z [INFO]:[ASYNC]: guidedAccessStatusDidChange:  :: {"enabled":false}

@@ -6,6 +6,43 @@ The system **does not currently handle failed offline payment syncs**. This docu
 
 ---
 
+## ⏰ Critical Time Limits for Offline Payments
+
+### Payment Intent Expiration: 60 Minutes
+- **Limit:** Payment intents expire **60 minutes** after creation
+- **Impact:** If a payment intent is not used within 60 minutes, it becomes invalid
+- **Current Handling:** System proactively refreshes payment intents at 50 minutes (see `ReaderHealthManager.tsx`)
+- **For Offline Payments:** Payment intent must be created, collected, AND confirmed within 60 minutes
+
+### Offline Payment Storage Duration: Unknown (Estimated 24-48 Hours)
+- **Critical Issue:** Stripe Terminal SDK documentation does NOT specify exact storage time limit
+- **Storage Location:** Offline payments are stored locally on the reader hardware
+- **Risk Factors:**
+  - ⚠️ Reader power loss (battery dies)
+  - ⚠️ Reader disconnection from device
+  - ⚠️ Reader reset/reboot
+  - ⚠️ Reader firmware update
+  - ⚠️ Reader storage capacity full
+  - ⚠️ Extended offline period (days/weeks)
+
+### Recommended Best Practices
+1. **Sync ASAP:** Encourage users to go online and sync within **24-48 hours** maximum
+2. **Monitor Battery:** Ensure reader has sufficient battery before going offline
+3. **Stay Connected:** Keep reader connected to device even when offline
+4. **Regular Syncing:** If operating offline for extended periods, sync daily
+5. **User Warnings:** Display warnings if offline payments haven't synced within 24 hours
+
+### What Happens If Storage Limit Is Exceeded?
+- **Unknown Behavior:** Stripe documentation doesn't specify
+- **Possible Outcomes:**
+  - Oldest payments may be dropped
+  - New payments may be rejected
+  - Reader may stop accepting payments
+  - Payments may be lost permanently
+- **Action Needed:** Test with actual Stripe Terminal hardware to determine behavior
+
+---
+
 ## What Stripe Terminal SDK Provides
 
 According to Stripe's documentation and the sample code, the SDK provides these callbacks:
@@ -281,9 +318,17 @@ onDidFailForwardingPaymentIntent: async (error) => {
 - **Fallback:** If no retry method, rely on SDK's automatic retry mechanism
 
 ### Payment Intent Expiration
-- **Issue:** Payment intents expire after 60 minutes
+- **Issue:** Payment intents expire after 60 minutes from creation
 - **Consideration:** Failed payments may be unrecoverable if expired
 - **Solution:** Show clear message: "Payment expired - contact support for manual processing"
+
+### Offline Payment Storage Duration
+- **Critical Limitation:** Offline payments stored on the reader have a limited storage time
+- **Storage Limit:** Based on Stripe Terminal SDK behavior and reader capabilities
+- **Reader Storage:** Payments are stored locally on the reader until synced
+- **Sync Window:** Users should sync offline payments as soon as possible when connectivity is restored
+- **Risk:** If reader is disconnected, powered off, or reset before syncing, offline payments may be lost
+- **Best Practice:** Encourage users to go online and sync within 24-48 hours of collecting offline payments
 
 ---
 
@@ -395,6 +440,19 @@ onDidFailForwardingPaymentIntent: async (error) => {
    - Should they contact the customer?
    - Should they retry the payment?
    - Should they contact support?
+
+6. **How long can offline payments be stored on the reader?** ⚠️ **CRITICAL**
+   - Stripe documentation doesn't specify exact time limit
+   - Reader storage capacity is limited
+   - Payments stored locally on reader hardware
+   - **Risk factors:**
+     - Reader power loss (battery dies)
+     - Reader disconnection
+     - Reader reset/reboot
+     - Reader firmware update
+     - Reader storage full
+   - **Recommendation:** Sync within 24-48 hours maximum
+   - **Action needed:** Test actual storage limits with Stripe Terminal hardware
 
 ---
 

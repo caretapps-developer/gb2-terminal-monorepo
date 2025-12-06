@@ -625,9 +625,148 @@ When reader fails to reconnect, check logs for:
 
 ---
 
+---
+
+## 🎯 Card Read Timeout & Auto-Recreation (Tap-to-Pay)
+
+### Overview
+When a payment intent times out after 60 minutes of waiting for card input, the Stripe SDK automatically cancels the collection and changes the payment status to `"ready"`. For tap-to-pay layouts, the system must automatically create a fresh payment intent to keep the terminal ready for the next transaction.
+
+### The Problem (Fixed in Dec 2024)
+**Bug:** When `CardReadTimedOut` error occurred, the payment intent was sometimes already cleared by the Stripe SDK before the error handler ran. This caused the auto-recreation logic to fail silently because:
+1. `currentPaymentIntentId` was `null` when error handler checked it
+2. The `if (currentPaymentIntentId)` check failed
+3. `cancelAndResetPaymentIntent()` was never called
+4. Transaction state was never reset to trigger `ReadyToPayScreen` useEffect
+5. Terminal remained stuck with no active payment intent
+
+### The Solution
+The error handler now **always resets transaction data** for tap-to-pay layouts, regardless of whether the payment intent ID is present. This ensures:
+- `paymentProcessingStatus` changes from `"ready"` → `"initialized"`
+- `paymentIntentId` changes from `null` → `""`
+- `ReadyToPayScreen` useEffect detects the state change and creates a new payment intent
+
+### State Flow
+
+| Time | Event | `paymentIntentId` | `paymentProcessingStatus` | Action |
+|------|-------|-------------------|---------------------------|--------|
+| T+0 | Payment intent created | `"pi_xxx"` | `"initialized"` → `"readerInput"` | Normal flow |
+| T+60min | SDK timeout occurs | `null` (cleared by SDK) | `"ready"` | SDK clears payment intent |
+| T+60min+1ms | Error handler runs | `null` | `"ready"` | Detects timeout |
+| T+60min+500ms | Transaction reset | `""` | `"initialized"` | State change triggers useEffect |
+| T+60min+600ms | New payment intent created | `"pi_yyy"` | `"readerInput"` | Auto-recreation complete |
+
+### Code Implementation
+
+**Error Handler** (`ReactNativeErrorHandler.tsx` lines 86-123):
+```typescript
+} else if(error.code === "CardReadTimedOut" && error.action === "collectPaymentMethod"){
+  LoggingService.warn("⏱️ [Card Read Timeout] Card read timed out after 60 seconds", error?.message);
+
+  if (terminalLayout === 'tapToPayLayout') {
+    LoggingService.info("⏱️ [Card Read Timeout] Tap-to-pay mode - resetting to trigger auto-recreation", {
+      currentPaymentIntentId: currentPaymentIntentId || "null",
+      willCancelPaymentIntent: !!currentPaymentIntentId
+    });
+
+    // Cancel if payment intent exists (it may have already been cleared by SDK)
+    if (currentPaymentIntentId) {
+      postMessageToTerminal("cancelCollectPaymentMethod", currentPaymentIntentId);
+    }
+
+    // Always reset transaction data after a delay
+    // This changes paymentProcessingStatus from "ready" to "initialized"
+    // and triggers ReadyToPayScreen useEffect to auto-create a new payment intent
+    setTimeout(() => {
+      const resetTransactionData = useGoodbricksTerminalStore.getState().resetTransactionData;
+      resetTransactionData();
+      LoggingService.info("✅ [Card Read Timeout] Transaction reset complete - ReadyToPayScreen will auto-create payment intent");
+    }, 500);
+  } else {
+    // For other layouts: User will manually create new payment intent
+    LoggingService.info("⏱️ [Card Read Timeout] Manual mode - user will create new payment intent");
+    if (currentPaymentIntentId) {
+      cancelAndResetPaymentIntent(currentPaymentIntentId, "card_read_timeout");
+    } else {
+      const resetTransactionData = useGoodbricksTerminalStore.getState().resetTransactionData;
+      resetTransactionData();
+    }
+  }
+}
+```
+
+**Auto-Creation Trigger** (`ReadyToPayScreen.tsx` lines 94-121):
+```typescript
+useEffect(() => {
+  if (paymentProcessingStatus === "processing") {
+    send({ type: "cardTapped" });
+  } else if (paymentProcessingStatus === "initialized" && (!paymentIntentId || paymentIntentId === "")) {
+    // This condition triggers after timeout when state changes to:
+    // paymentProcessingStatus = "initialized" (from "ready")
+    // paymentIntentId = "" (from null)
+    const offlineModeEnabled = offlineModePreference !== "disabled";
+    const canCreatePaymentIntent = connectedReader && connectedReader !== "unknown" && (sdkOnline || offlineModeEnabled);
+
+    if (canCreatePaymentIntent) {
+      LoggingService.info("ReadyToPayScreen: Creating payment intent", {
+        reason: paymentIntentId === "" ? "refresh" : "initial_load",
+        sdkOnline,
+        offlineModeEnabled
+      });
+      createPaymentIntent();
+    }
+  }
+}, [paymentProcessingStatus, paymentIntentId, connectedReader, sdkOnline, offlineModePreference]);
+```
+
+### Expected Log Sequence
+
+When card read timeout occurs in tap-to-pay mode:
+
+```
+[INFO]:[ASYNC]: onDidChangePaymentStatus:  :: "ready"
+[ERROR]:[epoch]: collectPaymentMethod error: [object Object] :: {"code":"CardReadTimedOut","message":"Reading the card timed out."}
+[INFO]:[FE-epoch]: ReadyToPayScreen: Payment status changed :: "ready"
+[WARN]:[FE-epoch]: ⏱️ [Card Read Timeout] Card read timed out after 60 seconds :: "Reading the card timed out."
+[INFO]:[FE-epoch]: ⏱️ [Card Read Timeout] Tap-to-pay mode - resetting to trigger auto-recreation :: {"currentPaymentIntentId":"null","willCancelPaymentIntent":false}
+[INFO]:[FE-epoch]: ✅ [Card Read Timeout] Transaction reset complete - ReadyToPayScreen will auto-create payment intent
+[INFO]:[FE-epoch]: ReadyToPayScreen: Payment status changed :: "initialized"
+[INFO]:[FE-epoch]: ReadyToPayScreen: Creating payment intent :: {"reason":"refresh","sdkOnline":true,"offlineModeEnabled":true}
+[INFO]:[FE-epoch]: ReadyToPayScreen: Creating payment intent :: {"totalAmount":400,"category":"Donation"}
+[INFO]:[ASYNC]: createPaymentIntent :: {...}
+[INFO]:[FE-epoch]: ✅ [Payment Intent] Created :: {"paymentIntentId":"pi_xxx","previousPaymentIntentId":""}
+```
+
+### Debugging Card Read Timeout Issues
+
+If auto-recreation fails after timeout:
+
+1. **Check error handler logs:**
+   - [ ] `"⏱️ [Card Read Timeout] Card read timed out after 60 seconds"`
+   - [ ] `"⏱️ [Card Read Timeout] Tap-to-pay mode - resetting to trigger auto-recreation"`
+   - [ ] `"✅ [Card Read Timeout] Transaction reset complete"`
+
+2. **Check state changes:**
+   - [ ] `"ReadyToPayScreen: Payment status changed :: 'initialized'"` (should appear after reset)
+   - [ ] `"ReadyToPayScreen: Creating payment intent :: {\"reason\":\"refresh\"}"` (should appear after state change)
+
+3. **Verify prerequisites:**
+   - [ ] `terminalLayout === 'tapToPayLayout'`
+   - [ ] `connectedReader !== null && connectedReader !== "unknown"`
+   - [ ] `sdkOnline === true` OR `offlineModePreference !== "disabled"`
+
+4. **Common issues:**
+   - Missing `"Transaction reset complete"` log → Error handler didn't run or setTimeout didn't fire
+   - Missing `"Payment status changed :: 'initialized'"` log → State didn't change or screen not mounted
+   - Missing `"Creating payment intent"` log → Prerequisites not met (check reader connection, SDK status, offline mode)
+
+---
+
 ## 📍 Key Code Locations
 
 - **Health Check Logic:** `gb2-terminal-web/src/components/ReaderHealthManager.tsx`
+- **Error Handler:** `gb2-terminal-web/src/utils/ReactNativeErrorHandler.tsx`
+- **Tap-to-Pay Auto-Creation:** `gb2-terminal-web/src/stateMachine/screens/tapToPayLayout/ReadyToPayScreen.tsx`
 - **Store Definition:** `gb2-terminal-web/src/utils/GoodbricksTerminalStore.tsx`
 - **Native Callbacks:** `gb2-terminal-expo/hooks/useStripeCallbacks.js`
 - **Message Bridge:** `gb2-terminal-web/src/components/ReactNativeBridge.tsx`

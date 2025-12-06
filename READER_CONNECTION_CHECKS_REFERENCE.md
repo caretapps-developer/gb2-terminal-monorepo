@@ -223,10 +223,10 @@ const getOfflineModeStatus = (offlineModePreference, changeOfflineStatus, reader
 | **Possible Values** | `"securityReboot"` \| `"disconnectRequested"` \| `"unknown"` \| `null` (initial) |
 | **Healthy State** | `null` or `"disconnectRequested"` (intentional disconnect) |
 | **Unhealthy State** | `"securityReboot"` or `"unknown"` (unexpected disconnect) |
-| **How It's Evaluated** | `if (lastDisconnectReason === "securityReboot")` → Special 60s wait |
+| **How It's Evaluated** | `if (lastDisconnectReason === "securityReboot")` → Special 2-minute wait |
 | **When Set** | Native SDK callback `onDidDisconnect(reason)` → Sends `goodbricks.disconnect` with reason |
-| **When Unset** | After 60s security reboot wait completes → Set to `null` |
-| **Recovery Impact** | **Blocks all health checks for 60 seconds!** |
+| **When Unset** | After 2-minute security reboot wait completes → Set to `null` |
+| **Recovery Impact** | **Blocks all health checks for 2 minutes!** |
 
 **Security Reboot Timeline:**
 ```
@@ -237,25 +237,26 @@ T=0s    Reader disconnects
         ├─ connectedReader = null
         └─ isHandlingSecurityReboot = true
 
-T=0-60s Health checks SKIPPED
+T=0-120s Health checks SKIPPED
         └─ Log: "Waiting for security reboot to complete (Xs remaining)"
 
-T=60s   Wait complete
+T=120s  Wait complete
         ├─ isHandlingSecurityReboot = false
         ├─ lastDisconnectReason = null
         ├─ recoveryState reset
         └─ Normal health checks resume
 
-T=60s+  Standard recovery begins
+T=120s+ Standard recovery begins
         ├─ Health check detects reader disconnected
         ├─ Exponential backoff: 30s → 1m → 2m → 5m
         └─ Attempt reconnection (discover → connect)
 ```
 
-**Why 60 Seconds?**
-- Stripe M2 readers take 30-60 seconds to complete security reboot
-- Prevents premature reconnection attempts that would fail
-- Occurs approximately every 13 hours in production
+**Why 2 Minutes?**
+- Stripe M2 readers can take variable time to complete security reboot
+- Stripe documentation does not specify exact reboot duration
+- 2-minute wait reduces premature reconnection attempts that would fail
+- Occurs approximately every 13 hours in production (based on observation)
 
 ---
 
@@ -344,7 +345,7 @@ const determineRecoveryType = ({
 | **Offline Mode** | Derived from preferences + SDK | Enabled when needed | Disabled when needed | N/A | - |
 | **Kiosk Mode** | `isGuidedAccessEnabled` | `true` or `"true"` | `false` or `"unknown"` | **Blocks health check** | - |
 | **Categories** | `filteredCategories.length` | `> 0` | `=== 0` | **Blocks health check** | - |
-| **Security Reboot** | `lastDisconnectReason` | `null` or `"disconnectRequested"` | `"securityReboot"` | **Blocks health check for 60s** | ⏳ Wait period |
+| **Security Reboot** | `lastDisconnectReason` | `null` or `"disconnectRequested"` | `"securityReboot"` | **Blocks health check for 2 minutes** | ⏳ Wait period |
 | **Software Update** | `readerSoftwareUpdateProgress` | `""` (empty) | Non-empty string | **Blocks health check** | - |
 
 ---
@@ -361,7 +362,7 @@ Log health status
 Early Return Checks (in order):
     1. isGuidedAccessEnabled !== true? → SKIP
     2. filteredCategories.length === 0? → SKIP
-    3. isHandlingSecurityReboot === true? → SKIP (60s wait)
+    3. isHandlingSecurityReboot === true? → SKIP (2-minute wait)
     4. readerSoftwareUpdateProgress !== ""? → SKIP
     ↓
 Check for payment intent timeout/stuck
@@ -370,6 +371,257 @@ Determine if recovery needed
     ↓
 Execute recovery with exponential backoff
 ```
+
+---
+
+## 🔄 Reader Reconnection Mechanisms
+
+The system has **3 independent reconnection paths** that work together to ensure reader connectivity:
+
+### **PATH 1: performHealthCheck() Polling (PRIMARY)**
+
+**Purpose:** Main recovery mechanism that runs continuously
+
+**How it works:**
+1. Runs every 30 seconds via `setInterval`
+2. Detects reader disconnection via health checks
+3. Determines recovery type needed
+4. Calls `attemptReaderReconnection()` → `discoverReaders`
+5. Uses exponential backoff (30s → 1m → 2m → 5m)
+
+**Code Location:**
+```typescript
+// ReaderHealthManager.tsx lines 548-554
+useEffect(() => {
+  const intervalId = setInterval(async () => {
+    await performHealthCheck();
+  }, pollingIntervalInSeconds * 1000);
+
+  return () => clearInterval(intervalId);
+}, [pollingIntervalInSeconds]);
+```
+
+**Recovery Flow:**
+```
+performHealthCheck()
+  → determineRecoveryType()
+  → attemptRecovery()
+  → attemptReaderReconnection()
+  → discoverReaders
+```
+
+**Critical Dependencies:**
+- ✅ Component must be mounted
+- ✅ `pollingIntervalInSeconds` must be stable
+- ✅ No JavaScript errors in `performHealthCheck()`
+- ✅ Early return conditions must pass (kiosk mode, categories, etc.)
+
+**Logs to expect:**
+- `"ReaderHealthManager:HealthCheck:"` - Every 30 seconds
+- `"Attempting reader reconnection"` - When recovery triggered
+- `"RECOVERY SUCCESSFUL"` - When reader reconnects
+
+---
+
+### **PATH 2: Auto-Connect useEffect (SECONDARY)**
+
+**Purpose:** Automatically connect when reader is discovered
+
+**How it works:**
+1. Triggered when `discoveredReaders` array changes
+2. Checks if reader is disconnected AND locked reader is in discovered list
+3. Automatically calls `connectReader`
+
+**Code Location:**
+```typescript
+// ReaderHealthManager.tsx lines 560-593
+useEffect(() => {
+  if (
+    (isGuidedAccessEnabled === "true" || isGuidedAccessEnabled === true) &&
+    (terminalData?.readerPaymentStatus === "notReady" ||
+     readerConnectionStatus !== "connected" ||
+     changeOfflineStatus?.sdk?.networkStatus !== "online") &&
+    !connectingToReader
+  ) {
+    discoveredReaders.map((reader) => {
+      if (reader.serialNumber === lockedReader) {
+        postMessageToTerminal("connectReader", {
+          serialNumber: lockedReader,
+          offlineModePreference: offlineModePreference
+        });
+      }
+    });
+  }
+}, [discoveredReaders]);
+```
+
+**Critical Dependencies:**
+- ✅ `discoveredReaders` must be populated (requires PATH 1 to run discovery)
+- ✅ `isGuidedAccessEnabled` must be true
+- ✅ Reader must be disconnected or not ready
+- ✅ `lockedReader` must match discovered reader serial number
+
+**Logs to expect:**
+- `"ReaderHealthManager:DiscoveredReaderChange:"` - When discoveredReaders changes
+- `"ReaderHealthManager:ConnectingToReader:"` - When auto-connect triggers
+
+---
+
+### **PATH 3: Security Reboot Handler (SPECIAL CASE)**
+
+**Purpose:** Handle Stripe M2 security reboots (~every 13 hours)
+
+**How it works:**
+1. Detects `lastDisconnectReason === "securityReboot"`
+2. Sets `isHandlingSecurityReboot = true`
+3. Waits 2 minutes (120 seconds) for reader to finish rebooting
+4. Clears `isHandlingSecurityReboot` flag
+5. **DOES NOT trigger reconnection directly**
+6. **Relies on PATH 1** to detect disconnection and trigger recovery
+
+**Code Location:**
+```typescript
+// ReaderHealthManager.tsx lines 247-274
+useEffect(() => {
+  if (lastDisconnectReason !== "securityReboot" || isHandlingSecurityReboot) return;
+
+  LoggingService.warn("Security reboot detected, waiting 2 minutes before reconnection attempt");
+  setIsHandlingSecurityReboot(true);
+
+  const timerId = setTimeout(() => {
+    LoggingService.info("Security reboot wait complete, ready for reconnection");
+    setIsHandlingSecurityReboot(false);
+    setRecoveryState(createInitialRecoveryState());
+    // Does NOT call attemptReaderReconnection() here!
+    // Waits for performHealthCheck() to detect and recover
+  }, SECURITY_REBOOT_WAIT); // 2 minutes (120 seconds)
+
+  // ... cleanup
+}, [lastDisconnectReason, isHandlingSecurityReboot]);
+```
+
+**Critical Dependencies:**
+- ✅ `lastDisconnectReason` must be set to "securityReboot"
+- ✅ PATH 1 must be running to trigger recovery after 2-minute wait
+
+**Logs to expect:**
+- `"Security reboot detected, waiting 2 minutes before reconnection attempt"` - At T+0s
+- `"Waiting for security reboot to complete (Xs remaining)"` - Every 30s during wait
+- `"Security reboot wait complete, ready for reconnection"` - At T+120s
+- Then PATH 1 logs for recovery attempts
+
+---
+
+## ⚠️ Critical Failure Modes
+
+### **Scenario: performHealthCheck() Not Running**
+
+**Symptoms:**
+- ❌ No `"ReaderHealthManager:HealthCheck:"` logs
+- ❌ Reader stays disconnected indefinitely
+- ❌ No recovery attempts
+- ❌ `discoveredReaders` stays empty
+
+**Impact:**
+- **PATH 1:** Completely broken - no health checks, no recovery
+- **PATH 2:** Blocked - no discovered readers to connect to
+- **PATH 3:** Blocked - security reboot waits 2 minutes, then nothing happens
+
+**Root Causes:**
+1. Component not mounted (ReaderHealthManager not in component tree)
+2. Early return condition blocking all checks (but should log warnings)
+3. `pollingIntervalInSeconds` changed, causing interval to restart
+4. JavaScript error in `performHealthCheck()` before first log statement
+5. Interval cleared unexpectedly
+
+**Example from logs/fix30.log:**
+```
+15:56:01 - Security reboot detected ✅
+15:56:01 - "Security reboot detected, waiting 2 minutes..." ✅
+15:56:01 to 17:27:10 - SILENCE (91 minutes) ❌
+         - Zero "ReaderHealthManager:HealthCheck:" logs
+         - Zero recovery attempts
+         - Reader stayed disconnected
+```
+
+**How to diagnose:**
+1. Search logs for `"ReaderHealthManager:HealthCheck:"` - should appear every 30s
+2. If zero results, performHealthCheck() is not running
+3. Check for early return warnings:
+   - `"Skipping health check - Guided Access not enabled"`
+   - `"Skipping health check - No categories configured"`
+4. If no warnings, component may not be mounted or interval not started
+
+---
+
+### **Scenario: discoveredReaders Empty**
+
+**Symptoms:**
+- ✅ `"ReaderHealthManager:DiscoveredReaderChange:"` logs present
+- ❌ `discoveredReaders: []` (empty array)
+- ❌ No auto-connect attempts
+
+**Impact:**
+- **PATH 1:** May be running but not calling `discoverReaders`
+- **PATH 2:** Blocked - no readers to connect to
+
+**Root Causes:**
+1. PATH 1 not running (see above)
+2. Discovery not triggered by recovery logic
+3. Reader not broadcasting (hardware issue)
+4. Bluetooth/network issues preventing discovery
+
+---
+
+### **Scenario: Security Reboot Never Completes**
+
+**Symptoms:**
+- ✅ `"Security reboot detected, waiting 2 minutes..."` logged
+- ❌ No `"Security reboot wait complete"` log after 2 minutes
+- ❌ No `"Waiting for security reboot to complete (Xs remaining)"` logs
+
+**Impact:**
+- `isHandlingSecurityReboot` may stay `true` forever
+- Health checks blocked indefinitely
+
+**Root Causes:**
+1. `setTimeout` callback never fired (JavaScript engine issue)
+2. Component unmounted before timer completed
+3. `lastDisconnectReason` changed before timer completed
+
+---
+
+## 🔍 Debugging Checklist
+
+When reader fails to reconnect, check logs for:
+
+1. **Is performHealthCheck() running?**
+   - [ ] Search for `"ReaderHealthManager:HealthCheck:"` - should appear every 30s
+   - [ ] If missing, PATH 1 is broken
+
+2. **Are there early return warnings?**
+   - [ ] `"Skipping health check - Guided Access not enabled"`
+   - [ ] `"Skipping health check - No categories configured"`
+   - [ ] `"Waiting for security reboot to complete"`
+   - [ ] `"Reader software update in progress"`
+
+3. **Is discovery happening?**
+   - [ ] Search for `"Attempting reader reconnection"`
+   - [ ] Search for `"discoverReaders"` calls
+
+4. **Are readers being discovered?**
+   - [ ] Check `"ReaderHealthManager:DiscoveredReaderChange:"` logs
+   - [ ] Verify `discoveredReaders` is not empty
+
+5. **Is auto-connect triggering?**
+   - [ ] Search for `"ReaderHealthManager:ConnectingToReader:"`
+   - [ ] Verify locked reader matches discovered reader
+
+6. **For security reboots specifically:**
+   - [ ] `"Security reboot detected"` at T+0s
+   - [ ] `"Waiting for security reboot to complete"` every 30s
+   - [ ] `"Security reboot wait complete"` at T+120s
+   - [ ] Recovery attempts starting at T+150s (120s wait + 30s first backoff)
 
 ---
 

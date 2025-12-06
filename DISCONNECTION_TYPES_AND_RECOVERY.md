@@ -127,8 +127,8 @@ This document outlines all the different types of reader and internet disconnect
 **Recovery Steps:**
 1. Detect via `lastDisconnectReason`
 2. Set `isHandlingSecurityReboot = true`
-3. **Wait 60 seconds** for reader to complete reboot
-4. After 60s wait:
+3. **Wait 2 minutes (120 seconds)** for reader to complete reboot
+4. After 2-minute wait:
    - Reset recovery state
    - Allow normal reconnection to proceed
 5. Use standard exponential backoff after initial wait
@@ -302,7 +302,7 @@ recoveryState: {
 Recovery is **skipped** when:
 - Not in kiosk mode (`isGuidedAccessEnabled !== true`)
 - No categories configured (`filteredCategories.length === 0`)
-- Handling security reboot (60s wait period)
+- Handling security reboot (2-minute wait period)
 - Reader software update in progress
 - Not in payment layout screens (during setup/configuration)
 

@@ -1,0 +1,219 @@
+2025-12-02T17:46:33.552Z [INFO]:[ASYNC]: isGuidedAccessEnabled :: false
+2025-12-02T17:46:33.553Z [INFO]:[ASYNC]: netInfoState :: {}
+2025-12-02T17:46:33.555Z [INFO]:[ASYNC]: Start fetchTokenProvider :: {"fetchURL":"https://sandbox.api.goodbricks.app/stripe/connection-token?organizationPublicId="}
+2025-12-02T17:46:33.556Z [INFO]:[ASYNC]: Start fetchTokenProvider :: {"fetchURL":"https://sandbox.api.goodbricks.app/stripe/connection-token?organizationPublicId="}
+2025-12-02T17:46:33.557Z [INFO]:[ASYNC]: netInfoState :: {"type":"wifi","isConnected":true,"details":{"ipAddress":"192.168.7.199","subnet":"255.255.252.0","isConnectionExpensive":false},"isInternetReachable":null}
+2025-12-02T17:46:33.558Z [INFO]:[ASYNC]: netInfoState :: {"type":"wifi","isConnected":true,"details":{"ipAddress":"192.168.7.199","subnet":"255.255.252.0","isConnectionExpensive":false},"isInternetReachable":null}
+2025-12-02T17:46:33.734Z [INFO]:[ASYNC]: netInfoState :: {"type":"wifi","isConnected":true,"details":{"ipAddress":"192.168.7.199","subnet":"255.255.252.0","isConnectionExpensive":false},"isInternetReachable":true}
+2025-12-02T17:46:34.039Z [INFO]:[ASYNC]: guidedAccessStatusDidChange:  :: {"enabled":false}
+2025-12-02T17:47:07.128Z [INFO]:[ASYNC]: Done fetchTokenProvider :: {"connectionToken":"pst_test_YWNjdF8xQU1WY3FMc0JnZzlDQzQ2LGlhNWhxSFZrbTczQWNURUNmdHl2QUJrR2xEVUxnUTI_00axd8PxBy","locationId":"tml_Enq6AmuRiHOSAi","applicationFeesCapInCents":3000,"applicationFeesInPercent":1.5,"receiptAmountThresholdInDollars":50}
+2025-12-02T17:47:07.130Z [INFO]:[ASYNC]: Updated fetchTokenProvider :: {"organization":{"message":"Internal server error"},"environment":"sandbox"}
+2025-12-02T17:47:08.556Z [INFO]:[ASYNC]: Start fetchTokenProvider :: {"fetchURL":"https://sandbox.api.goodbricks.app/stripe/connection-token?organizationPublicId=icsd.org"}
+2025-12-02T17:47:08.835Z [INFO]:[ASYNC]: Done fetchTokenProvider :: {"connectionToken":"pst_test_YWNjdF8xQU1WY3FMc0JnZzlDQzQ2LG9JQVZXZWtpZHlaeGROTG9EcXJSeEprS3dwak04UGk_00KLDXpnbc","locationId":"tml_Enq6AmuRiHOSAi","applicationFeesCapInCents":3000,"applicationFeesInPercent":1.5,"receiptAmountThresholdInDollars":50}
+2025-12-02T17:47:09.078Z [INFO]:[ASYNC]: guidedAccessStatusDidChange:  :: {"enabled":false}
+2025-12-02T17:47:10.451Z [INFO]:[1764697630447]: Discovering Readers. isSimulator: false :: ""
+2025-12-02T17:47:10.460Z [INFO]:[FE-1764697630456]: Discovering readers :: "discovering readers"
+2025-12-02T17:47:10.472Z [INFO]:[ASYNC]: onDidChangeConnectionStatus :: "discovering"
+2025-12-02T17:47:10.477Z [INFO]:[FE-1764697630476]: Reader Connection Status :: "discovering"
+2025-12-02T17:47:23.225Z [INFO]:[ASYNC]: onUpdateDiscoveredReaders :: [{"status":"offline","simulated":false,"batteryStatus":"unknown","location":{"displayName":"ICSD Primary Location","phone":null,"id":"tml_Enq6AmuRiHOSAi","addressKana":null,"address":{"line1":"6666 Beadnell Way Unit 8","state":"CA","town":null,"line2":"","postalCode":"92117","country":"US","city":"San Diego"},"addressKanji":null,"livemode":false,"displayNameKana":null,"displayNameKanji":null},"availableUpdate":null,"deviceType":"chipper2X","isCharging":null,"deviceSoftwareVersion":null,"ipAddress":null,"locationStatus":"set","serialNumber":"CHB202937003343","batteryLevel":null,"label":null,"locationId":"tml_Enq6AmuRiHOSAi","id":null}]
+2025-12-02T17:47:23.234Z [INFO]:[FE-1764697643230]: Discovered Readers :: [{"status":"offline","simulated":false,"batteryStatus":"unknown","location":{"displayName":"ICSD Primary Location","phone":null,"id":"tml_Enq6AmuRiHOSAi","addressKana":null,"address":{"line1":"6666 Beadnell Way Unit 8","state":"CA","town":null,"line2":"","postalCode":"92117","country":"US","city":"San Diego"},"addressKanji":null,"livemode":false,"displayNameKana":null,"displayNameKanji":null},"availableUpdate":null,"deviceType":"chipper2X","isCharging":null,"deviceSoftwareVersion":null,"ipAddress":null,"locationStatus":"set","serialNumber":"CHB202937003343","batteryLevel":null,"label":null,"locationId":"tml_Enq6AmuRiHOSAi","id":null}]
+2025-12-02T17:47:23.241Z [INFO]:[FE-1764697643240]: ReaderHealthManager:DiscoveredReaderChange:  :: {"lockedReader":"","connectingToReader":false,"readerDiscoveryStatus":"discovering-readers","readerConnectionStatus":"discovering","discoveredReaders":[{"status":"offline","simulated":false,"batteryStatus":"unknown","location":{"displayName":"ICSD Primary Location","phone":null,"id":"tml_Enq6AmuRiHOSAi","addressKana":null,"address":{"line1":"6666 Beadnell Way Unit 8","state":"CA","town":null,"line2":"","postalCode":"92117","country":"US","city":"San Diego"},"addressKanji":null,"livemode":false,"displayNameKana":null,"displayNameKanji":null},"availableUpdate":null,"deviceType":"chipper2X","isCharging":null,"deviceSoftwareVersion":null,"ipAddress":null,"locationStatus":"set","serialNumber":"CHB202937003343","batteryLevel":null,"label":null,"locationId":"tml_Enq6AmuRiHOSAi","id":null}]}
+2025-12-02T17:47:23.425Z [INFO]:[ASYNC]: guidedAccessStatusDidChange:  :: {"enabled":false}
+2025-12-02T17:47:24.801Z [INFO]:[1764697644797]: handleConnectReader  :: {"payload":{"serialNumber":"CHB202937003343","offlineModePreference":"auto"},"discoveredReaders":[{"status":"offline","simulated":false,"batteryStatus":"unknown","location":{"displayName":"ICSD Primary Location","phone":null,"id":"tml_Enq6AmuRiHOSAi","addressKana":null,"address":{"line1":"6666 Beadnell Way Unit 8","state":"CA","town":null,"line2":"","postalCode":"92117","country":"US","city":"San Diego"},"addressKanji":null,"livemode":false,"displayNameKana":null,"displayNameKanji":null},"availableUpdate":null,"deviceType":"chipper2X","isCharging":null,"deviceSoftwareVersion":null,"ipAddress":null,"locationStatus":"set","serialNumber":"CHB202937003343","batteryLevel":null,"label":null,"locationId":"tml_Enq6AmuRiHOSAi","id":null}]}
+2025-12-02T17:47:24.805Z [INFO]:[1764697644797]: handleConnectBluetoothReader  :: {"selectReader":{"status":"offline","simulated":false,"batteryStatus":"unknown","location":{"displayName":"ICSD Primary Location","phone":null,"id":"tml_Enq6AmuRiHOSAi","addressKana":null,"address":{"line1":"6666 Beadnell Way Unit 8","state":"CA","town":null,"line2":"","postalCode":"92117","country":"US","city":"San Diego"},"addressKanji":null,"livemode":false,"displayNameKana":null,"displayNameKanji":null},"availableUpdate":null,"deviceType":"chipper2X","isCharging":null,"deviceSoftwareVersion":null,"ipAddress":null,"locationStatus":"set","serialNumber":"CHB202937003343","batteryLevel":null,"label":null,"locationId":"tml_Enq6AmuRiHOSAi","id":null},"offlineModePreference":"auto"}
+2025-12-02T17:47:24.809Z [INFO]:[1764697644797]: Offline mode preference: auto, enabling: true :: {}
+2025-12-02T17:47:24.934Z [INFO]:[1764697630447]: discovering readers :: "started"
+2025-12-02T17:47:24.945Z [INFO]:[ASYNC]: onDidChangeConnectionStatus :: "connecting"
+2025-12-02T17:47:24.962Z [INFO]:[FE-1764697644957]: Canceled Discovering Readers :: "onFinishDiscoveringReaders error undefined"
+2025-12-02T17:47:24.963Z [INFO]:[FE-1764697644958]: Discovered Readers :: [{"status":"offline","simulated":false,"batteryStatus":"unknown","location":{"displayName":"ICSD Primary Location","phone":null,"id":"tml_Enq6AmuRiHOSAi","addressKana":null,"address":{"line1":"6666 Beadnell Way Unit 8","state":"CA","town":null,"line2":"","postalCode":"92117","country":"US","city":"San Diego"},"addressKanji":null,"livemode":false,"displayNameKana":null,"displayNameKanji":null},"availableUpdate":null,"deviceType":"chipper2X","isCharging":null,"deviceSoftwareVersion":null,"ipAddress":null,"locationStatus":"set","serialNumber":"CHB202937003343","batteryLevel":null,"label":null,"locationId":"tml_Enq6AmuRiHOSAi","id":null}]
+2025-12-02T17:47:24.964Z [INFO]:[FE-1764697644958]: ReaderHealthManager:DiscoveredReaderChange:  :: {"lockedReader":"","connectingToReader":false,"readerDiscoveryStatus":"canceled-discovering-readers","readerConnectionStatus":"discovering","discoveredReaders":[{"status":"offline","simulated":false,"batteryStatus":"unknown","location":{"displayName":"ICSD Primary Location","phone":null,"id":"tml_Enq6AmuRiHOSAi","addressKana":null,"address":{"line1":"6666 Beadnell Way Unit 8","state":"CA","town":null,"line2":"","postalCode":"92117","country":"US","city":"San Diego"},"addressKanji":null,"livemode":false,"displayNameKana":null,"displayNameKanji":null},"availableUpdate":null,"deviceType":"chipper2X","isCharging":null,"deviceSoftwareVersion":null,"ipAddress":null,"locationStatus":"set","serialNumber":"CHB202937003343","batteryLevel":null,"label":null,"locationId":"tml_Enq6AmuRiHOSAi","id":null}]}
+2025-12-02T17:47:24.965Z [INFO]:[FE-1764697644958]: Discovering readers :: "discovering readers"
+2025-12-02T17:47:24.965Z [INFO]:[FE-1764697644959]: Reader Connection Status :: "connecting"
+2025-12-02T17:47:27.849Z [WARN]:[ASYNC]: onDidReportLowBatteryWarning :: ""
+2025-12-02T17:47:27.852Z [INFO]:[FE-1764697647851]: Unhandled Event :: {"topic":"goodbricks.reportLowBatteryWarning","message":"","executionContext":null}
+2025-12-02T17:47:27.881Z [INFO]:[ASYNC]: Start fetchTokenProvider :: {"fetchURL":"https://sandbox.api.goodbricks.app/stripe/connection-token?organizationPublicId=icsd.org"}
+2025-12-02T17:47:28.195Z [INFO]:[ASYNC]: Done fetchTokenProvider :: {"connectionToken":"pst_test_YWNjdF8xQU1WY3FMc0JnZzlDQzQ2LG9hZ1hudW1wZjNqRkdaR0NBd2pSMk1icU1lMVdKNWk_003pgPCQeI","locationId":"tml_Enq6AmuRiHOSAi","applicationFeesCapInCents":3000,"applicationFeesInPercent":1.5,"receiptAmountThresholdInDollars":50}
+2025-12-02T17:47:28.837Z [INFO]:[ASYNC]: onDidChangeOfflineStatus:  :: {"sdk":{"offlinePaymentAmountsByCurrency":{},"networkStatus":"online","offlinePaymentsCount":0}}
+2025-12-02T17:47:28.841Z [INFO]:[FE-1764697648840]: Reader Offline Status :: {"sdk":{"offlinePaymentAmountsByCurrency":{},"networkStatus":"online","offlinePaymentsCount":0}}
+2025-12-02T17:47:28.842Z [INFO]:[FE-1764697648840]: ðŸŒ [Network Recovery] Network is back online :: {"newStatus":"online"}
+2025-12-02T17:47:29.671Z [INFO]:[ASYNC]: onDidChangeConnectionStatus :: "connected"
+2025-12-02T17:47:29.675Z [INFO]:[ASYNC]: Battery Level:  :: 0.33000001311302185
+2025-12-02T17:47:29.678Z [INFO]:[ASYNC]: onDidChangePaymentStatus:  :: "ready"
+2025-12-02T17:47:29.685Z [INFO]:[1764697644797]: Reader connected successfully :: {"status":"offline","simulated":false,"batteryStatus":"nominal","location":{"displayName":"ICSD Primary Location","phone":null,"id":"tml_Enq6AmuRiHOSAi","addressKana":null,"address":{"line1":"6666 Beadnell Way Unit 8","state":"CA","town":null,"line2":"","postalCode":"92117","country":"US","city":"San Diego"},"addressKanji":null,"livemode":false,"displayNameKana":null,"displayNameKanji":null},"availableUpdate":null,"deviceType":"chipper2X","isCharging":false,"deviceSoftwareVersion":"1.00.03.51-SZZZ_Generic_v51-300001","ipAddress":null,"locationStatus":"set","serialNumber":"CHB202937003343","batteryLevel":0.33000001311302185,"label":null,"locationId":"tml_Enq6AmuRiHOSAi","id":"tmr_GQWCggQG3YYSHi"}
+2025-12-02T17:47:29.694Z [WARN]:[1764697644797]: cancelDiscovering error :: {"message":"discoverReaders could not be canceled because the command has already been canceled or has completed.","code":"CancelFailedAlreadyCompleted"}
+2025-12-02T17:47:29.696Z [INFO]:[1764697644797]: cancelDiscoverReaders :: "done"
+2025-12-02T17:47:29.698Z [INFO]:[FE-1764697649694]: Reader Connection Status :: "connected"
+2025-12-02T17:47:29.699Z [INFO]:[FE-1764697649697]: Battery Level Update :: {"batteryLevel":0.33000001311302185,"isCharging":false,"batteryStatus":"nominal"}
+2025-12-02T17:47:29.701Z [INFO]:[FE-1764697649700]: Battery Level Update :: 0.33000001311302185
+2025-12-02T17:47:29.702Z [INFO]:[FE-1764697649700]: Reader Connected :: {"status":"offline","simulated":false,"batteryStatus":"nominal","location":{"displayName":"ICSD Primary Location","phone":null,"id":"tml_Enq6AmuRiHOSAi","addressKana":null,"address":{"line1":"6666 Beadnell Way Unit 8","state":"CA","town":null,"line2":"","postalCode":"92117","country":"US","city":"San Diego"},"addressKanji":null,"livemode":false,"displayNameKana":null,"displayNameKanji":null},"availableUpdate":null,"deviceType":"chipper2X","isCharging":false,"deviceSoftwareVersion":"1.00.03.51-SZZZ_Generic_v51-300001","ipAddress":null,"locationStatus":"set","serialNumber":"CHB202937003343","batteryLevel":0.33000001311302185,"label":null,"locationId":"tml_Enq6AmuRiHOSAi","id":"tmr_GQWCggQG3YYSHi"}
+2025-12-02T17:47:29.703Z [INFO]:[FE-1764697649701]: ReaderHealthManager:ConnectedReader:  :: {"connectedReader":"CHB202937003343","readerConnectionStatus":"connected","connectingToReader":false}
+2025-12-02T17:47:29.704Z [INFO]:[FE-1764697649701]: Canceled Discovering Readers :: "canceled discover readers"
+2025-12-02T17:47:47.031Z [INFO]:[FE-1764697667029]: ReadyToPayScreen mounted :: {"category":{"coverFeePercentage":"3.00","coverFees":true,"defaultAmount":"100","defaultAmounts":"2500,1000,750,500","displayOrder":999,"externalCategoryId":null,"id":"masjid-operations-2025","name":"masjid operations 2025","showNotes":false,"slug":"masjid-operations-2025","tags":"","text":"masjid operations 2025"},"amount":11,"context":{}}
+2025-12-02T17:47:47.033Z [INFO]:[FE-1764697667030]: ReadyToPayScreen: Payment status changed :: "ready"
+2025-12-02T17:47:47.034Z [INFO]:[FE-1764697667031]: ReadyToPayScreen: Payment status changed :: "initialized"
+2025-12-02T17:47:47.036Z [INFO]:[FE-1764697667031]: ReadyToPayScreen: Creating payment intent :: {"reason":"refresh","sdkOnline":true}
+2025-12-02T17:47:47.036Z [INFO]:[FE-1764697667031]: ReadyToPayScreen: Creating payment intent :: {"totalAmount":11,"category":"masjid operations 2025"}
+2025-12-02T17:47:47.061Z [INFO]:[1764697667057]: ðŸ”„ [Native] Creating payment intent :: {"amount":1100,"offlineBehavior":"require_online","offlineModePreference":"disabled","shouldEnableOfflineMode":false}
+2025-12-02T17:47:47.619Z [INFO]:[1764697667057]: âœ… [Native] Payment intent created successfully :: {"paymentIntentId":"pi_3SZxfzLsBgg9CC461F8wiPth"}
+2025-12-02T17:47:47.624Z [INFO]:[FE-1764697667622]: âœ… [Payment Intent] Created :: {"paymentIntentId":"pi_3SZxfzLsBgg9CC461F8wiPth","previousPaymentIntentId":""}
+2025-12-02T17:47:47.625Z [INFO]:[FE-1764697667624]: ReadyToPayScreen: Payment status changed :: "initialized"
+2025-12-02T17:47:47.626Z [INFO]:[FE-1764697667624]: â±ï¸ [Payment Intent Timeout] Tracking handled by ReaderHealthManager :: {"paymentIntentId":"pi_3SZxfzLsBgg9CC461F8wiPth","createdAt":1764697667620}
+2025-12-02T17:47:47.633Z [INFO]:[ASYNC]: onDidChangePaymentStatus:  :: "waitingForInput"
+2025-12-02T17:47:47.636Z [INFO]:[FE-1764697667635]: ReadyToPayScreen: Payment status changed :: "waitingForInput"
+2025-12-02T17:47:47.726Z [WARN]:[ASYNC]: onDidReportLowBatteryWarning :: ""
+2025-12-02T17:47:47.728Z [INFO]:[FE-1764697667727]: Unhandled Event :: {"topic":"goodbricks.reportLowBatteryWarning","message":"","executionContext":null}
+2025-12-02T17:47:47.824Z [INFO]:[ASYNC]: onDidRequestReaderInput:  :: ["swipeCard","insertCard","tapCard"]
+2025-12-02T17:47:47.827Z [INFO]:[FE-1764697667826]: ReadyToPayScreen: Payment status changed :: "readerInput"
+2025-12-02T17:47:53.939Z [INFO]:[ASYNC]: netInfoState :: {"type":"wifi","isConnected":true,"details":{"ipAddress":"192.168.7.199","subnet":"255.255.252.0","isConnectionExpensive":false},"isInternetReachable":false}
+2025-12-02T17:47:53.940Z [INFO]:[ASYNC]: netInfoState :: {"type":"none","isConnected":false,"details":{},"isInternetReachable":false}
+2025-12-02T17:47:53.946Z [INFO]:[FE-1764697673943]: Internet Connection Change :: {"type":"wifi","isConnected":true,"details":{"ipAddress":"192.168.7.199","subnet":"255.255.252.0","isConnectionExpensive":false},"isInternetReachable":false}
+2025-12-02T17:47:53.946Z [INFO]:[FE-1764697673944]: Internet Connection Change :: {"type":"none","isConnected":false,"details":{},"isInternetReachable":false}
+2025-12-02T17:47:53.950Z [INFO]:[ASYNC]: onDidChangeOfflineStatus:  :: {"sdk":{"offlinePaymentAmountsByCurrency":{},"networkStatus":"offline","offlinePaymentsCount":0}}
+2025-12-02T17:47:53.952Z [WARN]:[ASYNC]: ðŸ“´ SDK went offline - offline mode active :: {"pendingPayments":0}
+2025-12-02T17:47:53.955Z [INFO]:[FE-1764697673954]: Reader Offline Status :: {"sdk":{"offlinePaymentAmountsByCurrency":{},"networkStatus":"offline","offlinePaymentsCount":0}}
+2025-12-02T17:47:53.957Z [INFO]:[FE-1764697673955]: ReadyToPayScreen: Payment status changed :: "readerInput"
+2025-12-02T17:47:55.491Z [INFO]:[ASYNC]: Start fetchTokenProvider :: {"fetchURL":"https://sandbox.api.goodbricks.app/stripe/connection-token?organizationPublicId=icsd.org"}
+2025-12-02T17:47:56.021Z [INFO]:[ASYNC]: guidedAccessStatusDidChange:  :: {"enabled":false}
+2025-12-02T17:47:58.879Z [INFO]:[ASYNC]: onDidRequestReaderDisplayMessage:  :: "removeCard"
+2025-12-02T17:47:58.884Z [INFO]:[FE-1764697678883]: ReadyToPayScreen: Payment status changed :: "removeCard"
+2025-12-02T17:48:00.189Z [INFO]:[ASYNC]: onDidChangePaymentStatus:  :: "ready"
+2025-12-02T17:48:00.195Z [INFO]:[1764697667057]: Collect Payment Method successful :: {"sdkUuid":"3821A0BD-C3A9-48AA-A71C-D13070ED5FAB","status":"requiresConfirmation","created":"1764697667000","amountDetails":{"tip":{"amount":null}},"offlineDetails":null,"currency":"usd","captureMethod":"automatic","paymentMethodId":null,"statementDescriptor":null,"paymentMethodOptions":{"cardPresent":{"requestPartialAuthorization":"","requestExtendedAuthorization":false,"surcharge":null,"requestIncrementalAuthorizationSupport":false}},"statementDescriptorSuffix":null,"paymentMethod":null,"amountTip":0,"id":"pi_3SZxfzLsBgg9CC461F8wiPth","metadata":{"donation_date_epoch":"1764697667031","total_amount":"11","slug":"masjid-operations-2025","reader_serial_number":"CHB202937003343","notes":"Tap-to-Pay","platform":"Goodbricks","terminal_name":"CHB202937003343","payment_mode":"Terminal","purpose":"masjid operations 2025","covered_fees_amount":"0","covered_fees":"false","donation_date":"12/2/2025, 9:47:47 AM","purpose_slug":"masjid-operations-2025"},"charges":[],"amount":1100}
+2025-12-02T17:48:00.200Z [INFO]:[FE-1764697680197]: ReadyToPayScreen: Payment status changed :: "ready"
+2025-12-02T17:48:00.210Z [INFO]:[ASYNC]: onDidChangePaymentStatus:  :: "processing"
+2025-12-02T17:48:00.226Z [INFO]:[ASYNC]: onDidChangePaymentStatus:  :: "ready"
+2025-12-02T17:48:00.230Z [ERROR]:[1764697667057]: confirmPaymentIntent error :: {"message":"iOS device is offline and the PaymentIntent was created with `offlineBehavior` set to `requiresOnline`.","code":"SCPErrorNotConnectedToInternetAndOfflineBehaviorRequiresOnline"}
+2025-12-02T17:48:00.232Z [INFO]:[FE-1764697680228]: ReadyToPayScreen: Payment status changed :: "processing"
+2025-12-02T17:48:00.233Z [INFO]:[FE-1764697680228]: ReadyToPayScreen: Card tapped, transitioning to payment flow :: undefined
+2025-12-02T17:48:00.236Z [INFO]:[FE-1764697680231]: PaymentProcessingScreen :: "PaymentProcessingScreen"
+2025-12-02T17:48:00.236Z [INFO]:[FE-1764697680231]: PaymentProcessingScreen:displayPaymentProcessingAnimation:  :: {"paymentProcessingStatus":"processing"}
+2025-12-02T17:48:00.241Z [INFO]:[FE-1764697680238]: PaymentProcessingScreen :: "PaymentProcessingScreen"
+2025-12-02T17:48:00.241Z [INFO]:[FE-1764697680238]: PaymentProcessingScreen:displayPaymentProcessingAnimation:  :: {"paymentProcessingStatus":"ready"}
+2025-12-02T17:48:00.242Z [INFO]:[FE-1764697680240]: â±ï¸ [Payment Intent Timeout] Tracking handled by ReaderHealthManager :: {"paymentIntentId":"pi_3SZxfzLsBgg9CC461F8wiPth","reason":"confirm_payment_error","errorCode":"SCPErrorNotConnectedToInternetAndOfflineBehaviorRequiresOnline"}
+2025-12-02T17:48:00.242Z [ERROR]:[FE-1764697680240]: Confirm Payment Intent :: "iOS device is offline and the PaymentIntent was created with `offlineBehavior` set to `requiresOnline`."
+2025-12-02T17:48:00.243Z [INFO]:[FE-1764697680240]: PaymentProcessingScreen :: "PaymentProcessingScreen"
+2025-12-02T17:48:00.243Z [INFO]:[FE-1764697680240]: PaymentProcessingScreen:displayPaymentProcessingAnimation:  :: {"error":{"title":"Confirm Payment Intent","message":"iOS device is offline and the PaymentIntent was created with `offlineBehavior` set to `requiresOnline`.","suppressDialog":true}}
+2025-12-02T17:48:09.252Z [INFO]:[1764697689243]: ðŸ—‘ï¸ [Native] Canceling collect payment method :: {"paymentIntentId":"pi_3SZxfzLsBgg9CC461F8wiPth"}
+2025-12-02T17:48:09.260Z [INFO]:[1764697689244]: cancelCollectSetupIntent :: "done"
+2025-12-02T17:48:09.264Z [INFO]:[FE-1764697689254]: ReadyToPayScreen mounted :: {"category":{"coverFeePercentage":"3.00","coverFees":true,"defaultAmount":"100","defaultAmounts":"2500,1000,750,500","displayOrder":999,"externalCategoryId":null,"id":"masjid-operations-2025","name":"masjid operations 2025","showNotes":false,"slug":"masjid-operations-2025","tags":"","text":"masjid operations 2025"},"amount":11,"context":{}}
+2025-12-02T17:48:09.265Z [INFO]:[FE-1764697689255]: ReadyToPayScreen: Payment status changed :: "initialized"
+2025-12-02T17:48:09.267Z [WARN]:[FE-1764697689255]: ReadyToPayScreen: Cannot create payment intent - SDK offline :: {"connectedReader":"CHB202937003343","sdkOnline":false}
+2025-12-02T17:48:09.267Z [INFO]:[1764697689243]: âœ… [Native] Collect payment method canceled successfully :: {"paymentIntentId":"pi_3SZxfzLsBgg9CC461F8wiPth"}
+2025-12-02T17:48:09.270Z [INFO]:[FE-1764697689267]: Unhandled Event :: {"topic":"goodbricks.cancelCollectSetupIntent","message":"cancel Collect Setup Intent","executionContext":{"messageId":"ASYNC"}}
+2025-12-02T17:48:09.272Z [INFO]:[1764697689243]: ðŸ—‘ï¸ [Native] Canceling payment intent :: {"paymentIntentId":"pi_3SZxfzLsBgg9CC461F8wiPth"}
+2025-12-02T17:48:09.274Z [INFO]:[FE-1764697689269]: ðŸ—‘ï¸ [Payment Intent] Collect payment method canceled :: {"paymentIntentId":"pi_3SZxfzLsBgg9CC461F8wiPth"}
+2025-12-02T17:48:09.275Z [INFO]:[FE-1764697689271]: â±ï¸ [Payment Intent Timeout] Tracking handled by ReaderHealthManager :: {"paymentIntentId":"pi_3SZxfzLsBgg9CC461F8wiPth","reason":"payment_canceled"}
+2025-12-02T17:48:09.282Z [ERROR]:[ASYNC]: âŒ [Native] Retrieve payment intent error: pi_3SZxfzLsBgg9CC461F8wiPth :: {"message":"The SDK is not connected to the Internet.","code":"NotConnectedToInternet"}
+2025-12-02T17:48:09.286Z [WARN]:[FE-1764697689285]: Retrieve PaymentIntent Error :: "The SDK is not connected to the Internet."
+2025-12-02T17:48:15.235Z [INFO]:[ASYNC]: Start fetchTokenProvider :: {"fetchURL":"https://sandbox.api.goodbricks.app/stripe/connection-token?organizationPublicId=icsd.org"}
+2025-12-02T17:48:15.339Z [WARN]:[ASYNC]: onDidReportLowBatteryWarning :: ""
+2025-12-02T17:48:15.343Z [INFO]:[FE-1764697695341]: Unhandled Event :: {"topic":"goodbricks.reportLowBatteryWarning","message":"","executionContext":null}
+2025-12-02T17:48:15.356Z [INFO]:[ASYNC]: Battery Level:  :: 0.28999999165534973
+2025-12-02T17:48:15.367Z [INFO]:[FE-1764697695362]: Battery Level Update :: {"batteryLevel":0.28999999165534973,"isCharging":false,"batteryStatus":"nominal"}
+2025-12-02T17:48:15.776Z [INFO]:[ASYNC]: guidedAccessStatusDidChange:  :: {"enabled":false}
+2025-12-02T17:48:18.613Z [INFO]:[ASYNC]: netInfoState :: {"type":"none","isConnected":false,"details":{},"isInternetReachable":false}
+2025-12-02T17:48:18.619Z [INFO]:[FE-1764697698616]: Internet Connection Change :: {"type":"none","isConnected":false,"details":{},"isInternetReachable":false}
+2025-12-02T17:48:18.738Z [INFO]:[ASYNC]: netInfoState :: {"type":"none","isConnected":false,"details":{},"isInternetReachable":false}
+2025-12-02T17:48:18.745Z [INFO]:[FE-1764697698740]: Internet Connection Change :: {"type":"none","isConnected":false,"details":{},"isInternetReachable":false}
+2025-12-02T17:48:18.899Z [INFO]:[ASYNC]: netInfoState :: {"type":"none","isConnected":false,"details":{},"isInternetReachable":null}
+2025-12-02T17:48:18.900Z [INFO]:[ASYNC]: netInfoState :: {"type":"cellular","isConnected":true,"details":{"cellularGeneration":"5g","isConnectionExpensive":true,"carrier":"--"},"isInternetReachable":null}
+2025-12-02T17:48:18.907Z [INFO]:[FE-1764697698901]: Internet Connection Change :: {"type":"none","isConnected":false,"details":{},"isInternetReachable":null}
+2025-12-02T17:48:18.907Z [INFO]:[FE-1764697698903]: Internet Connection Change :: {"type":"cellular","isConnected":true,"details":{"cellularGeneration":"5g","isConnectionExpensive":true,"carrier":"--"},"isInternetReachable":null}
+2025-12-02T17:48:19.258Z [INFO]:[ASYNC]: netInfoState :: {"type":"cellular","isConnected":true,"details":{"cellularGeneration":"5g","isConnectionExpensive":true,"carrier":"--"},"isInternetReachable":true}
+2025-12-02T17:48:19.263Z [INFO]:[FE-1764697699258]: Internet Connection Change :: {"type":"cellular","isConnected":true,"details":{"cellularGeneration":"5g","isConnectionExpensive":true,"carrier":"--"},"isInternetReachable":true}
+2025-12-02T17:48:20.164Z [INFO]:[ASYNC]: Start fetchTokenProvider :: {"fetchURL":"https://sandbox.api.goodbricks.app/stripe/connection-token?organizationPublicId=icsd.org"}
+2025-12-02T17:48:20.253Z [WARN]:[ASYNC]: onDidReportLowBatteryWarning :: ""
+2025-12-02T17:48:20.257Z [INFO]:[FE-1764697700255]: Unhandled Event :: {"topic":"goodbricks.reportLowBatteryWarning","message":"","executionContext":null}
+2025-12-02T17:48:20.272Z [INFO]:[ASYNC]: Battery Level:  :: 0.2800000011920929
+2025-12-02T17:48:20.283Z [INFO]:[FE-1764697700278]: Battery Level Update :: {"batteryLevel":0.2800000011920929,"isCharging":false,"batteryStatus":"nominal"}
+2025-12-02T17:48:20.696Z [INFO]:[ASYNC]: guidedAccessStatusDidChange:  :: {"enabled":false}
+2025-12-02T17:48:20.886Z [INFO]:[ASYNC]: Done fetchTokenProvider :: {"connectionToken":"pst_test_YWNjdF8xQU1WY3FMc0JnZzlDQzQ2LEI0Q1FPVm81YkJtdXJic09jRHBTRHNoemVUNEJSSlo_00w8dBXR36","locationId":"tml_Enq6AmuRiHOSAi","applicationFeesCapInCents":3000,"applicationFeesInPercent":1.5,"receiptAmountThresholdInDollars":50}
+2025-12-02T17:48:21.350Z [INFO]:[ASYNC]: netInfoState :: {"type":"wifi","isConnected":true,"details":{"ipAddress":"192.168.7.199","subnet":"255.255.252.0","isConnectionExpensive":false},"isInternetReachable":true}
+2025-12-02T17:48:21.356Z [INFO]:[FE-1764697701352]: Internet Connection Change :: {"type":"wifi","isConnected":true,"details":{"ipAddress":"192.168.7.199","subnet":"255.255.252.0","isConnectionExpensive":false},"isInternetReachable":true}
+2025-12-02T17:48:34.083Z [INFO]:[ASYNC]: onDidChangeOfflineStatus:  :: {"sdk":{"offlinePaymentAmountsByCurrency":{},"networkStatus":"online","offlinePaymentsCount":0}}
+2025-12-02T17:48:34.091Z [INFO]:[FE-1764697714087]: Reader Offline Status :: {"sdk":{"offlinePaymentAmountsByCurrency":{},"networkStatus":"online","offlinePaymentsCount":0}}
+2025-12-02T17:48:34.092Z [INFO]:[FE-1764697714087]: ðŸŒ [Network Recovery] Network is back online :: {"previousStatus":"offline","newStatus":"online"}
+2025-12-02T17:48:34.095Z [INFO]:[FE-1764697714089]: ReadyToPayScreen: Payment status changed :: "initialized"
+2025-12-02T17:48:34.095Z [INFO]:[FE-1764697714089]: ReadyToPayScreen: Creating payment intent :: {"reason":"refresh","sdkOnline":true}
+2025-12-02T17:48:34.096Z [INFO]:[FE-1764697714089]: ReadyToPayScreen: Creating payment intent :: {"totalAmount":11,"category":"masjid operations 2025"}
+2025-12-02T17:48:34.096Z [INFO]:[1764697714090]: ðŸ”„ [Native] Creating payment intent :: {"amount":1100,"offlineBehavior":"require_online","offlineModePreference":"disabled","shouldEnableOfflineMode":false}
+2025-12-02T17:48:34.511Z [INFO]:[1764697714090]: âœ… [Native] Payment intent created successfully :: {"paymentIntentId":"pi_3SZxgkLsBgg9CC460KHIBjfC"}
+2025-12-02T17:48:34.517Z [INFO]:[FE-1764697714515]: âœ… [Payment Intent] Created :: {"paymentIntentId":"pi_3SZxgkLsBgg9CC460KHIBjfC","previousPaymentIntentId":""}
+2025-12-02T17:48:34.519Z [INFO]:[FE-1764697714517]: ReadyToPayScreen: Payment status changed :: "initialized"
+2025-12-02T17:48:34.520Z [INFO]:[FE-1764697714517]: â±ï¸ [Payment Intent Timeout] Tracking handled by ReaderHealthManager :: {"paymentIntentId":"pi_3SZxgkLsBgg9CC460KHIBjfC","createdAt":1764697714512}
+2025-12-02T17:48:34.527Z [INFO]:[ASYNC]: onDidChangePaymentStatus:  :: "waitingForInput"
+2025-12-02T17:48:34.531Z [INFO]:[FE-1764697714529]: ReadyToPayScreen: Payment status changed :: "waitingForInput"
+2025-12-02T17:48:34.712Z [WARN]:[ASYNC]: onDidReportLowBatteryWarning :: ""
+2025-12-02T17:48:34.715Z [INFO]:[FE-1764697714714]: Unhandled Event :: {"topic":"goodbricks.reportLowBatteryWarning","message":"","executionContext":null}
+2025-12-02T17:48:34.848Z [INFO]:[ASYNC]: onDidRequestReaderInput:  :: ["swipeCard","insertCard","tapCard"]
+2025-12-02T17:48:34.851Z [INFO]:[FE-1764697714850]: ReadyToPayScreen: Payment status changed :: "readerInput"
+2025-12-02T17:48:54.964Z [INFO]:[ASYNC]: netInfoState :: {"type":"wifi","isConnected":true,"details":{"ipAddress":"192.168.7.199","subnet":"255.255.252.0","isConnectionExpensive":false},"isInternetReachable":false}
+2025-12-02T17:48:54.964Z [INFO]:[ASYNC]: netInfoState :: {"type":"none","isConnected":false,"details":{},"isInternetReachable":false}
+2025-12-02T17:48:54.968Z [INFO]:[ASYNC]: onDidChangeOfflineStatus:  :: {"sdk":{"offlinePaymentAmountsByCurrency":{},"networkStatus":"offline","offlinePaymentsCount":0}}
+2025-12-02T17:48:54.969Z [WARN]:[ASYNC]: ðŸ“´ SDK went offline - offline mode active :: {"pendingPayments":0}
+2025-12-02T17:48:54.975Z [INFO]:[FE-1764697734967]: Internet Connection Change :: {"type":"wifi","isConnected":true,"details":{"ipAddress":"192.168.7.199","subnet":"255.255.252.0","isConnectionExpensive":false},"isInternetReachable":false}
+2025-12-02T17:48:54.976Z [INFO]:[FE-1764697734968]: Internet Connection Change :: {"type":"none","isConnected":false,"details":{},"isInternetReachable":false}
+2025-12-02T17:48:54.980Z [INFO]:[FE-1764697734973]: Reader Offline Status :: {"sdk":{"offlinePaymentAmountsByCurrency":{},"networkStatus":"offline","offlinePaymentsCount":0}}
+2025-12-02T17:48:54.981Z [INFO]:[FE-1764697734975]: ReadyToPayScreen: Payment status changed :: "readerInput"
+2025-12-02T17:48:56.940Z [INFO]:[ASYNC]: guidedAccessStatusDidChange:  :: {"enabled":false}
+2025-12-02T17:49:00.923Z [INFO]:[ASYNC]: onDidRequestReaderDisplayMessage:  :: "removeCard"
+2025-12-02T17:49:00.927Z [INFO]:[FE-1764697740926]: ReadyToPayScreen: Payment status changed :: "removeCard"
+2025-12-02T17:49:01.991Z [INFO]:[ASYNC]: onDidChangePaymentStatus:  :: "ready"
+2025-12-02T17:49:01.997Z [INFO]:[1764697714090]: Collect Payment Method successful :: {"sdkUuid":"0ACBC5A3-AD6C-4A03-A6B3-61A364F26453","status":"requiresConfirmation","created":"1764697714000","amountDetails":{"tip":{"amount":null}},"offlineDetails":null,"currency":"usd","captureMethod":"automatic","paymentMethodId":null,"statementDescriptor":null,"paymentMethodOptions":{"cardPresent":{"requestPartialAuthorization":"","requestExtendedAuthorization":false,"surcharge":null,"requestIncrementalAuthorizationSupport":false}},"statementDescriptorSuffix":null,"paymentMethod":null,"amountTip":0,"id":"pi_3SZxgkLsBgg9CC460KHIBjfC","metadata":{"donation_date_epoch":"1764697714089","total_amount":"11","slug":"masjid-operations-2025","reader_serial_number":"CHB202937003343","notes":"Tap-to-Pay","platform":"Goodbricks","terminal_name":"CHB202937003343","payment_mode":"Terminal","purpose":"masjid operations 2025","covered_fees_amount":"0","covered_fees":"false","donation_date":"12/2/2025, 9:48:34 AM","purpose_slug":"masjid-operations-2025"},"charges":[],"amount":1100}
+2025-12-02T17:49:01.997Z [INFO]:[FE-1764697741994]: ReadyToPayScreen: Payment status changed :: "ready"
+2025-12-02T17:49:02.008Z [INFO]:[ASYNC]: onDidChangePaymentStatus:  :: "processing"
+2025-12-02T17:49:02.024Z [INFO]:[ASYNC]: onDidChangePaymentStatus:  :: "ready"
+2025-12-02T17:49:02.029Z [ERROR]:[1764697714090]: confirmPaymentIntent error :: {"code":"SCPErrorNotConnectedToInternetAndOfflineBehaviorRequiresOnline","message":"iOS device is offline and the PaymentIntent was created with `offlineBehavior` set to `requiresOnline`."}
+2025-12-02T17:49:02.030Z [INFO]:[FE-1764697742028]: ReadyToPayScreen: Payment status changed :: "processing"
+2025-12-02T17:49:02.031Z [INFO]:[FE-1764697742028]: ReadyToPayScreen: Card tapped, transitioning to payment flow :: undefined
+2025-12-02T17:49:02.031Z [INFO]:[FE-1764697742029]: PaymentProcessingScreen :: "PaymentProcessingScreen"
+2025-12-02T17:49:02.032Z [INFO]:[FE-1764697742029]: PaymentProcessingScreen:displayPaymentProcessingAnimation:  :: {"paymentProcessingStatus":"processing"}
+2025-12-02T17:49:02.034Z [INFO]:[FE-1764697742031]: PaymentProcessingScreen :: "PaymentProcessingScreen"
+2025-12-02T17:49:02.035Z [INFO]:[FE-1764697742031]: PaymentProcessingScreen:displayPaymentProcessingAnimation:  :: {"paymentProcessingStatus":"ready"}
+2025-12-02T17:49:02.038Z [INFO]:[FE-1764697742037]: â±ï¸ [Payment Intent Timeout] Tracking handled by ReaderHealthManager :: {"paymentIntentId":"pi_3SZxgkLsBgg9CC460KHIBjfC","reason":"confirm_payment_error","errorCode":"SCPErrorNotConnectedToInternetAndOfflineBehaviorRequiresOnline"}
+2025-12-02T17:49:02.039Z [ERROR]:[FE-1764697742037]: Confirm Payment Intent :: "iOS device is offline and the PaymentIntent was created with `offlineBehavior` set to `requiresOnline`."
+2025-12-02T17:49:02.039Z [INFO]:[FE-1764697742037]: PaymentProcessingScreen :: "PaymentProcessingScreen"
+2025-12-02T17:49:02.040Z [INFO]:[FE-1764697742037]: PaymentProcessingScreen:displayPaymentProcessingAnimation:  :: {"error":{"title":"Confirm Payment Intent","message":"iOS device is offline and the PaymentIntent was created with `offlineBehavior` set to `requiresOnline`.","suppressDialog":true}}
+2025-12-02T17:49:05.685Z [INFO]:[1764697745679]: ðŸ—‘ï¸ [Native] Canceling collect payment method :: {"paymentIntentId":"pi_3SZxgkLsBgg9CC460KHIBjfC"}
+2025-12-02T17:49:05.691Z [INFO]:[1764697745679]: cancelCollectSetupIntent :: "done"
+2025-12-02T17:49:05.692Z [INFO]:[FE-1764697745687]: ReadyToPayScreen mounted :: {"category":{"coverFeePercentage":"3.00","coverFees":true,"defaultAmount":"100","defaultAmounts":"2500,1000,750,500","displayOrder":999,"externalCategoryId":null,"id":"masjid-operations-2025","name":"masjid operations 2025","showNotes":false,"slug":"masjid-operations-2025","tags":"","text":"masjid operations 2025"},"amount":11,"context":{}}
+2025-12-02T17:49:05.694Z [INFO]:[1764697745679]: âœ… [Native] Collect payment method canceled successfully :: {"paymentIntentId":"pi_3SZxgkLsBgg9CC460KHIBjfC"}
+2025-12-02T17:49:05.696Z [INFO]:[FE-1764697745688]: ReadyToPayScreen: Payment status changed :: "initialized"
+2025-12-02T17:49:05.697Z [WARN]:[FE-1764697745688]: ReadyToPayScreen: Cannot create payment intent - SDK offline :: {"connectedReader":"CHB202937003343","sdkOnline":false}
+2025-12-02T17:49:05.697Z [INFO]:[FE-1764697745695]: Unhandled Event :: {"topic":"goodbricks.cancelCollectSetupIntent","message":"cancel Collect Setup Intent","executionContext":{"messageId":"ASYNC"}}
+2025-12-02T17:49:05.698Z [INFO]:[1764697745679]: ðŸ—‘ï¸ [Native] Canceling payment intent :: {"paymentIntentId":"pi_3SZxgkLsBgg9CC460KHIBjfC"}
+2025-12-02T17:49:05.699Z [INFO]:[FE-1764697745696]: ðŸ—‘ï¸ [Payment Intent] Collect payment method canceled :: {"paymentIntentId":"pi_3SZxgkLsBgg9CC460KHIBjfC"}
+2025-12-02T17:49:05.700Z [INFO]:[FE-1764697745697]: â±ï¸ [Payment Intent Timeout] Tracking handled by ReaderHealthManager :: {"paymentIntentId":"pi_3SZxgkLsBgg9CC460KHIBjfC","reason":"payment_canceled"}
+2025-12-02T17:49:05.707Z [ERROR]:[ASYNC]: âŒ [Native] Retrieve payment intent error: pi_3SZxgkLsBgg9CC460KHIBjfC :: {"message":"The SDK is not connected to the Internet.","code":"NotConnectedToInternet"}
+2025-12-02T17:49:05.710Z [WARN]:[FE-1764697745709]: Retrieve PaymentIntent Error :: "The SDK is not connected to the Internet."
+2025-12-02T17:49:19.349Z [INFO]:[ASYNC]: netInfoState :: {"type":"none","isConnected":false,"details":{},"isInternetReachable":false}
+2025-12-02T17:49:19.364Z [INFO]:[FE-1764697759352]: Internet Connection Change :: {"type":"none","isConnected":false,"details":{},"isInternetReachable":false}
+2025-12-02T17:49:19.590Z [WARN]:[ASYNC]: onDidReportLowBatteryWarning :: ""
+2025-12-02T17:49:19.594Z [INFO]:[FE-1764697759591]: Unhandled Event :: {"topic":"goodbricks.reportLowBatteryWarning","message":"","executionContext":null}
+2025-12-02T17:49:19.625Z [INFO]:[ASYNC]: netInfoState :: {"type":"none","isConnected":false,"details":{},"isInternetReachable":null}
+2025-12-02T17:49:19.625Z [INFO]:[ASYNC]: onDidChangeOfflineStatus:  :: {"sdk":{"offlinePaymentAmountsByCurrency":{},"networkStatus":"unknown","offlinePaymentsCount":0}}
+2025-12-02T17:49:19.626Z [INFO]:[ASYNC]: netInfoState :: {"type":"cellular","isConnected":true,"details":{"cellularGeneration":"5g","isConnectionExpensive":true,"carrier":"--"},"isInternetReachable":null}
+2025-12-02T17:49:19.635Z [INFO]:[FE-1764697759625]: Internet Connection Change :: {"type":"none","isConnected":false,"details":{},"isInternetReachable":null}
+2025-12-02T17:49:19.636Z [INFO]:[FE-1764697759626]: Internet Connection Change :: {"type":"cellular","isConnected":true,"details":{"cellularGeneration":"5g","isConnectionExpensive":true,"carrier":"--"},"isInternetReachable":null}
+2025-12-02T17:49:19.636Z [INFO]:[FE-1764697759634]: Reader Offline Status :: {"sdk":{"offlinePaymentAmountsByCurrency":{},"networkStatus":"unknown","offlinePaymentsCount":0}}
+2025-12-02T17:49:20.042Z [INFO]:[ASYNC]: onDidChangeOfflineStatus:  :: {"sdk":{"offlinePaymentAmountsByCurrency":{},"networkStatus":"online","offlinePaymentsCount":0}}
+2025-12-02T17:49:20.047Z [INFO]:[FE-1764697760046]: Reader Offline Status :: {"sdk":{"offlinePaymentAmountsByCurrency":{},"networkStatus":"online","offlinePaymentsCount":0}}
+2025-12-02T17:49:20.048Z [INFO]:[FE-1764697760046]: ðŸŒ [Network Recovery] Network is back online :: {"previousStatus":"unknown","newStatus":"online"}
+2025-12-02T17:49:20.050Z [INFO]:[FE-1764697760048]: ReadyToPayScreen: Payment status changed :: "initialized"
+2025-12-02T17:49:20.053Z [INFO]:[FE-1764697760048]: ReadyToPayScreen: Creating payment intent :: {"reason":"refresh","sdkOnline":true}
+2025-12-02T17:49:20.053Z [INFO]:[FE-1764697760048]: ReadyToPayScreen: Creating payment intent :: {"totalAmount":11,"category":"masjid operations 2025"}
+2025-12-02T17:49:20.054Z [INFO]:[1764697760049]: ðŸ”„ [Native] Creating payment intent :: {"amount":1100,"offlineBehavior":"require_online","offlineModePreference":"disabled","shouldEnableOfflineMode":false}
+2025-12-02T17:49:20.066Z [INFO]:[ASYNC]: guidedAccessStatusDidChange:  :: {"enabled":false}
+2025-12-02T17:49:20.286Z [INFO]:[ASYNC]: netInfoState :: {"type":"cellular","isConnected":true,"details":{"cellularGeneration":"5g","isConnectionExpensive":true,"carrier":"--"},"isInternetReachable":true}
+2025-12-02T17:49:20.288Z [INFO]:[FE-1764697760285]: Internet Connection Change :: {"type":"cellular","isConnected":true,"details":{"cellularGeneration":"5g","isConnectionExpensive":true,"carrier":"--"},"isInternetReachable":true}
+2025-12-02T17:49:20.732Z [INFO]:[1764697760049]: âœ… [Native] Payment intent created successfully :: {"paymentIntentId":"pi_3SZxhULsBgg9CC461yLx3U7H"}
+2025-12-02T17:49:20.743Z [INFO]:[FE-1764697760737]: âœ… [Payment Intent] Created :: {"paymentIntentId":"pi_3SZxhULsBgg9CC461yLx3U7H","previousPaymentIntentId":""}
+2025-12-02T17:49:20.743Z [INFO]:[FE-1764697760740]: ReadyToPayScreen: Payment status changed :: "initialized"
+2025-12-02T17:49:20.746Z [INFO]:[FE-1764697760743]: â±ï¸ [Payment Intent Timeout] Tracking handled by ReaderHealthManager :: {"paymentIntentId":"pi_3SZxhULsBgg9CC461yLx3U7H","createdAt":1764697760733}
+2025-12-02T17:49:20.749Z [INFO]:[ASYNC]: onDidChangePaymentStatus:  :: "waitingForInput"
+2025-12-02T17:49:20.757Z [INFO]:[FE-1764697760752]: ReadyToPayScreen: Payment status changed :: "waitingForInput"
+2025-12-02T17:49:20.849Z [WARN]:[ASYNC]: onDidReportLowBatteryWarning :: ""
+2025-12-02T17:49:20.851Z [INFO]:[FE-1764697760850]: Unhandled Event :: {"topic":"goodbricks.reportLowBatteryWarning","message":"","executionContext":null}
+2025-12-02T17:49:20.946Z [INFO]:[ASYNC]: onDidRequestReaderInput:  :: ["swipeCard","insertCard","tapCard"]
+2025-12-02T17:49:20.949Z [INFO]:[FE-1764697760948]: ReadyToPayScreen: Payment status changed :: "readerInput"
+2025-12-02T17:49:21.915Z [INFO]:[ASYNC]: netInfoState :: {"type":"wifi","isConnected":true,"details":{"ipAddress":"192.168.7.199","subnet":"255.255.252.0","isConnectionExpensive":false},"isInternetReachable":true}
+2025-12-02T17:49:21.918Z [INFO]:[FE-1764697761915]: Internet Connection Change :: {"type":"wifi","isConnected":true,"details":{"ipAddress":"192.168.7.199","subnet":"255.255.252.0","isConnectionExpensive":false},"isInternetReachable":true}

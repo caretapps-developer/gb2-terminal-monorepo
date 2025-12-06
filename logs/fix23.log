@@ -1,0 +1,268 @@
+› Using --device 00008110-000975161181401E
+› Auto signing app using team(s): DN87BR2T2U
+› Planning build
+› Executing react-native Pods/hermes-engine » [CP-User] [Hermes] Replace Hermes for the right configuration, if needed
+› Preparing expo-constants Pods/EXConstants-EXConstants » ResourceBundle-EXConstants-EXConstants-Info.plist
+› Preparing Pods/EXConstants-ExpoConstants_privacy » ResourceBundle-ExpoConstants_privacy-EXConstants-Info.plist
+› Preparing Pods/React-Core-RCTI18nStrings » ResourceBundle-RCTI18nStrings-React-Core-Info.plist
+› Executing react-native Pods/hermes-engine » [CP] Copy XCFrameworks
+    Run script build phase '[CP-User] [RN]Check rncore' will be run during every build because it does not specify any outputs. To address this issue, either add output dependencies to the script phase, or configure it to run in every build by unchecking "Based on dependency analysis" in the script phase. (in target 'React-Fabric' from project 'Pods')
+› Executing react-native Pods/React-Fabric » [CP-User] [RN]Check rncore
+› Executing Goodbricks Terminal Pods/React-Codegen » [CP-User] Generate Specs
+› Compiling Goodbricks Terminal Pods/React-Codegen » ComponentDescriptors.cpp
+› Compiling Goodbricks Terminal Pods/React-Codegen » RCTModulesConformingToProtocolsProvider.mm
+› Compiling Goodbricks Terminal Pods/React-Codegen » FBReactNativeSpecJSI-generated.cpp
+› Compiling Goodbricks Terminal Pods/React-Codegen » RNCGeolocationSpecJSI-generated.cpp
+› Compiling Goodbricks Terminal Pods/React-Codegen » RNCWebViewSpec-generated.mm
+› Compiling Goodbricks Terminal Pods/React-Codegen » RNCWebViewSpecJSI-generated.cpp
+› Compiling Goodbricks Terminal Pods/React-Codegen » RNCGeolocationSpec-generated.mm
+› Compiling Goodbricks Terminal Pods/React-Codegen » Props.cpp
+› Compiling Goodbricks Terminal Pods/React-Codegen » FBReactNativeSpec-generated.mm
+› Compiling Goodbricks Terminal Pods/React-Codegen » ShadowNodes.cpp
+› Compiling Goodbricks Terminal Pods/React-Codegen » rnasyncstorageJSI-generated.cpp
+› Compiling Goodbricks Terminal Pods/React-Codegen » rnasyncstorage-generated.mm
+› Compiling Goodbricks Terminal Pods/React-Codegen » States.cpp
+› Compiling Goodbricks Terminal Pods/React-Codegen » EventEmitters.cpp
+› Packaging Goodbricks Terminal Pods/React-Codegen » libReact-Codegen.a
+› Compiling react-native Pods/React-RCTNetwork » RCTNetworking.mm
+› Packaging react-native Pods/React-RCTNetwork » libReact-RCTNetwork.a
+› Compiling react-native Pods/React-RCTBlob » RCTBlobManager.mm
+› Compiling react-native Pods/React-RCTBlob » RCTFileReaderModule.mm
+› Packaging react-native Pods/React-RCTBlob » libReact-RCTBlob.a
+› Compiling react-native Pods/React-RCTImage » RCTImageEditingManager.mm
+› Compiling react-native Pods/React-RCTImage » RCTImageLoader.mm
+› Compiling react-native Pods/React-RCTImage » RCTImageStoreManager.mm
+› Packaging react-native Pods/React-RCTImage » libReact-RCTImage.a
+› Compiling react-native Pods/React-CoreModules » RCTAccessibilityManager.mm
+› Compiling react-native Pods/React-CoreModules » RCTAppState.mm
+› Compiling react-native Pods/React-CoreModules » RCTAlertManager.mm
+› Compiling react-native Pods/React-CoreModules » RCTAppearance.mm
+› Compiling react-native Pods/React-CoreModules » RCTClipboard.mm
+› Compiling react-native Pods/React-CoreModules » RCTActionSheetManager.mm
+› Compiling react-native Pods/React-CoreModules » RCTI18nManager.mm
+› Compiling react-native Pods/React-CoreModules » RCTLogBox.mm
+› Compiling react-native Pods/React-CoreModules » RCTTiming.mm
+› Compiling react-native Pods/React-CoreModules » RCTWebSocketModule.mm
+› Compiling react-native Pods/React-CoreModules » RCTStatusBarManager.mm
+› Compiling react-native Pods/React-CoreModules » RCTSourceCode.mm
+› Compiling react-native Pods/React-CoreModules » RCTRedBox.mm
+› Compiling react-native Pods/React-CoreModules » RCTPlatform.mm
+› Compiling react-native Pods/React-CoreModules » RCTKeyboardObserver.mm
+› Compiling react-native Pods/React-CoreModules » RCTExceptionsManager.mm
+› Compiling react-native Pods/React-CoreModules » RCTDeviceInfo.mm
+› Compiling react-native Pods/React-CoreModules » RCTDevSettings.mm
+› Compiling react-native Pods/React-CoreModules » RCTDevMenu.mm
+› Compiling react-native Pods/React-CoreModules » RCTDevLoadingView.mm
+› Packaging react-native Pods/React-CoreModules » libReact-CoreModules.a
+› Compiling react-native Pods/React-RCTFabric » RCTActivityIndicatorViewComponentView.mm
+› Compiling react-native Pods/React-RCTFabric » RCTFabricComponentsPlugins.mm
+› Compiling react-native Pods/React-RCTFabric » RCTModalHostViewComponentView.mm
+› Compiling react-native Pods/React-RCTFabric » RCTComponentViewFactory.mm
+› Compiling react-native Pods/React-RCTFabric » RCTInputAccessoryComponentView.mm
+› Compiling react-native Pods/React-RCTFabric » RCTTextInputComponentView.mm
+› Compiling react-native Pods/React-RCTFabric » RCTUnimplementedNativeComponentView.mm
+› Compiling react-native Pods/React-RCTFabric » RCTSwitchComponentView.mm
+› Compiling react-native Pods/React-RCTFabric » RCTScrollViewComponentView.mm
+› Compiling react-native Pods/React-RCTFabric » RCTUnimplementedViewComponentView.mm
+› Compiling react-native Pods/React-RCTFabric » RCTSafeAreaViewComponentView.mm
+› Compiling react-native Pods/React-RCTFabric » RCTThirdPartyFabricComponentsProvider.mm
+› Compiling react-native Pods/React-RCTFabric » RCTPullToRefreshViewComponentView.mm
+› Compiling react-native Pods/React-RCTFabric » RCTParagraphComponentView.mm
+› Compiling react-native Pods/React-RCTFabric » RCTParagraphComponentAccessibilityProvider.mm
+› Compiling react-native Pods/React-RCTFabric » RCTDebuggingOverlayComponentView.mm
+› Packaging react-native Pods/React-RCTFabric » libReact-RCTFabric.a
+› Compiling react-native Pods/React-RCTAppDelegate » RCTAppSetupUtils.mm
+› Packaging react-native Pods/React-RCTAppDelegate » libReact-RCTAppDelegate.a
+› Executing expo-modules-core Pods/ExpoModulesCore » Copy generated compatibility header
+    Run script build phase '[CP-User] Generate app.config for prebuilt Constants.manifest' will be run during every build because it does not specify any outputs. To address this issue, either add output dependencies to the script phase, or configure it to run in every build by unchecking "Based on dependency analysis" in the script phase. (in target 'EXConstants' from project 'Pods')
+› Executing expo-constants Pods/EXConstants » [CP-User] Generate app.config for prebuilt Constants.manifest
+› Compiling expo-constants Pods/EXConstants » EXConstants-dummy.m
+› Compiling expo-constants Pods/EXConstants » EXConstantsInstallationIdProvider.m
+› Compiling expo-constants Pods/EXConstants » EXConstantsService.m
+› Packaging expo-constants Pods/EXConstants » libEXConstants.a
+› Executing expo-constants Pods/EXConstants » Copy generated compatibility header
+› Compiling expo-manifests Pods/EXManifests » EXManifests-dummy.m
+› Packaging expo-manifests Pods/EXManifests » libEXManifests.a
+› Executing expo-manifests Pods/EXManifests » Copy generated compatibility header
+› Compiling expo-updates-interface Pods/EXUpdatesInterface » EXUpdatesInterface-dummy.m
+› Compiling expo-updates-interface Pods/EXUpdatesInterface » noop-file.m
+› Packaging expo-updates-interface Pods/EXUpdatesInterface » libEXUpdatesInterface.a
+› Executing expo-updates-interface Pods/EXUpdatesInterface » Copy generated compatibility header
+› Compiling expo Pods/Expo » EXAppDefinesLoader.m
+› Compiling expo Pods/Expo » Expo-dummy.m
+› Packaging expo Pods/Expo » libExpo.a
+› Compiling expo-asset Pods/ExpoAsset » ExpoAsset-dummy.m
+› Packaging expo-asset Pods/ExpoAsset » libExpoAsset.a
+› Executing expo-asset Pods/ExpoAsset » Copy generated compatibility header
+› Preparing Pods/ExpoDevice-ExpoDevice_privacy » ResourceBundle-ExpoDevice_privacy-ExpoDevice-Info.plist
+› Compiling expo-device Pods/ExpoDevice » ExpoDevice-dummy.m
+› Packaging expo-device Pods/ExpoDevice » libExpoDevice.a
+› Executing expo-device Pods/ExpoDevice » Copy generated compatibility header
+› Preparing Pods/ExpoFileSystem-ExpoFileSystem_privacy » ResourceBundle-ExpoFileSystem_privacy-ExpoFileSystem-Info.plist
+› Compiling expo-file-system Pods/ExpoFileSystem » ExpoFileSystem-dummy.m
+› Compiling expo-file-system Pods/ExpoFileSystem » EXSessionUploadTaskDelegate.m
+› Compiling expo-file-system Pods/ExpoFileSystem » EXSessionTaskDelegate.m
+› Compiling expo-file-system Pods/ExpoFileSystem » EXTaskHandlersManager.m
+› Compiling expo-file-system Pods/ExpoFileSystem » EXSessionResumableDownloadTaskDelegate.m
+› Compiling expo-file-system Pods/ExpoFileSystem » EXSessionHandler.m
+› Compiling expo-file-system Pods/ExpoFileSystem » EXSessionCancelableUploadTaskDelegate.m
+› Compiling expo-file-system Pods/ExpoFileSystem » EXSessionDownloadTaskDelegate.m
+› Compiling expo-file-system Pods/ExpoFileSystem » EXFileSystemLocalFileHandler.m
+› Compiling expo-file-system Pods/ExpoFileSystem » EXSessionTaskDispatcher.m
+› Compiling expo-file-system Pods/ExpoFileSystem » NSData+EXFileSystem.m
+› Compiling expo-file-system Pods/ExpoFileSystem » EXFileSystemAssetLibraryHandler.m
+› Packaging expo-file-system Pods/ExpoFileSystem » libExpoFileSystem.a
+› Executing expo-file-system Pods/ExpoFileSystem » Copy generated compatibility header
+› Compiling expo-font Pods/ExpoFont » ExpoFont-dummy.m
+› Packaging expo-font Pods/ExpoFont » libExpoFont.a
+› Executing expo-font Pods/ExpoFont » Copy generated compatibility header
+› Compiling expo-keep-awake Pods/ExpoKeepAwake » ExpoKeepAwake-dummy.m
+› Packaging expo-keep-awake Pods/ExpoKeepAwake » libExpoKeepAwake.a
+› Executing expo-keep-awake Pods/ExpoKeepAwake » Copy generated compatibility header
+› Executing @stripe/stripe-terminal-react-native Pods/StripeTerminal » [CP] Copy XCFrameworks
+› Preparing Pods/RNCAsyncStorage-RNCAsyncStorage_resources » ResourceBundle-RNCAsyncStorage_resources-RNCAsyncStorage-Info.plist
+› Compiling react-native Pods/React-RCTAnimation » RCTNativeAnimatedModule.mm
+› Executing expo-dev-menu-interface Pods/expo-dev-menu-interface » Copy generated compatibility header
+› Compiling react-native Pods/React-RCTAnimation » RCTNativeAnimatedTurboModule.mm
+› Preparing Pods/expo-dev-menu-EXDevMenu » ResourceBundle-EXDevMenu-expo-dev-menu-Info.plist
+› Compiling expo-dev-menu Pods/expo-dev-menu » expo-dev-menu-dummy.m
+› Compiling expo-dev-menu Pods/expo-dev-menu » DevMenuRCTDevSettings.m
+› Compiling expo-dev-menu Pods/expo-dev-menu » DevMenuExtensions.m
+› Compiling expo-dev-menu Pods/expo-dev-menu » DevMenuRootView.m
+› Compiling expo-dev-menu Pods/expo-dev-menu » DevClientNoOpLoadingView.m
+› Compiling expo-dev-menu Pods/expo-dev-menu » EXDevMenuAppInfo.m
+› Packaging expo-dev-menu Pods/expo-dev-menu » libexpo-dev-menu.a
+› Executing expo-dev-menu Pods/expo-dev-menu » Copy generated compatibility header
+› Packaging react-native Pods/React-RCTAnimation » libReact-RCTAnimation.a
+› Compiling react-native Pods/React-RCTLinking » RCTLinkingManager.mm
+› Preparing Pods/expo-dev-launcher-EXDevLauncher » ResourceBundle-EXDevLauncher-expo-dev-launcher-Info.plist
+› Compiling expo-dev-launcher Pods/expo-dev-launcher » expo-dev-launcher-dummy.m
+› Packaging react-native Pods/React-RCTLinking » libReact-RCTLinking.a
+› Compiling expo-dev-launcher Pods/expo-dev-launcher » EXDevLauncherUpdatesHelper.m
+› Compiling expo-dev-launcher Pods/expo-dev-launcher » EXDevLauncherRCTDevSettings.m
+› Compiling expo-dev-launcher Pods/expo-dev-launcher » EXDevLauncherDeferredRCTRootView.m
+› Compiling expo-dev-launcher Pods/expo-dev-launcher » EXDevLauncherRCTBridge.m
+› Compiling expo-dev-launcher Pods/expo-dev-launcher » EXDevLauncherRedBox.m
+› Compiling expo-dev-launcher Pods/expo-dev-launcher » EXDevLauncherManifestParser.m
+› Compiling expo-dev-launcher Pods/expo-dev-launcher » EXDevLauncherDevMenuExtensions.m
+› Compiling expo-dev-launcher Pods/expo-dev-launcher » EXDevLauncher.m
+› Compiling react-native Pods/React-RCTSettings » RCTSettingsManager.mm
+› Compiling expo-dev-launcher Pods/expo-dev-launcher » EXDevLauncherController.m
+› Packaging expo-dev-launcher Pods/expo-dev-launcher » libexpo-dev-launcher.a
+› Executing expo-dev-launcher Pods/expo-dev-launcher » Copy generated compatibility header
+› Executing react-native-guided-access-mode Pods/react-native-guided-access-mode » Copy generated compatibility header
+› Executing @stripe/stripe-terminal-react-native Pods/stripe-terminal-react-native » Copy generated compatibility header
+› Packaging react-native Pods/React-RCTSettings » libReact-RCTSettings.a
+› Compiling react-native Pods/React-RCTVibration » RCTVibration.mm
+› Packaging react-native Pods/React-RCTVibration » libReact-RCTVibration.a
+› Compiling Pods/Pods-GoodbricksTerminal » Pods-GoodbricksTerminal-dummy.m
+› Packaging Pods/Pods-GoodbricksTerminal » libPods-GoodbricksTerminal.a
+› Executing GoodbricksTerminal » [CP] Check Pods Manifest.lock
+› Executing GoodbricksTerminal » [Expo] Configure project
+› Compiling GoodbricksTerminal » GoodbricksTerminal_vers.c
+› Compiling GoodbricksTerminal » main.m
+› Linking   GoodbricksTerminal » GoodbricksTerminal.debug.dylib
+⚠️  ld: ignoring duplicate libraries: '-lc++'
+› Linking   GoodbricksTerminal » GoodbricksTerminal
+› Executing GoodbricksTerminal » Bundle React Native code and images
+› Executing GoodbricksTerminal » [CP] Embed Pods Frameworks
+› Executing GoodbricksTerminal » [CP] Copy Pods Resources
+› Preparing GoodbricksTerminal » Info.plist
+› Generating debug GoodbricksTerminal » GoodbricksTerminal.app.dSYM
+› Generating debug GoodbricksTerminal » GoodbricksTerminal.app.dSYM
+› Signing   GoodbricksTerminal » GoodbricksTerminal.debug.dylib
+› Signing   GoodbricksTerminal » __preview.dylib
+› Signing   GoodbricksTerminal » GoodbricksTerminal.app
+    Run script build phase '[CP-User] [Hermes] Replace Hermes for the right configuration, if needed' will be run during every build because it does not specify any outputs. To address this issue, either add output dependencies to the script phase, or configure it to run in every build by unchecking "Based on dependency analysis" in the script phase. (in target 'hermes-engine' from project 'Pods')
+› Build Succeeded
+
+› 0 error(s), and 4 warning(s)
+
+Starting Metro Bundler
+Waiting on http://localhost:8081
+- CreatingStagingDirectory
+✔ Complete 100%
+
+› Logs for your project will appear below.
+iOS Bundled 416ms node_modules/expo/AppEntry.js (592 modules)
+ LOG  [INFO]:[ASYNC]: isGuidedAccessEnabled :: false
+ LOG  [INFO]:[ASYNC]: netInfoState :: {}
+ LOG  [INFO]:[ASYNC]: 🚀 [INIT] Starting Stripe Terminal initialization :: {"platform":"ios","version":"18.6.2"}
+ LOG  [INFO]:[ASYNC]: Start fetchTokenProvider :: {"fetchURL":"https://sandbox.api.goodbricks.app/stripe/connection-token?organizationPublicId="}
+ LOG  [INFO]:[ASYNC]: netInfoState :: {"type":"wifi","isConnected":true,"details":{"ipAddress":"192.168.7.199","subnet":"255.255.252.0","isConnectionExpensive":false},"isInternetReachable":null}
+ LOG  [INFO]:[ASYNC]: netInfoState :: {"type":"wifi","isConnected":true,"details":{"ipAddress":"192.168.7.199","subnet":"255.255.252.0","isConnectionExpensive":false},"isInternetReachable":null}
+ LOG  [INFO]:[ASYNC]: Start fetchTokenProvider :: {"fetchURL":"https://sandbox.api.goodbricks.app/stripe/connection-token?organizationPublicId="}
+ LOG  [INFO]:[ASYNC]: netInfoState :: {"type":"wifi","isConnected":true,"details":{"ipAddress":"192.168.7.199","subnet":"255.255.252.0","isConnectionExpensive":false},"isInternetReachable":true}
+ LOG  [INFO]:[ASYNC]: Done fetchTokenProvider :: {"message":"Internal server error"}
+ LOG  [INFO]:[ASYNC]: Start fetchTokenProvider :: {"fetchURL":"https://sandbox.api.goodbricks.app/stripe/connection-token?organizationPublicId="}
+ LOG  [INFO]:[ASYNC]: Start fetchTokenProvider :: {"fetchURL":"https://sandbox.api.goodbricks.app/stripe/connection-token?organizationPublicId="}
+ LOG  [Stripe terminal]: didChangeOfflineStatus {"reader": undefined, "sdk": {"networkStatus": "unknown", "offlinePaymentAmountsByCurrency": {}, "offlinePaymentsCount": 0}}
+ LOG  [INFO]:[ASYNC]: onDidChangeOfflineStatus:  :: {"sdk":{"offlinePaymentAmountsByCurrency":{},"networkStatus":"unknown","offlinePaymentsCount":0}}
+ LOG  [INFO]:[ASYNC]: ✅ [INIT] StripeTerminal initialized successfully :: {}
+ LOG  [INFO]:[ASYNC]: isGuidedAccessEnabledAsync :: false
+ LOG  [INFO]:[ASYNC]: handleGetConnectedReader :: {}
+ LOG  [INFO]:[ASYNC]: Done fetchTokenProvider :: {"message":"Internal server error"}
+ LOG  [Stripe terminal]: didChangeOfflineStatus {"reader": undefined, "sdk": {"networkStatus": "online", "offlinePaymentAmountsByCurrency": {}, "offlinePaymentsCount": 0}}
+ LOG  [INFO]:[ASYNC]: onDidChangeOfflineStatus:  :: {"sdk":{"offlinePaymentAmountsByCurrency":{},"networkStatus":"online","offlinePaymentsCount":0}}
+ LOG  [INFO]:[ASYNC]: Done fetchTokenProvider :: {"message":"Internal server error"}
+ LOG  [INFO]:[FE-1764830487847]: ReaderHealthManager:DiscoveredReaderChange:  :: {"lockedReader":"","connectingToReader":false,"connectedReader":"unknown","readerDiscoveryStatus":"","readerConnectionStatus":"","discoveredReaders":[]}
+ LOG  [INFO]:[FE-1764830487847]: ReaderHealthManager:ConnectedReader:  :: {"connectedReader":"unknown","readerConnectionStatus":"","connectingToReader":false}
+ LOG  [INFO]:[FE-1764830487847]: Loading selectOrganization :: {"connectedReader":"unknown","isGuidedAccessEnabled":"unknown"}
+ LOG  [INFO]:[ASYNC]: isGuidedAccessEnabledAsync :: false
+ LOG  [INFO]:[ASYNC]: isGuidedAccessEnabledAsync :: false
+ LOG  [INFO]:[1764830487848]: handleGetConnectedReader :: {}
+ LOG  [INFO]:[ASYNC]: handleGetConnectedReader :: {}
+ LOG  [INFO]:[FE-1764830487863]: Connected Reader :: {}
+ LOG  [INFO]:[FE-1764830487864]: ReaderHealthManager:DiscoveredReaderChange:  :: {"lockedReader":"","connectingToReader":false,"readerDiscoveryStatus":"","readerConnectionStatus":"","discoveredReaders":[]}
+ LOG  [INFO]:[FE-1764830487864]: ReaderHealthManager:ConnectedReader:  :: {"readerConnectionStatus":"","connectingToReader":false}
+ LOG  [INFO]:[ASYNC]: Done fetchTokenProvider :: {"message":"Internal server error"}
+ LOG  [INFO]:[ASYNC]: Updated fetchTokenProvider :: {"organization":{},"environment":""}
+ LOG  [INFO]:[ASYNC]: Initialized Terminal :: {"organizationPublicId":"icsd.org","environment":"sandbox"}
+ LOG  [INFO]:[ASYNC]: Start fetchTokenProvider :: {"fetchURL":"https://sandbox.api.goodbricks.app/stripe/connection-token?organizationPublicId=icsd.org"}
+ LOG  [INFO]:[FE-1764830490922]: ReaderHealthManager:DiscoveredReaderChange:  :: {"lockedReader":"","connectingToReader":false,"readerDiscoveryStatus":"","readerConnectionStatus":"","discoveredReaders":[]}
+ WARN  [WARN]:[1764830490913]: Disconnect Readers Error (NotConnectedToReader):  :: {"message":"No reader is connected. Connect to a reader before trying again.","code":"NotConnectedToReader"}
+ LOG  [INFO]:[FE-1764830490963]: Connected Reader :: ""
+ LOG  [INFO]:[FE-1764830490963]: ReaderHealthManager:DiscoveredReaderChange:  :: {"lockedReader":"","connectingToReader":false,"readerDiscoveryStatus":"","readerConnectionStatus":"","discoveredReaders":[]}
+ LOG  [INFO]:[ASYNC]: Done fetchTokenProvider :: {"connectionToken":"pst_test_YWNjdF8xQU1WY3FMc0JnZzlDQzQ2LHBRS0ZsbnNBeTZJVDNKeEhxMG5wVWdzbU41aUYzQU8_00awlV9sfW","locationId":"tml_Enq6AmuRiHOSAi","applicationFeesCapInCents":3000,"applicationFeesInPercent":1.5,"receiptAmountThresholdInDollars":50}
+ LOG  [INFO]:[ASYNC]: Updated fetchTokenProvider :: {"organization":{"message":"Internal server error"},"environment":"sandbox"}
+ WARN  [WARN]:[1764830492142]: cancelDiscovering error :: {"code":"CancelFailedAlreadyCompleted","message":"discoverReaders could not be canceled because the command has already been canceled or has completed."}
+ LOG  [INFO]:[FE-1764830492145]: ReaderHealthManager:DiscoveredReaderChange:  :: {"lockedReader":"","connectingToReader":false,"readerDiscoveryStatus":"","readerConnectionStatus":"","discoveredReaders":[]}
+ LOG  [INFO]:[1764830492142]: cancelDiscoverReaders :: "done"
+ LOG  [INFO]:[FE-1764830492167]: Canceled Discovering Readers :: "canceled discover readers"
+ LOG  [INFO]:[1764830494375]: 🔍 [DISCOVERY START] Discovering Readers :: {"readerType":"tapToPay","discoveryMethod":"localMobile","isSimulator":false,"payload":{"readerType":"tapToPay"},"organizationLocationId":"tml_Enq6AmuRiHOSAi"}
+ LOG  [INFO]:[1764830494375]: 🔍 [DISCOVERY] Calling discoverReaders with config :: {"discoveryMethod":"localMobile","simulated":false}
+ LOG  [INFO]:[FE-1764830494383]: Discovering readers :: "discovering readers"
+ LOG  [Stripe terminal]: didChangeConnectionStatus discovering
+ LOG  [INFO]:[ASYNC]: onDidChangeConnectionStatus :: "discovering"
+ LOG  [INFO]:[FE-1764830494415]: Reader Connection Status :: "discovering"
+ ERROR  [ERROR]:[1764830494375]: 🔍 [DISCOVERY TIMEOUT] discoverReaders timed out after 30000ms :: {"timeoutError":"Discovery timeout - SDK may be stuck","discoveryMethod":"localMobile","isSimulator":false}
+ LOG  [INFO]:[1764830494375]: 🔍 [DISCOVERY] discoverReaders returned :: {"hasError":true,"errorCode":"DiscoveryTimeout","errorMessage":"Reader discovery timed out after 30 seconds. This may indicate a configuration issue with Tap to Pay entitlements or device settings."}
+ ERROR  [ERROR]:[1764830494375]: ❌ Discovering Readers Error (Timeout):  :: {"code":"DiscoveryTimeout","message":"Reader discovery timed out after 30 seconds. This may indicate a configuration issue with Tap to Pay entitlements or device settings."}
+ LOG  [WARN]:[FE-1764830524447]: Discover Readers :: "Reader discovery timed out after 30 seconds. This may indicate a configuration issue with Tap to Pay entitlements or device settings.\n\nTap to Pay Requirements:\n• Passcode/Face ID must be enabled\n• Device must be signed into iCloud\n• Location permissions must be granted\n• iOS must be stable release (not beta)\n• Apple Tap to Pay entitlement must be approved"
+ LOG  [Stripe terminal]: didChangeConnectionStatus notConnected
+ LOG  [INFO]:[ASYNC]: onDidChangeConnectionStatus :: "notConnected"
+ LOG  [Stripe terminal]: didFinishDiscoveringReaders {"error": {"code": "Canceled", "message": "discoverReaders was canceled."}}
+ LOG  [INFO]:[ASYNC]: 🔍 onFinishDiscoveringReaders called :: {"error":{"code":"Canceled","message":"discoverReaders was canceled."},"discoveredReadersCount":0,"discoveredReaders":[]}
+ LOG   On Finish Discovering Readers:  {"code": "Canceled", "message": "discoverReaders was canceled."}
+ LOG  [INFO]:[FE-1764830524537]: Reader Connection Status :: "notConnected"
+ LOG  [INFO]:[FE-1764830524540]: Canceled Discovering Readers :: "onFinishDiscoveringReaders error discoverReaders was canceled."
+ LOG  [INFO]:[FE-1764830524541]: Discovered Readers :: []
+ LOG  [INFO]:[FE-1764830524541]: ReaderHealthManager:DiscoveredReaderChange:  :: {"lockedReader":"","connectingToReader":false,"readerDiscoveryStatus":"canceled-discovering-readers","readerConnectionStatus":"notConnected","discoveredReaders":[]}
+ LOG  [INFO]:[ASYNC]: isGuidedAccessEnabled :: false
+ LOG  [INFO]:[ASYNC]: netInfoState :: {"type":"wifi","isConnected":true,"details":{"ipAddress":"192.168.7.199","subnet":"255.255.252.0","isConnectionExpensive":false},"isInternetReachable":true}
+ LOG  [INFO]:[ASYNC]: 🚀 [INIT] Starting Stripe Terminal initialization :: {"platform":"ios","version":"18.6.2"}
+ LOG  [INFO]:[ASYNC]: isGuidedAccessEnabledAsync :: false
+ LOG  [INFO]:[ASYNC]: handleGetConnectedReader :: {}
+ LOG  [INFO]:[FE-1764831027741]: Battery Level Update :: {}
+ LOG  [INFO]:[FE-1764831027743]: Internet Connection Change :: {"type":"wifi","isConnected":true,"details":{"ipAddress":"192.168.7.199","subnet":"255.255.252.0","isConnectionExpensive":false},"isInternetReachable":true}
+ LOG  [INFO]:[FE-1764831027743]: Reader Software Update Progress :: ""
+ LOG  [INFO]:[FE-1764831027744]: Guided Access Enabled :: false
+ LOG  [INFO]:[ASYNC]: Start fetchTokenProvider :: {"fetchURL":"https://sandbox.api.goodbricks.app/stripe/connection-token?organizationPublicId=icsd.org"}
+ LOG  [INFO]:[FE-1764831027751]: Connected Reader :: {}
+ LOG  [INFO]:[FE-1764831027752]: ReaderHealthManager:DiscoveredReaderChange:  :: {"lockedReader":"","connectingToReader":false,"readerDiscoveryStatus":"","readerConnectionStatus":"notConnected","discoveredReaders":[]}
+ LOG  [INFO]:[ASYNC]: Done fetchTokenProvider :: {"connectionToken":"pst_test_YWNjdF8xQU1WY3FMc0JnZzlDQzQ2LGVYVmRxOGNrZFVscGhGdWVQbWd1ZW9RazRlYVYyaVE_00FuohIyf3","locationId":"tml_Enq6AmuRiHOSAi","applicationFeesCapInCents":3000,"applicationFeesInPercent":1.5,"receiptAmountThresholdInDollars":50}
+ LOG  [Stripe terminal]: didChangeOfflineStatus {"reader": {}, "sdk": {"networkStatus": "online", "offlinePaymentAmountsByCurrency": {}, "offlinePaymentsCount": 0}}
+ LOG  [INFO]:[ASYNC]: onDidChangeOfflineStatus:  :: {"sdk":{"offlinePaymentAmountsByCurrency":{},"networkStatus":"online","offlinePaymentsCount":0}}
+ LOG  [INFO]:[ASYNC]: ✅ [INIT] StripeTerminal initialized successfully :: {}
+ LOG  [INFO]:[FE-1764831029127]: Reader Offline Status :: {"sdk":{"offlinePaymentAmountsByCurrency":{},"networkStatus":"online","offlinePaymentsCount":0}}
+ LOG  [INFO]:[FE-1764831029127]: 🌐 [Network Recovery] Network is back online :: {"newStatus":"online"}

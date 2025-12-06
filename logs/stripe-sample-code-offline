@@ -1,0 +1,104 @@
+Here's how to implement offline payments with Stripe Terminal in React Native:
+
+First, install the necessary packages:
+npm install @stripe/stripe-terminal-react-native
+Set up the Terminal SDK and create a PaymentIntent while online:
+
+example.js
+import { useStripeTerminal } from '@stripe/stripe-terminal-react-native';
+
+// Inside your component
+const {
+  initialize,
+  createPaymentIntent,
+  collectPaymentMethod,
+  confirmPaymentIntent,
+  connectionStatus,
+  discoveredReaders,
+  connectedReader
+} = useStripeTerminal();
+
+// Initialize the SDK and connect to a reader first
+// ...
+
+// Create a PaymentIntent while online
+const createIntent = async () => {
+  try {
+    // Call your backend to create a PaymentIntent
+    const response = await fetch('https://your-backend.com/create-payment-intent', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        amount: 1999,
+        currency: 'usd'
+      }),
+    });
+
+    const { client_secret } = await response.json();
+
+    // Store this client_secret to use later even if you go offline
+    setPaymentIntentClientSecret(client_secret);
+
+    return client_secret;
+  } catch (error) {
+    console.error('Error creating payment intent:', error);
+  }
+};
+If you go offline, you can still confirm the payment:
+
+example.js
+// Collect and confirm payment when offline
+const processOfflinePayment = async () => {
+  try {
+    // You can continue with the stored client secret even if now offline
+    const { paymentIntent, error: collectError } = await collectPaymentMethod({
+      clientSecret: paymentIntentClientSecret,
+    });
+
+    if (collectError) {
+      console.error('Error collecting payment method:', collectError);
+      return;
+    }
+
+    // Confirm the payment - this works even offline
+    // The payment will be stored locally on the reader/device
+    const { paymentIntent: confirmedIntent, error: confirmError } = await confirmPaymentIntent({
+      paymentIntentId: paymentIntent.id,
+    });
+
+    if (confirmError) {
+      console.error('Error confirming payment:', confirmError);
+      return;
+    }
+
+    // At this point, the payment is stored locally and will be
+    // forwarded to Stripe when connectivity is restored
+    console.log('Payment successful! Will be forwarded when online.');
+    console.log('PaymentIntent status:', confirmedIntent.status);
+
+  } catch (error) {
+    console.error('Error processing payment:', error);
+  }
+};
+You can also set up listeners to know when stored payments are forwarded:
+
+example.js
+useEffect(() => {
+  // Listen for forwarded payment events
+  const unsubscribe = Terminal.addListener('didForwardPaymentIntent', (event) => {
+    console.log('Payment forwarded to Stripe:', event.paymentIntent);
+  });
+
+  return () => {
+    unsubscribe.remove();
+  };
+}, []);
+When connectivity is restored, the Terminal SDK will automatically attempt to forward any stored payments to Stripe, and you'll receive events through the listener when this happens.
+
+Remember that offline payments require specific reader types and have some limitations on supported payment methods as detailed in the documentation.
+
+
+
+

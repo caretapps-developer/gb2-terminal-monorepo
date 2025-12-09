@@ -40,7 +40,7 @@ Events sent from the web application to the React Native layer:
 | `fetchTerminalData` | - | Request terminal configuration data |
 | `discoverReaders` | - | Start discovering nearby Stripe readers |
 | `cancelDiscoverReaders` | - | Cancel ongoing reader discovery |
-| `connectReader` | `{ readerId, ... }` | Connect to a specific reader |
+| `connectReader` | `{ serialNumber, offlineModePreference? }` | Connect to a specific reader with optional offline mode preference |
 | `disconnectReader` | `{ suppressError?: boolean }` | Disconnect from current reader |
 | `createPaymentIntent` | `{ amount, currency, ... }` | Create a payment intent |
 | `cancelCollectPaymentMethod` | - | Cancel payment method collection |
@@ -92,6 +92,8 @@ Events sent from React Native to the web application (all prefixed with `goodbri
 | `goodbricks.requestReaderInput` | `InputType` | Reader requesting input from customer |
 | `goodbricks.requestReaderDisplayMessage` | `DisplayMessage` | Reader displaying message to customer |
 | `goodbricks.paymentCaptured` | `string` | Payment successfully captured |
+| `goodbricks.paymentForwardedSuccess` | `{ paymentIntentId, amount, status }` | Offline payment successfully synced to Stripe |
+| `goodbricks.paymentForwardedFailed` | `{ paymentIntentId, error, syncAttempts, actionDisplayName }` | Offline payment failed to sync to Stripe |
 
 ### Setup Intent (Save Payment Method)
 
@@ -172,6 +174,22 @@ interface Update {
 }
 ```
 
+### ConnectReaderData
+
+```typescript
+interface ConnectReaderData {
+  serialNumber: string;           // Reader serial number (e.g., "STRM123456")
+  offlineModePreference?: string;  // Optional: "auto" | "enabled" | "disabled"
+}
+```
+
+**Offline Mode Preference:**
+- `"auto"` (default): Use Stripe Dashboard configuration for offline mode
+- `"enabled"`: Force offline mode ON regardless of Stripe Dashboard settings
+- `"disabled"`: Force offline mode OFF regardless of Stripe Dashboard settings
+
+When offline mode is enabled, payments can be collected during internet outages and are automatically synced when connection is restored.
+
 ## Usage Examples
 
 ### Web Application (gb2-terminal-web)
@@ -184,8 +202,9 @@ import { postMessageToTerminal } from './components/ReactNativeBridge';
 postMessageToTerminal('discoverReaders', {});
 
 // Connect to a reader
-postMessageToTerminal('connectReader', { 
-  readerId: 'tmr_xxxxx' 
+postMessageToTerminal('connectReader', {
+  serialNumber: 'STRM123456',
+  offlineModePreference: 'auto' // Optional: 'auto' | 'enabled' | 'disabled'
 });
 
 // Create payment intent

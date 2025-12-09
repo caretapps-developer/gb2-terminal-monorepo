@@ -1,0 +1,110 @@
+2025-12-02T02:23:42.908Z [INFO]:[FE-1764642220626]: Canceled Discovering Readers :: "canceled discover readers"
+2025-12-02T02:24:06.632Z [INFO]:[FE-1764642246628]: ReadyToPayScreen mounted :: {"category":{"coverFeePercentage":"3.00","coverFees":true,"defaultAmount":"100","defaultAmounts":"2500,1000,750,500","displayOrder":999,"externalCategoryId":null,"id":"masjid-operations-2025","name":"masjid operations 2025","showNotes":false,"slug":"masjid-operations-2025","tags":"","text":"masjid operations 2025"},"amount":10,"context":{}}
+2025-12-02T02:24:06.632Z [INFO]:[FE-1764642246630]: ReadyToPayScreen: Payment status changed :: "ready"
+2025-12-02T02:24:06.633Z [INFO]:[FE-1764642246631]: ReadyToPayScreen: Payment status changed :: "initialized"
+2025-12-02T02:24:06.634Z [INFO]:[FE-1764642246631]: ReadyToPayScreen: Creating payment intent :: {"reason":"refresh"}
+2025-12-02T02:24:06.635Z [INFO]:[FE-1764642246631]: ReadyToPayScreen: Creating payment intent :: {"totalAmount":10,"category":"masjid operations 2025"}
+2025-12-02T02:24:06.659Z [INFO]:[1764642246656]: ðŸ”„ [Native] Creating payment intent :: {"amount":1000}
+2025-12-02T02:24:07.023Z [INFO]:[1764642246656]: âœ… [Native] Payment intent created successfully :: {"paymentIntentId":"pi_3SZjG6LsBgg9CC461wkbtNLT"}
+2025-12-02T02:24:07.029Z [INFO]:[FE-1764642247027]: âœ… [Payment Intent] Created :: {"paymentIntentId":"pi_3SZjG6LsBgg9CC461wkbtNLT","previousPaymentIntentId":""}
+2025-12-02T02:24:07.032Z [INFO]:[FE-1764642247030]: ReadyToPayScreen: Payment status changed :: "initialized"
+2025-12-02T02:24:07.032Z [INFO]:[FE-1764642247030]: â±ï¸ [Payment Intent Timeout] Tracking handled by ReaderHealthManager :: {"paymentIntentId":"pi_3SZjG6LsBgg9CC461wkbtNLT","createdAt":1764642247024}
+2025-12-02T02:24:07.039Z [INFO]:[ASYNC]: onDidChangePaymentStatus:  :: "waitingForInput"
+2025-12-02T02:24:07.043Z [INFO]:[FE-1764642247042]: ReadyToPayScreen: Payment status changed :: "waitingForInput"
+2025-12-02T02:24:07.302Z [INFO]:[ASYNC]: onDidRequestReaderInput:  :: ["swipeCard","insertCard","tapCard"]
+2025-12-02T02:24:07.306Z [INFO]:[FE-1764642247305]: ReadyToPayScreen: Payment status changed :: "readerInput"
+2025-12-02T02:24:13.753Z [INFO]:[ASYNC]: onDidRequestReaderInput:  :: ["swipeCard","insertCard","tapCard"]
+2025-12-02T02:24:14.654Z [INFO]:[ASYNC]: onDidRequestReaderDisplayMessage:  :: "removeCard"
+2025-12-02T02:24:14.657Z [INFO]:[FE-1764642254655]: ReadyToPayScreen: Payment status changed :: "removeCard"
+2025-12-02T02:24:15.094Z [INFO]:[ASYNC]: onDidChangePaymentStatus:  :: "ready"
+2025-12-02T02:24:15.099Z [INFO]:[1764642246656]: Collect Payment Method successful :: {"sdkUuid":"2634B62B-18CB-4E86-8541-96B04BA907E4","status":"requiresConfirmation","created":"1764642246000","amountDetails":{"tip":{"amount":null}},"offlineDetails":null,"currency":"usd","captureMethod":"automatic","paymentMethodId":null,"statementDescriptor":null,"paymentMethodOptions":{"cardPresent":{"requestPartialAuthorization":"","requestExtendedAuthorization":false,"surcharge":null,"requestIncrementalAuthorizationSupport":false}},"statementDescriptorSuffix":null,"paymentMethod":null,"amountTip":0,"id":"pi_3SZjG6LsBgg9CC461wkbtNLT","metadata":{"donation_date_epoch":"1764642246631","total_amount":"10","slug":"masjid-operations-2025","reader_serial_number":"CHB20Y118005205","notes":"Tap-to-Pay","platform":"Goodbricks","terminal_name":"CHB20Y118005205","payment_mode":"Terminal","purpose":"masjid operations 2025","covered_fees_amount":"0","covered_fees":"false","donation_date":"12/1/2025, 6:24:06 PM","purpose_slug":"masjid-operations-2025"},"charges":[],"amount":1000}
+2025-12-02T02:24:15.099Z [INFO]:[FE-1764642255097]: ReadyToPayScreen: Payment status changed :: "ready"
+2025-12-02T02:24:15.110Z [INFO]:[ASYNC]: onDidChangePaymentStatus:  :: "processing"
+2025-12-02T02:24:15.120Z [INFO]:[FE-1764642255119]: ReadyToPayScreen: Payment status changed :: "processing"
+2025-12-02T02:24:15.120Z [INFO]:[FE-1764642255119]: ReadyToPayScreen: Card tapped, transitioning to payment flow :: undefined
+2025-12-02T02:24:15.121Z [INFO]:[FE-1764642255120]: PaymentProcessingScreen :: "PaymentProcessingScreen"
+2025-12-02T02:24:15.122Z [INFO]:[FE-1764642255120]: PaymentProcessingScreen:displayPaymentProcessingAnimation:  :: {"paymentProcessingStatus":"processing"}
+2025-12-02T02:24:16.270Z [INFO]:[ASYNC]: onDidChangePaymentStatus:  :: "ready"
+2025-12-02T02:24:16.275Z [INFO]:[1764642246656]: Confirm Payment Intent successful :: {"sdkUuid":"F88F3853-A9BA-4D07-ABA9-2D67FE02C091","status":"succeeded","created":"1764642246000","amountDetails":{"tip":{"amount":null}},"offlineDetails":null,"currency":"usd","captureMethod":"automatic","paymentMethodId":"pm_1SZjGFLsBgg9CC46rfvYawgE","statementDescriptor":null,"paymentMethodOptions":{"cardPresent":{"requestPartialAuthorization":"","requestExtendedAuthorization":false,"surcharge":null,"requestIncrementalAuthorizationSupport":false}},"statementDescriptorSuffix":null,"paymentMethod":null,"amountTip":0,"id":"pi_3SZjG6LsBgg9CC461wkbtNLT","metadata":{"donation_date_epoch":"1764642246631","total_amount":"10","slug":"masjid-operations-2025","reader_serial_number":"CHB20Y118005205","notes":"Tap-to-Pay","covered_fees":"false","covered_fees_amount":"0","platform":"Goodbricks","terminal_name":"CHB20Y118005205","payment_mode":"Terminal","purpose":"masjid operations 2025","donation_date":"12/1/2025, 6:24:06 PM","purpose_slug":"masjid-operations-2025"},"charges":[{"amount":1000,"authorizationCode":"681584","paymentMethodDetails":{"wechatPayDetails":null,"type":"cardPresent","cardPresentDetails":{"description":"Visa Purchasing","reader":null,"expYear":2023,"funding":"credit","issuer":"Celtic Bank","receipt":{"transactionStatusInformation":"0000","terminalVerificationResults":"0000000000","applicationPreferredName":"Stripe Credit","accountType":"credit","cvm":"approval","applicationCryptogram":"027FF875E3E17C53","authorizationResponseCode":"3030","authorizationCode":"681584","dedicatedFileName":"A000000003101001"},"generatedCard":null,"expMonth":3,"wallet":null,"brand":"visa","cardholderName":"CARDHOLDER/VISA","last4":"9969","location":null,"preferredLocales":[],"emvAuthData":"5F2A020840820200008408A0000000031010018A023030950500000000009A032512019C01009F02060000000010009F03060000000000009F090200A09F100706310A03A000009F1A0208409F2608027FF875E3E17C539F2701809F33036028C89F34033F00009F3501229F3602017D9F3704AF7C4BEE9F41030004849F6E0420700000","network":"visa","country":"US","iin":null},"paynowDetails":null,"paypayDetails":null,"cardDetails":null,"affirmDetails":null,"interacPresentDetails":null},"description":null,"status":"succeeded","id":"ch_3SZjG6LsBgg9CC4612bbJyXP","currency":"usd"}],"amount":1000}
+2025-12-02T02:24:16.279Z [INFO]:[FE-1764642256276]: PaymentProcessingScreen :: "PaymentProcessingScreen"
+2025-12-02T02:24:16.280Z [INFO]:[FE-1764642256276]: PaymentProcessingScreen:displayPaymentProcessingAnimation:  :: {"paymentProcessingStatus":"ready"}
+2025-12-02T02:24:16.284Z [INFO]:[FE-1764642256279]: Payment Captured :: "pi_3SZjG6LsBgg9CC461wkbtNLT"
+2025-12-02T02:24:16.285Z [INFO]:[FE-1764642256279]: PaymentProcessingScreen :: "PaymentProcessingScreen"
+2025-12-02T02:24:16.285Z [INFO]:[FE-1764642256279]: PaymentProcessingScreen:displayPaymentProcessingAnimation:  :: {"paymentProcessingStatus":"paymentCaptured"}
+2025-12-02T02:24:16.286Z [INFO]:[FE-1764642256280]: PaymentCaptured: Tap-to-pay mode detected, skipping receipt screens :: undefined
+2025-12-02T02:24:16.286Z [INFO]:[FE-1764642256282]: QuickSuccessScreen: Payment successful :: {"category":"masjid operations 2025","amount":10}
+2025-12-02T02:24:16.287Z [INFO]:[FE-1764642256282]: â±ï¸ [Payment Intent Timeout] Tracking handled by ReaderHealthManager :: {"paymentIntentId":"pi_3SZjG6LsBgg9CC461wkbtNLT","reason":"payment_completed"}
+2025-12-02T02:24:18.296Z [INFO]:[FE-1764642258292]: ReadyToPayScreen mounted :: {"category":{"coverFeePercentage":"3.00","coverFees":true,"defaultAmount":"100","defaultAmounts":"2500,1000,750,500","displayOrder":999,"externalCategoryId":null,"id":"masjid-operations-2025","name":"masjid operations 2025","showNotes":false,"slug":"masjid-operations-2025","tags":"","text":"masjid operations 2025"},"amount":10,"context":{"customerEmail":"","customerName":"","totalAmount":"","category":{}}}
+2025-12-02T02:24:18.298Z [INFO]:[FE-1764642258293]: ReadyToPayScreen: Payment status changed :: "paymentCaptured"
+2025-12-02T02:24:18.298Z [INFO]:[FE-1764642258295]: ReadyToPayScreen: Payment status changed :: "initialized"
+2025-12-02T02:24:18.299Z [INFO]:[FE-1764642258295]: ReadyToPayScreen: Creating payment intent :: {"reason":"refresh"}
+2025-12-02T02:24:18.304Z [INFO]:[FE-1764642258295]: ReadyToPayScreen: Creating payment intent :: {"totalAmount":10,"category":"masjid operations 2025"}
+2025-12-02T02:24:18.306Z [INFO]:[1764642258295]: ðŸ”„ [Native] Creating payment intent :: {"amount":1000}
+2025-12-02T02:24:18.660Z [INFO]:[1764642258295]: âœ… [Native] Payment intent created successfully :: {"paymentIntentId":"pi_3SZjGILsBgg9CC461AhGj9Xz"}
+2025-12-02T02:24:18.667Z [INFO]:[FE-1764642258665]: âœ… [Payment Intent] Created :: {"paymentIntentId":"pi_3SZjGILsBgg9CC461AhGj9Xz","previousPaymentIntentId":""}
+2025-12-02T02:24:18.669Z [INFO]:[FE-1764642258667]: ReadyToPayScreen: Payment status changed :: "initialized"
+2025-12-02T02:24:18.670Z [INFO]:[FE-1764642258668]: â±ï¸ [Payment Intent Timeout] Tracking handled by ReaderHealthManager :: {"paymentIntentId":"pi_3SZjGILsBgg9CC461AhGj9Xz","createdAt":1764642258661}
+2025-12-02T02:24:18.677Z [INFO]:[ASYNC]: onDidChangePaymentStatus:  :: "waitingForInput"
+2025-12-02T02:24:18.680Z [INFO]:[FE-1764642258679]: ReadyToPayScreen: Payment status changed :: "waitingForInput"
+2025-12-02T02:24:18.870Z [INFO]:[ASYNC]: onDidRequestReaderInput:  :: ["swipeCard","insertCard","tapCard"]
+2025-12-02T02:24:18.872Z [INFO]:[FE-1764642258871]: ReadyToPayScreen: Payment status changed :: "readerInput"
+2025-12-02T02:24:22.020Z [INFO]:[ASYNC]: netInfoState :: {"type":"cellular","isConnected":true,"details":{"cellularGeneration":"5g","isConnectionExpensive":true,"carrier":"--"},"isInternetReachable":true}
+2025-12-02T02:24:22.025Z [INFO]:[FE-1764642262021]: Internet Connection Change :: {"type":"cellular","isConnected":true,"details":{"cellularGeneration":"5g","isConnectionExpensive":true,"carrier":"--"},"isInternetReachable":true}
+2025-12-02T02:24:23.279Z [INFO]:[ASYNC]: netInfoState :: {"type":"cellular","isConnected":true,"details":{"cellularGeneration":"5g","isConnectionExpensive":true,"carrier":"--"},"isInternetReachable":false}
+2025-12-02T02:24:23.286Z [INFO]:[ASYNC]: netInfoState :: {"type":"none","isConnected":false,"details":{},"isInternetReachable":false}
+2025-12-02T02:24:23.288Z [INFO]:[FE-1764642263281]: Internet Connection Change :: {"type":"cellular","isConnected":true,"details":{"cellularGeneration":"5g","isConnectionExpensive":true,"carrier":"--"},"isInternetReachable":false}
+2025-12-02T02:24:23.291Z [INFO]:[FE-1764642263288]: Internet Connection Change :: {"type":"none","isConnected":false,"details":{},"isInternetReachable":false}
+2025-12-02T02:24:23.294Z [INFO]:[ASYNC]: onDidChangeOfflineStatus:  :: {"sdk":{"offlinePaymentAmountsByCurrency":{},"networkStatus":"offline","offlinePaymentsCount":0}}
+2025-12-02T02:24:23.296Z [WARN]:[ASYNC]: ðŸ“´ SDK went offline - offline mode active :: {"pendingPayments":0}
+2025-12-02T02:24:23.300Z [INFO]:[FE-1764642263299]: Reader Offline Status :: {"sdk":{"offlinePaymentAmountsByCurrency":{},"networkStatus":"offline","offlinePaymentsCount":0}}
+2025-12-02T02:24:25.069Z [INFO]:[ASYNC]: Start fetchTokenProvider :: {"fetchURL":"https://sandbox.api.goodbricks.app/stripe/connection-token?organizationPublicId=icsd.org"}
+2025-12-02T02:24:25.598Z [INFO]:[ASYNC]: guidedAccessStatusDidChange:  :: {"enabled":false}
+2025-12-02T02:24:29.952Z [INFO]:[ASYNC]: onDidRequestReaderDisplayMessage:  :: "removeCard"
+2025-12-02T02:24:29.957Z [INFO]:[FE-1764642269956]: ReadyToPayScreen: Payment status changed :: "removeCard"
+2025-12-02T02:24:30.381Z [INFO]:[ASYNC]: onDidChangePaymentStatus:  :: "ready"
+2025-12-02T02:24:30.388Z [INFO]:[1764642258295]: Collect Payment Method successful :: {"sdkUuid":"70DC43CD-FADB-4228-8361-66E63D8FF8E7","status":"requiresConfirmation","created":"1764642258000","amountDetails":{"tip":{"amount":null}},"offlineDetails":null,"currency":"usd","captureMethod":"automatic","paymentMethodId":null,"statementDescriptor":null,"paymentMethodOptions":{"cardPresent":{"requestPartialAuthorization":"","requestExtendedAuthorization":false,"surcharge":null,"requestIncrementalAuthorizationSupport":false}},"statementDescriptorSuffix":null,"paymentMethod":null,"amountTip":0,"id":"pi_3SZjGILsBgg9CC461AhGj9Xz","metadata":{"donation_date_epoch":"1764642258295","total_amount":"10","slug":"masjid-operations-2025","reader_serial_number":"CHB20Y118005205","notes":"Tap-to-Pay","platform":"Goodbricks","terminal_name":"CHB20Y118005205","payment_mode":"Terminal","purpose":"masjid operations 2025","covered_fees_amount":"0","covered_fees":"false","donation_date":"12/1/2025, 6:24:18 PM","purpose_slug":"masjid-operations-2025"},"charges":[],"amount":1000}
+2025-12-02T02:24:30.394Z [INFO]:[FE-1764642270389]: ReadyToPayScreen: Payment status changed :: "ready"
+2025-12-02T02:24:30.403Z [INFO]:[ASYNC]: onDidChangePaymentStatus:  :: "processing"
+2025-12-02T02:24:30.419Z [INFO]:[ASYNC]: onDidChangePaymentStatus:  :: "ready"
+2025-12-02T02:24:30.423Z [ERROR]:[1764642258295]: confirmPaymentIntent error :: {"message":"The SDK is not connected to the Internet.","code":"NotConnectedToInternet"}
+2025-12-02T02:24:30.424Z [INFO]:[FE-1764642270421]: ReadyToPayScreen: Payment status changed :: "processing"
+2025-12-02T02:24:30.424Z [INFO]:[FE-1764642270421]: ReadyToPayScreen: Card tapped, transitioning to payment flow :: undefined
+2025-12-02T02:24:30.425Z [INFO]:[FE-1764642270421]: PaymentProcessingScreen :: "PaymentProcessingScreen"
+2025-12-02T02:24:30.425Z [INFO]:[FE-1764642270421]: PaymentProcessingScreen:displayPaymentProcessingAnimation:  :: {"paymentProcessingStatus":"processing"}
+2025-12-02T02:24:30.429Z [INFO]:[FE-1764642270426]: PaymentProcessingScreen :: "PaymentProcessingScreen"
+2025-12-02T02:24:30.429Z [INFO]:[FE-1764642270426]: PaymentProcessingScreen:displayPaymentProcessingAnimation:  :: {"paymentProcessingStatus":"ready"}
+2025-12-02T02:24:30.431Z [WARN]:[1764642258295]: âš ï¸ [Native] Canceling payment intent due to no internet connection :: {"paymentIntentId":"pi_3SZjGILsBgg9CC461AhGj9Xz"}
+2025-12-02T02:24:30.432Z [INFO]:[1764642258295]: ðŸ—‘ï¸ [Native] Canceling payment intent :: {"paymentIntentId":"pi_3SZjGILsBgg9CC461AhGj9Xz"}
+2025-12-02T02:24:30.434Z [INFO]:[FE-1764642270432]: â±ï¸ [Payment Intent Timeout] Tracking handled by ReaderHealthManager :: {"paymentIntentId":"pi_3SZjGILsBgg9CC461AhGj9Xz","reason":"confirm_payment_no_internet","errorCode":"NotConnectedToInternet"}
+2025-12-02T02:24:30.439Z [ERROR]:[ASYNC]: âŒ [Native] Retrieve payment intent error: pi_3SZjGILsBgg9CC461AhGj9Xz :: {"message":"The SDK is not connected to the Internet.","code":"NotConnectedToInternet"}
+2025-12-02T02:24:30.442Z [ERROR]:[FE-1764642270441]: Retrieve PaymentIntent Error :: "NotConnectedToInternet"
+2025-12-02T02:24:30.443Z [INFO]:[FE-1764642270441]: PaymentProcessingScreen :: "PaymentProcessingScreen"
+2025-12-02T02:24:30.443Z [INFO]:[FE-1764642270441]: PaymentProcessingScreen:displayPaymentProcessingAnimation:  :: {"paymentProcessingStatus":"ready"}
+2025-12-02T02:24:30.455Z [ERROR]:[FE-1764642270454]: Oops! No Internet Connection :: "Looks like the terminal isn't connected to the internet. Don't worryâ€”you weren't charged. Please try again."
+2025-12-02T02:24:30.456Z [WARN]:[FE-1764642270454]: âš ï¸ [Internet Connectivity] Payment confirmation failed due to no internet :: "The SDK is not connected to the Internet."
+2025-12-02T02:24:30.456Z [INFO]:[FE-1764642270454]: PaymentProcessingScreen :: "PaymentProcessingScreen"
+2025-12-02T02:24:30.456Z [INFO]:[FE-1764642270454]: PaymentProcessingScreen:displayPaymentProcessingAnimation:  :: {"paymentProcessingStatus":"ready"}
+2025-12-02T02:24:38.569Z [INFO]:[FE-1764642278566]: PaymentProcessingScreen :: "PaymentProcessingScreen"
+2025-12-02T02:24:38.570Z [INFO]:[FE-1764642278566]: PaymentProcessingScreen:displayPaymentProcessingAnimation:  :: {"paymentProcessingStatus":"ready"}
+2025-12-02T02:24:54.059Z [INFO]:[FE-1764642294054]: PaymentProcessingScreen :: "PaymentProcessingScreen"
+2025-12-02T02:24:54.060Z [INFO]:[FE-1764642294054]: PaymentProcessingScreen:displayPaymentProcessingAnimation:  :: {"paymentProcessingStatus":"ready"}
+2025-12-02T02:25:00.470Z [INFO]:[FE-1764642300465]: PaymentProcessingScreen :: "PaymentProcessingScreen"
+2025-12-02T02:25:00.471Z [INFO]:[FE-1764642300466]: PaymentProcessingScreen:displayPaymentProcessingAnimation:  :: {"paymentProcessingStatus":"ready"}
+2025-12-02T02:25:01.866Z [INFO]:[FE-1764642301863]: PaymentProcessingScreen :: "PaymentProcessingScreen"
+2025-12-02T02:25:01.867Z [INFO]:[FE-1764642301863]: PaymentProcessingScreen:displayPaymentProcessingAnimation:  :: {"paymentProcessingStatus":"ready"}
+2025-12-02T02:25:05.220Z [INFO]:[ASYNC]: netInfoState :: {"type":"none","isConnected":false,"details":{},"isInternetReachable":false}
+2025-12-02T02:25:05.225Z [INFO]:[FE-1764642305222]: Internet Connection Change :: {"type":"none","isConnected":false,"details":{},"isInternetReachable":false}
+2025-12-02T02:25:05.457Z [INFO]:[ASYNC]: onDidChangeOfflineStatus:  :: {"sdk":{"offlinePaymentAmountsByCurrency":{},"networkStatus":"unknown","offlinePaymentsCount":0}}
+2025-12-02T02:25:05.470Z [INFO]:[ASYNC]: netInfoState :: {"type":"none","isConnected":false,"details":{},"isInternetReachable":null}
+2025-12-02T02:25:05.471Z [INFO]:[ASYNC]: netInfoState :: {"type":"cellular","isConnected":true,"details":{"cellularGeneration":"5g","isConnectionExpensive":true,"carrier":"--"},"isInternetReachable":null}
+2025-12-02T02:25:05.471Z [INFO]:[FE-1764642305467]: Reader Offline Status :: {"sdk":{"offlinePaymentAmountsByCurrency":{},"networkStatus":"unknown","offlinePaymentsCount":0}}
+2025-12-02T02:25:05.473Z [INFO]:[FE-1764642305472]: Internet Connection Change :: {"type":"none","isConnected":false,"details":{},"isInternetReachable":null}
+2025-12-02T02:25:05.474Z [INFO]:[FE-1764642305473]: Internet Connection Change :: {"type":"cellular","isConnected":true,"details":{"cellularGeneration":"5g","isConnectionExpensive":true,"carrier":"--"},"isInternetReachable":null}
+2025-12-02T02:25:05.849Z [INFO]:[ASYNC]: netInfoState :: {"type":"cellular","isConnected":true,"details":{"cellularGeneration":"5g","isConnectionExpensive":true,"carrier":"--"},"isInternetReachable":true}
+2025-12-02T02:25:05.851Z [INFO]:[FE-1764642305850]: Internet Connection Change :: {"type":"cellular","isConnected":true,"details":{"cellularGeneration":"5g","isConnectionExpensive":true,"carrier":"--"},"isInternetReachable":true}
+2025-12-02T02:25:05.933Z [INFO]:[ASYNC]: onDidChangeOfflineStatus:  :: {"sdk":{"offlinePaymentAmountsByCurrency":{},"networkStatus":"online","offlinePaymentsCount":0}}
+2025-12-02T02:25:05.955Z [INFO]:[FE-1764642305954]: Reader Offline Status :: {"sdk":{"offlinePaymentAmountsByCurrency":{},"networkStatus":"online","offlinePaymentsCount":0}}
+2025-12-02T02:25:05.955Z [INFO]:[FE-1764642305954]: ðŸŒ [Network Recovery] Network is back online :: {"previousStatus":"unknown","newStatus":"online"}
+2025-12-02T02:25:06.010Z [INFO]:[ASYNC]: Start fetchTokenProvider :: {"fetchURL":"https://sandbox.api.goodbricks.app/stripe/connection-token?organizationPublicId=icsd.org"}
+2025-12-02T02:25:06.545Z [INFO]:[ASYNC]: guidedAccessStatusDidChange:  :: {"enabled":false}
+2025-12-02T02:25:07.039Z [INFO]:[ASYNC]: Done fetchTokenProvider :: {"connectionToken":"pst_test_YWNjdF8xQU1WY3FMc0JnZzlDQzQ2LEdSUHRpN25XeGFCZ0s0TUR2ZFpJbENIZWx4WkZuSjU_00cePIsDv2","locationId":"tml_Enq6AmuRiHOSAi","applicationFeesCapInCents":3000,"applicationFeesInPercent":1.5,"receiptAmountThresholdInDollars":50}

@@ -62,6 +62,190 @@ Mobile application built with React Native and Expo.
 - **Web → Native**: UI events, user actions, payment requests
 - **Native → Web**: Stripe reader status, payment results, hardware events
 
+## Features
+
+### Payment Layouts
+
+The terminal supports multiple payment layouts to accommodate different use cases:
+
+#### 1. **Single Page Layout**
+All-in-one screen where users select category and enter amount on the same screen.
+- **Best for:** Self-service kiosks, larger screen devices
+- **User flow:** Select category → Enter amount → Pay
+
+#### 2. **Multi Page Layout**
+Wizard-style flow with category selection and amount entry on separate screens.
+- **Best for:** Fundraisers, smaller screen devices, guided experiences
+- **User flow:** Select category → Enter amount → Pay
+
+#### 3. **Multi Category Cart Layout** *(Coming Soon)*
+Shopping cart interface where users can add multiple items from different categories.
+- **Best for:** Multiple items/donations in a single transaction
+- **User flow:** Add items to cart → Review → Pay
+
+#### 4. **Tap-to-Pay Layout (Quick Payment)** ⚡ *NEW*
+Zero-touch payment mode for high-volume, fixed-price scenarios.
+- **Best for:** Event entry fees, fixed donations, membership payments, high-volume transactions
+- **User flow:** Tap card → Payment processes automatically → Success → Ready for next payment
+- **Key features:**
+  - Pre-configured category and fixed amount
+  - No user input required
+  - Ultra-fast 2-second success screen
+  - Automatically loops back to ready state
+  - Perfect for contactless payments
+  - Terminal-side configuration (no API changes needed)
+
+**Tap-to-Pay Configuration:**
+Administrators configure tap-to-pay mode in the Terminal Configuration Screen:
+1. Select "Tap-to-Pay (Quick Payment)" layout
+2. Choose category from dropdown (e.g., "General Donation")
+3. Enter fixed amount (e.g., "$50.00")
+4. Configuration is saved to localStorage and persists across app restarts
+
+**Tap-to-Pay Flow:**
+```
+Ready Screen → Card Tap → Processing (< 2s) → Success (2s) → Loop back to Ready
+```
+
+### Additional Features
+
+- **Reader Management:** Discover, connect, and manage Stripe card readers
+- **Autonomous Recovery System:** Infinite recovery from reader disconnections, internet outages, and power cycles
+- **Offline Mode:** Accept payments during internet outages with automatic sync when connection is restored
+- **Organization Selection:** Support for multiple organizations/businesses
+- **Category Configuration:** Drag-and-drop category arrangement with show/hide options
+- **Cover Fees:** Optional fee coverage for donors
+- **Subscription Support:** One-time, monthly, and custom duration subscriptions
+- **Customer Info Capture:** Optional email and name collection
+- **Real-time Status:** Battery level, connection status, payment status indicators
+- **Error Handling:** Comprehensive error handling with user-friendly messages
+
+### Offline Mode 📴
+
+The terminal supports **Stripe Terminal Offline Mode**, allowing payments to be collected even when internet connectivity is unavailable. This is critical for kiosks in areas with unreliable internet or during temporary outages.
+
+#### How It Works
+
+1. **Payment Collection:** When internet is unavailable, payments are stored securely on the card reader hardware
+2. **Automatic Sync:** When connection is restored, the Stripe SDK automatically forwards pending payments to Stripe
+3. **Visual Feedback:** UI shows blue "Offline mode active" status with pending payment count
+4. **Smart Detection:** System distinguishes between intentional offline mode and unintentional connectivity issues
+
+#### Configuration
+
+**Step 1: Enable in Stripe Dashboard**
+1. Go to [Stripe Dashboard](https://dashboard.stripe.com/test/terminal/locations)
+2. Navigate to **Terminal** → **Locations** → Select your location
+3. In **"Local configurations"** section, click **"Override specific settings"**
+4. Enable **"Offline mode"** and configure limits:
+   - Max offline payments: 100 (default)
+   - Max payment amount: $10,000 (default)
+
+**Step 2: Configure in Kiosk Setup**
+
+During kiosk setup, administrators can choose offline mode preference:
+
+- **Toggle ON (Enabled):** Kiosk will accept payments during internet outages
+- **Toggle OFF (Disabled):** Kiosk will show errors when offline (default behavior)
+
+The preference is saved to localStorage and persists across app restarts.
+
+#### Supported Readers
+
+Offline mode is supported on these Bluetooth readers:
+- ✅ **BBPOS WisePad 3**
+- ✅ **BBPOS Chipper 2X BT**
+- ✅ **Stripe Reader M2**
+
+#### UI States
+
+| State | Color | Icon | Status Text | When It Shows |
+|-------|-------|------|-------------|---------------|
+| **🟢 Online & Ready** | Green | Pulsing dot | "Terminal ready" | Normal operation with internet |
+| **🔵 Offline Mode** | Blue | WiFi Off | "Offline mode active" or "Offline mode (2 pending)" | Internet unavailable, offline mode enabled |
+| **🟡 Error** | Amber | Alert | "Reader SDK offline - reconnecting..." | Internet unavailable, offline mode NOT enabled |
+
+#### Technical Implementation
+
+**Web Layer (gb2-terminal-web):**
+- `GoodbricksTerminalStore.tsx` - Stores offline mode preference
+- `TerminalConfigurationScreen.tsx` - UI toggle for offline mode
+- `ReaderHealthManager.tsx` - Detects offline mode and skips recovery when appropriate
+- `TerminalHealthStatus.tsx` - Shows blue UI when operating in offline mode
+- `DiscoveredReaders.tsx` - Passes preference when connecting reader
+
+**Native Layer (gb2-terminal-expo):**
+- `useStripeReader.js` - Enables/disables offline mode in `connectReader` call based on preference
+- `useStripeCallbacks.js` - Detects and logs offline payment forwarding via `onDidChangeOfflineStatus`
+
+**Key Detection Logic:**
+```typescript
+// Offline mode is enabled if:
+// 1. User preference is "enabled" (force on), OR
+// 2. User preference is "auto" AND Stripe has enabled it (offlinePaymentsCount is defined)
+const stripeOfflineModeEnabled = changeOfflineStatus?.sdk?.offlinePaymentsCount !== undefined;
+const offlineModeEnabled = offlineModePreference === "enabled" ||
+                           (offlineModePreference === "auto" && stripeOfflineModeEnabled);
+```
+
+#### Logging
+
+The system logs detailed offline mode information:
+- `offlineModePreference` - User's preference (auto/enabled/disabled)
+- `stripeOfflineModeEnabled` - Whether Stripe has enabled offline mode
+- `offlineModeEnabled` - Final offline mode status
+- `offlinePaymentsCount` - Number of pending offline payments
+- `offlinePaymentAmountsByCurrency` - Amounts by currency for pending payments
+
+#### Use Cases
+
+Perfect for:
+- ✅ **Remote locations** - Areas with spotty internet coverage
+- ✅ **Outdoor events** - Festivals, farmers markets, outdoor fundraisers
+- ✅ **Backup resilience** - Continue operations during ISP outages
+- ✅ **High-reliability kiosks** - Never miss a payment opportunity
+
+### Autonomous Recovery System
+
+The terminal includes a comprehensive **ReaderHealthManager** component that provides infinite recovery capabilities for unattended kiosk operation:
+
+#### Recovery Features
+- **Infinite Retry** - Never gives up trying to reconnect (can run for days/weeks)
+- **Exponential Backoff** - Smart retry strategy (30s → 1m → 2m → 5m ceiling)
+- **Security Reboot Handling** - Automatically handles Stripe M2 reader security reboots (~13 hours)
+- **Internet Outage Recovery** - Keeps trying until internet connection returns
+- **Power Cycle Recovery** - Reconnects when reader is powered back on
+- **Stuck Payment Detection** - Cancels payments stuck for >5 minutes
+- **Payment Intent Timeout Management** - Proactive refresh at 50 minutes, critical timeout at 60 minutes
+- **Software Update Detection** - Skips recovery during reader software updates
+
+#### Health Monitoring
+The system performs comprehensive health checks every 30 seconds:
+
+| Condition | Detection | Recovery Action | Retry Interval |
+|-----------|-----------|-----------------|----------------|
+| **Reader disconnected** | `readerConnectionStatus !== "connected"` | Discover + reconnect | 30s → 1m → 2m → 5m (max) |
+| **Security reboot** | `disconnectReason === "securityReboot"` | Wait 60s, then reconnect | 60s wait + exponential backoff |
+| **Internet outage** | Network unavailable | Keep trying | Exponential backoff |
+| **Stuck payment** | Payment waiting >5 min | Cancel payment intent | Immediate |
+| **Payment timeout (proactive)** | Payment intent age >50 min | Cancel & recreate | Immediate |
+| **Payment timeout (critical)** | Payment intent age >60 min | Force cancel | Immediate |
+| **Software update** | `readerSoftwareUpdate === true` | Skip recovery | Wait for update completion |
+
+#### Technical Details
+- **Component:** `ReaderHealthManager.tsx` in `gb2-terminal-web/src/components/`
+- **Polling Interval:** 30 seconds (configurable)
+- **Store Integration:** Reads from `GoodbricksTerminalStore` for reader status, disconnect reason, payment intent age
+- **Logging:** Detailed health metrics logged for debugging and monitoring
+- **Resource Efficient:** Exponential backoff prevents system overload
+
+#### Use Cases
+Perfect for self-hosted terminals that require:
+- ✅ **24/7 operation** - Kiosks, donation stations, event entry
+- ✅ **Zero manual intervention** - Fully autonomous recovery
+- ✅ **Resilience** - Handles internet outages, power cycles, reader reboots
+- ✅ **High reliability** - Automatically recovers from any failure state
+
 ## Getting Started
 
 ### Initial Clone
@@ -151,11 +335,29 @@ git commit -m "Remove <submodule-name> submodule"
 gb2-terminal-monorepo/
 ├── .gitmodules              # Submodule configuration
 ├── .gitignore              # Root-level gitignore
-├── README.md               # This file
+├── README.md               # This file - Monorepo overview, features, and recovery system
 ├── POSTMESSAGE_API.md      # Complete PostMessage API contract documentation
+├── BRANCHING_GUIDE.md      # Guide for working with branches across submodules
+├── UI_SCREENS_GUIDE.md     # Detailed UI screens, flow, and health monitoring
 ├── gb2-terminal-web/       # Web application submodule
+│   ├── src/
+│   │   ├── components/
+│   │   │   ├── ReaderHealthManager.tsx    # Autonomous recovery system
+│   │   │   └── ReactNativeBridge.tsx      # PostMessage communication
+│   │   └── utils/
+│   │       └── GoodbricksTerminalStore.tsx # Zustand state management
 └── gb2-terminal-expo/      # Mobile application submodule
+    └── hooks/
+        ├── useStripeReader.js              # Reader connection management
+        └── useReaderSessionManager.js      # 2-hour session timeout handling
 ```
+
+## Documentation
+
+- **[README.md](./README.md)** - This file: Monorepo overview, architecture, and features
+- **[POSTMESSAGE_API.md](./POSTMESSAGE_API.md)** - Complete PostMessage API contract between web and native layers
+- **[BRANCHING_GUIDE.md](./BRANCHING_GUIDE.md)** - Guide for creating and managing feature branches across submodules
+- **[UI_SCREENS_GUIDE.md](./UI_SCREENS_GUIDE.md)** - Comprehensive guide to all UI screens, flows, and state machine events
 
 ## Integration Details
 
@@ -253,6 +455,11 @@ npm start
 - When you pull changes in the monorepo, submodules won't automatically update
 - Always commit submodule changes in the submodule repository first, then update the reference in the monorepo
 - The `.idea/` directory is ignored at the root level for JetBrains IDEs
+
+## Additional Documentation
+
+- **[POSTMESSAGE_API.md](./POSTMESSAGE_API.md)** - Complete PostMessage API contract and message types
+- **[BRANCHING_GUIDE.md](./BRANCHING_GUIDE.md)** - Guide for creating and managing branches across submodules
 
 ## Resources
 

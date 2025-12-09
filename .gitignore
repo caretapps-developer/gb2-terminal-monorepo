@@ -1,1 +1,13 @@
 /.idea/
+/crashes/
+
+# Android keystore (NEVER COMMIT THESE!)
+*.keystore
+!debug.keystore
+keystore.properties
+keystore-backup/
+
+# Build outputs
+builds/
+android/app/build/
+android/app/release/

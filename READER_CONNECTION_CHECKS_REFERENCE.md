@@ -182,39 +182,49 @@ const getOfflineModeStatus = (offlineModePreference, changeOfflineStatus, reader
 
 ---
 
-### 6️⃣ **`isGuidedAccessEnabled`**
+### 6️⃣ **`currentState` (XState Machine State)**
+
+| Property | `currentState` |
+|----------|----------------|
+| **Type** | XState State Object |
+| **Source** | XState machine → Passed as prop to ReaderHealthManager |
+| **Possible Values** | `initializeTerminalScreen`, `showOrganizationSelectScreen`, `showConnectReaderScreen`, `showArrangeCategoriesScreen`, `showTerminalConfigurationScreen`, `paymentLayouts`, `paymentFlow` |
+| **Healthy State** | `currentState.matches("paymentLayouts")` |
+| **Unhealthy State** | Any other state |
+| **How It's Evaluated** | `if (!currentState?.matches("paymentLayouts")) return;` |
+| **When Set** | XState machine transitions through setup flow |
+| **When Reaches paymentLayouts** | After completing: organization selection → reader connection → category arrangement → terminal configuration |
+| **Recovery Impact** | **Health check ONLY runs when in paymentLayouts state!** |
+
+---
+
+### 7️⃣ **`isGuidedAccessEnabled`** (Informational Only)
 
 | Property | `isGuidedAccessEnabled` |
 |----------|------------------------|
 | **Type** | `boolean` \| `"true"` \| `"false"` \| `"unknown"` |
 | **Source** | Zustand store → Set by native iOS Guided Access check |
 | **Possible Values** | `true` \| `false` \| `"true"` \| `"false"` \| `"unknown"` (initial) |
-| **Healthy State** | `true` or `"true"` (kiosk mode enabled) |
-| **Unhealthy State** | `false`, `"false"`, or `"unknown"` |
-| **How It's Evaluated** | `isKioskModeEnabled(isGuidedAccessEnabled) = isGuidedAccessEnabled === "true" \|\| isGuidedAccessEnabled === true` |
 | **When Set** | - App load: `initGuidedAccessCheck()` checks iOS Guided Access status<br>- Runtime: iOS event `guidedAccessStatusDidChange` |
 | **When Unset** | Guided Access disabled in iOS settings |
-| **Recovery Impact** | **Health check ONLY runs if this is true!** |
+| **Recovery Impact** | **Logged for debugging only - does NOT block health checks** |
 
 ---
 
-### 7️⃣ **`filteredCategories`**
+### 8️⃣ **`filteredCategories`** (Informational Only)
 
 | Property | `filteredCategories` |
 |----------|---------------------|
 | **Type** | `Array<Category>` |
 | **Source** | Zustand store → Set during terminal configuration |
 | **Possible Values** | `[]` (empty) or array of category objects |
-| **Healthy State** | `filteredCategories.length > 0` |
-| **Unhealthy State** | `filteredCategories.length === 0` |
-| **How It's Evaluated** | `if (!filteredCategories?.length) return;` |
 | **When Set** | User selects categories during terminal setup |
 | **When Unset** | Terminal reset or initial state |
-| **Recovery Impact** | **Health check ONLY runs if categories are configured!** |
+| **Recovery Impact** | **Logged for debugging only - does NOT block health checks** |
 
 ---
 
-### 8️⃣ **`lastDisconnectReason`** (Security Reboot)
+### 9️⃣ **`lastDisconnectReason`** (Security Reboot)
 
 | Property | `lastDisconnectReason` |
 |----------|------------------------|
@@ -343,8 +353,7 @@ const determineRecoveryType = ({
 | **Reader Online** | `connectedReader.status` | `"online"` | `"offline"` | `reader-offline` | - |
 | **SDK Online** | `changeOfflineStatus.sdk.networkStatus` | `"online"` | `"offline"` | `sdk-offline` | - |
 | **Offline Mode** | Derived from preferences + SDK | Enabled when needed | Disabled when needed | N/A | - |
-| **Kiosk Mode** | `isGuidedAccessEnabled` | `true` or `"true"` | `false` or `"unknown"` | **Blocks health check** | - |
-| **Categories** | `filteredCategories.length` | `> 0` | `=== 0` | **Blocks health check** | - |
+| **Machine State** | `currentState.matches("paymentLayouts")` | `true` | `false` | **Blocks health check** | - |
 | **Security Reboot** | `lastDisconnectReason` | `null` or `"disconnectRequested"` | `"securityReboot"` | **Blocks health check for 2 minutes** | ⏳ Wait period |
 | **Software Update** | `readerSoftwareUpdateProgress` | `""` (empty) | Non-empty string | **Blocks health check** | - |
 
@@ -360,10 +369,9 @@ Fetch current state (getConnectedReader, fetchTerminalData)
 Log health status
     ↓
 Early Return Checks (in order):
-    1. isGuidedAccessEnabled !== true? → SKIP
-    2. filteredCategories.length === 0? → SKIP
-    3. isHandlingSecurityReboot === true? → SKIP (2-minute wait)
-    4. readerSoftwareUpdateProgress !== ""? → SKIP
+    1. currentState.matches("paymentLayouts") !== true? → SKIP
+    2. isHandlingSecurityReboot === true? → SKIP (2-minute wait)
+    3. readerSoftwareUpdateProgress !== ""? → SKIP
     ↓
 Check for payment intent timeout/stuck
     ↓
@@ -457,7 +465,7 @@ useEffect(() => {
 
 **Critical Dependencies:**
 - ✅ `discoveredReaders` must be populated (requires PATH 1 to run discovery)
-- ✅ `isGuidedAccessEnabled` must be true
+- ✅ `currentState.matches("paymentLayouts")` must be true
 - ✅ Reader must be disconnected or not ready
 - ✅ `lockedReader` must match discovered reader serial number
 
@@ -548,8 +556,7 @@ useEffect(() => {
 1. Search logs for `"ReaderHealthManager:HealthCheck:"` - should appear every 30s
 2. If zero results, performHealthCheck() is not running
 3. Check for early return warnings:
-   - `"Skipping health check - Guided Access not enabled"`
-   - `"Skipping health check - No categories configured"`
+   - `"Skipping health check - Terminal not in paymentLayouts state"`
 4. If no warnings, component may not be mounted or interval not started
 
 ---
@@ -600,8 +607,7 @@ When reader fails to reconnect, check logs for:
    - [ ] If missing, PATH 1 is broken
 
 2. **Are there early return warnings?**
-   - [ ] `"Skipping health check - Guided Access not enabled"`
-   - [ ] `"Skipping health check - No categories configured"`
+   - [ ] `"Skipping health check - Terminal not in paymentLayouts state"`
    - [ ] `"Waiting for security reboot to complete"`
    - [ ] `"Reader software update in progress"`
 

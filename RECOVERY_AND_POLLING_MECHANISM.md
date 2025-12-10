@@ -260,8 +260,7 @@ Attempt 4+: 10 minutes (ceiling)
                   ▼
 ┌─────────────────────────────────────────┐
 │  Check Prerequisites                     │
-│  - Guided Access enabled?                │
-│  - Categories configured?                │
+│  - In paymentLayouts state?              │
 │  - Security reboot in progress?          │
 │  - Software update in progress?          │
 └─────────────────┬───────────────────────┘

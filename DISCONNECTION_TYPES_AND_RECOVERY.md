@@ -300,11 +300,9 @@ recoveryState: {
 ## 🎯 Skip Conditions
 
 Recovery is **skipped** when:
-- Not in kiosk mode (`isGuidedAccessEnabled !== true`)
-- No categories configured (`filteredCategories.length === 0`)
+- Not in paymentLayouts state (`!currentState.matches("paymentLayouts")`)
 - Handling security reboot (2-minute wait period)
 - Reader software update in progress
-- Not in payment layout screens (during setup/configuration)
 
 ---
 

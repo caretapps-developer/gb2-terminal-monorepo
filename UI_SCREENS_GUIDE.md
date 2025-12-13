@@ -699,15 +699,24 @@ Stripe Terminal has a 60-minute timeout for `collectPaymentMethod()`. The system
 <ReaderHealthManager pollingIntervalInSeconds={30} />
 ```
 
+**Session-Based Triggering:**
+Health checks only run when `isInPaymentSession = true`. This flag is managed by the `usePaymentSession` hook in each screen component:
+- **Payment screens** (ReadyToPayScreen, SelectCategoryScreen, etc.) → `isInPaymentSession = true`
+- **Initialization screens** (OrganizationSelectScreen, ConnectReaderScreen, etc.) → `isInPaymentSession = false`
+
 **Store Integration:**
 The component reads from `GoodbricksTerminalStore`:
+- `isInPaymentSession` - Whether terminal is in payment session (triggers health checks)
 - `readerConnectionStatus` - Current reader connection state
 - `lastDisconnectReason` - Reason for last disconnect (e.g., "securityReboot")
 - `lastDisconnectTime` - Timestamp of last disconnect
 - `readerPaymentStatus` - Current payment status
-- `readerSoftwareUpdate` - Whether reader is updating software
+- `readerSoftwareUpdateProgress` - Whether reader is updating software
 - `transaction.paymentIntentId` - Current payment intent ID
 - `transaction.paymentIntentCreatedAt` - Payment intent creation timestamp
+- `connectedReader` - Full reader object with serialNumber, status, deviceType, etc.
+- `changeOfflineStatus` - SDK and reader offline status
+- `offlineModePreference` - User's offline mode preference (enabled/disabled/auto)
 
 ### Recovery State Management
 

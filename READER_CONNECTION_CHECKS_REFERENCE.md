@@ -182,19 +182,40 @@ const getOfflineModeStatus = (offlineModePreference, changeOfflineStatus, reader
 
 ---
 
-### 6️⃣ **`currentState` (XState Machine State)**
+### 6️⃣ **`isInPaymentSession` (Payment Session Flag)**
 
-| Property | `currentState` |
-|----------|----------------|
-| **Type** | XState State Object |
-| **Source** | XState machine → Passed as prop to ReaderHealthManager |
-| **Possible Values** | `initializeTerminalScreen`, `showOrganizationSelectScreen`, `showConnectReaderScreen`, `showArrangeCategoriesScreen`, `showTerminalConfigurationScreen`, `paymentLayouts`, `paymentFlow` |
-| **Healthy State** | `currentState.matches("paymentLayouts")` |
-| **Unhealthy State** | Any other state |
-| **How It's Evaluated** | `if (!currentState?.matches("paymentLayouts")) return;` |
-| **When Set** | XState machine transitions through setup flow |
-| **When Reaches paymentLayouts** | After completing: organization selection → reader connection → category arrangement → terminal configuration |
-| **Recovery Impact** | **Health check ONLY runs when in paymentLayouts state!** |
+| Property | `isInPaymentSession` |
+|----------|---------------------|
+| **Type** | Boolean |
+| **Source** | Zustand store → Set by `usePaymentSession` hook in each screen component |
+| **Possible Values** | `true` (payment session active), `false` (initialization/setup) |
+| **Healthy State** | `true` (terminal ready for payments) |
+| **Unhealthy State** | `false` (terminal in setup/initialization) |
+| **How It's Evaluated** | `if (!isInPaymentSession) return;` |
+| **When Set to `true`** | When entering payment screens (ReadyToPayScreen, SelectCategoryScreen, etc.) |
+| **When Set to `false`** | When entering initialization screens (OrganizationSelectScreen, ConnectReaderScreen, etc.) |
+| **Recovery Impact** | **Health check ONLY runs when `isInPaymentSession = true`!** |
+
+**Payment Screens (isInPaymentSession = true):**
+- `showSelectCategoryAndAmountScreen` (Single Page Layout)
+- `showSelectCategoryScreen` (Multi Page Layout)
+- `showEnterAmountScreen` (Multi Page Layout)
+- `showReadyToPayScreen` (Tap-to-Pay Layout)
+- `showMinimalReadyScreen` (Minimal Layout)
+- `showPaymentProcessingScreen` (Payment Flow)
+- `showCaptureCustomerInfoScreen` (Payment Flow)
+- `showPaymentConfirmationScreen` (Payment Flow)
+- `showQuickSuccessScreen` (Payment Flow)
+- `showMinimalSuccessScreen` (Payment Flow)
+- `showKeyInScreen` (Payment Flow)
+
+**Initialization Screens (isInPaymentSession = false):**
+- `initializeTerminalScreen`
+- `showOrganizationSelectScreen`
+- `showConnectReaderScreen`
+- `showArrangeCategoriesScreen`
+- `showTerminalConfigurationScreen`
+- `initializeLayoutToLoad`
 
 ---
 
@@ -353,7 +374,7 @@ const determineRecoveryType = ({
 | **Reader Online** | `connectedReader.status` | `"online"` | `"offline"` | `reader-offline` | - |
 | **SDK Online** | `changeOfflineStatus.sdk.networkStatus` | `"online"` | `"offline"` | `sdk-offline` | - |
 | **Offline Mode** | Derived from preferences + SDK | Enabled when needed | Disabled when needed | N/A | - |
-| **Machine State** | `currentState.matches("paymentLayouts")` | `true` | `false` | **Blocks health check** | - |
+| **Payment Session** | `isInPaymentSession` | `true` | `false` | **Blocks health check** | Set by `usePaymentSession` hook |
 | **Security Reboot** | `lastDisconnectReason` | `null` or `"disconnectRequested"` | `"securityReboot"` | **Blocks health check for 2 minutes** | ⏳ Wait period |
 | **Software Update** | `readerSoftwareUpdateProgress` | `""` (empty) | Non-empty string | **Blocks health check** | - |
 
@@ -366,18 +387,29 @@ performHealthCheck() called every 30 seconds
     ↓
 Fetch current state (getConnectedReader, fetchTerminalData)
     ↓
-Log health status
+Log health status (comprehensive reader/SDK/payment state)
     ↓
 Early Return Checks (in order):
-    1. currentState.matches("paymentLayouts") !== true? → SKIP
+    1. isInPaymentSession !== true? → SKIP (not in payment session)
     2. isHandlingSecurityReboot === true? → SKIP (2-minute wait)
-    3. readerSoftwareUpdateProgress !== ""? → SKIP
+    3. readerSoftwareUpdateProgress !== ""? → SKIP (software update in progress)
     ↓
-Check for payment intent timeout/stuck
+Check for payment intent timeout/stuck:
+    - Payment intent > 60 minutes? → Cancel and reset (TIMEOUT)
+    - Payment intent > 50 minutes? → Cancel and reset (PROACTIVE)
+    - Payment stuck > 5 minutes? → Cancel and reset (STUCK)
     ↓
-Determine if recovery needed
+Determine if recovery needed (determineRecoveryType):
+    - SDK offline (no offline mode)? → "sdk-offline"
+    - Reader disconnected? → "reader-disconnected"
+    - Reader offline (no offline mode)? → "reader-offline"
+    - Tap-to-pay not waiting? → "tap-to-pay-not-waiting"
+    - Reader not ready? → "reader-not-ready"
     ↓
-Execute recovery with exponential backoff
+Execute recovery with exponential backoff:
+    - Fast: 30s → 1m → 2m → 5m (ceiling)
+    - Slow: 1m → 2m → 5m → 10m (ceiling)
+    - Never gives up (infinite retries)
 ```
 
 ---
@@ -465,7 +497,7 @@ useEffect(() => {
 
 **Critical Dependencies:**
 - ✅ `discoveredReaders` must be populated (requires PATH 1 to run discovery)
-- ✅ `currentState.matches("paymentLayouts")` must be true
+- ✅ `isInPaymentSession` must be true (terminal in payment session)
 - ✅ Reader must be disconnected or not ready
 - ✅ `lockedReader` must match discovered reader serial number
 
